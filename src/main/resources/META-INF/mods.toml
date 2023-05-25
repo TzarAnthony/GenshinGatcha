@@ -5,18 +5,18 @@ issueTrackerURL="https://github.com/TzarAnthony/GenshinGatcha/issues" #optional
 [[mods]] #mandatory
 modId="genshingatcha" #mandatory
 version="${file.jarVersion}" #mandatory
-displayName="Spell Book" #mandatory
+displayName="Genshin Gatcha" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 
-logoFile="liber_exponentia_base_mark.png" #optional
+#logoFile=".png" #optional
 
 credits="Open source is very helpful" #optional
 authors="TzarAnthonyMCXI" #optional
 description='''Oh no its a weeb mod'''
-[[dependencies.spellbook]] #optional
+[[dependencies.genshingatcha]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -28,7 +28,7 @@ description='''Oh no its a weeb mod'''
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.spellbook]]
+[[dependencies.genshingatcha]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.18.2,1.19)"
