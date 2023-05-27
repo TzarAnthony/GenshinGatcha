@@ -7,7 +7,7 @@ public class Spear extends BaseGenshinSword implements IAttackReachExtending {
     private final float attackReach;
 
     public Spear(Tier tier, float reach, Properties properties) {
-        super(tier, 1, -2.4F, properties);
+        super(tier, 1, -2.8F, properties);
         this.attackReach = reach;
     }
 

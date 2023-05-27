@@ -13,19 +13,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.function.Supplier;
 
 public enum GGArmorMaterial implements net.minecraft.world.item.ArmorMaterial {
-    ONE(GenshinGacha.MOD_ID + ":one", 100, new int[]{3, 8, 6, 3}, 20, SoundEvents.ARMOR_EQUIP_GOLD,
+    ONE(GenshinGacha.MOD_ID + ":one", 100, new int[]{1, 2, 3, 1}, 20, SoundEvents.ARMOR_EQUIP_GOLD,
             0.0F, 0.0F, () -> {return Ingredient.of(GGItems.PRIMOGEM.get());
     }),
-    TWO(GenshinGacha.MOD_ID + ":two", 200, new int[]{4, 9, 7, 4}, 25, SoundEvents.ARMOR_EQUIP_CHAIN,
+    TWO(GenshinGacha.MOD_ID + ":two", 200, new int[]{2, 5, 6, 2}, 25, SoundEvents.ARMOR_EQUIP_CHAIN,
+            0.0F, 0.0F, () -> {return Ingredient.of(GGItems.PRIMOGEM.get());
+    }),
+    THREE(GenshinGacha.MOD_ID + ":three", 300, new int[]{3, 6, 8, 3}, 30, SoundEvents.ARMOR_EQUIP_GENERIC,
             1.0F, 0.0F, () -> {return Ingredient.of(GGItems.PRIMOGEM.get());
     }),
-    THREE(GenshinGacha.MOD_ID + ":three", 300, new int[]{4, 11, 8, 5}, 30, SoundEvents.ARMOR_EQUIP_GENERIC,
-            2.0F, 0.0F, () -> {return Ingredient.of(GGItems.PRIMOGEM.get());
+    FOUR(GenshinGacha.MOD_ID + ":four", 400, new int[]{5, 8, 9, 5}, 35, SoundEvents.ARMOR_EQUIP_DIAMOND,
+            3.0F, 0.1F, () -> {return Ingredient.of(GGItems.PRIMOGEM.get());
     }),
-    FOUR(GenshinGacha.MOD_ID + ":four", 400, new int[]{7, 12, 10, 7}, 35, SoundEvents.ARMOR_EQUIP_DIAMOND,
-            4.0F, 0.1F, () -> {return Ingredient.of(GGItems.PRIMOGEM.get());
-    }),
-    FIVE(GenshinGacha.MOD_ID + ":five", 500, new int[]{10, 15, 13, 10}, 40, SoundEvents.ARMOR_EQUIP_NETHERITE,
+    FIVE(GenshinGacha.MOD_ID + ":five", 500, new int[]{8, 10, 12, 8}, 40, SoundEvents.ARMOR_EQUIP_NETHERITE,
             5.0F, 0.2F, () -> {return Ingredient.of(GGItems.PRIMOGEM.get());
     });
 

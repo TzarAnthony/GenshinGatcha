@@ -1,6 +1,8 @@
 package com.tzaranthony.genshingatcha.registries;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
+import com.tzaranthony.genshingatcha.core.networks.CharacterC2SPacket;
+import com.tzaranthony.genshingatcha.core.networks.CharacterS2CPacket;
 import com.tzaranthony.genshingatcha.core.networks.ExtendAttackRangeC2SPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,10 +26,22 @@ public class GGPackets {
                 new ResourceLocation(GenshinGacha.MOD_ID, "network"), () -> "1.0", v -> true, v -> true
         );
 
+        net.messageBuilder(CharacterC2SPacket.class, nextId(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CharacterC2SPacket::new)
+                .encoder(CharacterC2SPacket::write)
+                .consumer(CharacterC2SPacket::handle)
+                .add();
+
         net.messageBuilder(ExtendAttackRangeC2SPacket.class, nextId(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ExtendAttackRangeC2SPacket::new)
                 .encoder(ExtendAttackRangeC2SPacket::write)
                 .consumer(ExtendAttackRangeC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(CharacterS2CPacket.class, nextId(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(CharacterS2CPacket::new)
+                .encoder(CharacterS2CPacket::write)
+                .consumer(CharacterS2CPacket::handle)
                 .add();
     }
 

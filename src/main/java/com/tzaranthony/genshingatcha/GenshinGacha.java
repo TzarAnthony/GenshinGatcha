@@ -1,6 +1,7 @@
 package com.tzaranthony.genshingatcha;
 
 import com.tzaranthony.genshingatcha.core.util.events.GGClientEvents;
+import com.tzaranthony.genshingatcha.core.util.events.GGServerEvents;
 import com.tzaranthony.genshingatcha.registries.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +28,7 @@ public class GenshinGacha {
         bus.addListener(this::CompleteSetup);
 
         GGBlocks.reg.register(bus);
-//        GGEntities.reg.register(bus);
+        GGEntities.reg.register(bus);
         GGItems.reg.register(bus);
 //        GGBlockEntities.reg.register(bus);
 //        GGSounds.reg.register(bus);
@@ -36,7 +37,7 @@ public class GenshinGacha {
 //        GGMenus.reg.register(bus);
         GGVillagers.register(bus);
         MinecraftForge.EVENT_BUS.register(this);
-//        MinecraftForge.EVENT_BUS.register(new GGServerEvents());
+        MinecraftForge.EVENT_BUS.register(new GGServerEvents());
 
 //        GeckoLib.initialize();
     }
@@ -46,10 +47,10 @@ public class GenshinGacha {
     }
 
     private void ClientSetup(final FMLClientSetupEvent event) {
-//        GGKeybinds.registerKeybinds();
+        GGKeybinds.registerKeybinds();
 //        GGBlocksRender.renderBlocks();
 //        GGBlockEntityRender.renderBlockEntities();
-//        GGEntityRender.renderEntities();
+        GGEntityRender.renderEntities();
 //        GGItemsRender.renderItemProperties();
 //        GGScreenRender.renderScreens();
         MinecraftForge.EVENT_BUS.register(new GGClientEvents());

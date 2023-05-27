@@ -1,0 +1,6 @@
+{
+  "parent": "genshingatcha:item/claymore",
+  "textures": {
+    "layer0": "genshingatcha:item/claymore_five"
+  }
+}

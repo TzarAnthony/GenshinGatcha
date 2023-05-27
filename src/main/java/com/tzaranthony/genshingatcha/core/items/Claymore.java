@@ -17,13 +17,13 @@ public class Claymore extends BaseGenshinSword implements IAttackReachExtending 
         this.attackReach = reach;
     }
 
-    public boolean hurtEnemy(ItemStack stack, LivingEntity user, LivingEntity target) {
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity user) {
         if (target instanceof Player ptgt) {
-            maybeDisableShield(user, ptgt);
+            maybeDisableShield(target, ptgt);
         } else if (target.isUsingItem() && target.getUseItem().is(Items.SHIELD)) {
             target.stopUsingItem();
         }
-        return super.hurtEnemy(stack, user, target);
+        return super.hurtEnemy(stack, target, user);
     }
 
     @Override

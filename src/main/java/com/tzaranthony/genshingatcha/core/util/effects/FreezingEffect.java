@@ -6,21 +6,18 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
 public class FreezingEffect extends MobEffect {
-
     public FreezingEffect(MobEffectCategory type, int color) {
         super(type, color);
     }
 
     @Override
     public void applyEffectTick(LivingEntity affected, int amplifier) {
-        affected.hurt(DamageSource.FREEZE, 0.2F * (float) (amplifier + 1));
-        affected.setIsInPowderSnow(true);
-        affected.setTicksFrozen(affected.getTicksFrozen() + 4);
+        affected.hurt(DamageSource.FREEZE, (float) (amplifier + 1));
     }
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        int i = 1 >> amplifier;
+        int i = 20 >> amplifier;
         if (i > 0) {
             return duration % i == 0;
         } else {

@@ -1,0 +1,6 @@
+{
+  "parent": "genshingatcha:item/spear",
+  "textures": {
+    "layer0": "genshingatcha:item/spear_three"
+  }
+}

@@ -2,21 +2,22 @@
   "block.genshingatcha.gatcha_machine": "Wishing Machine",
 
   "item.genshingatcha.primogem": "Primogem",
-  "item.genshingatcha.sword_one": "1 Star Sword",
-  "item.genshingatcha.sword_two": "2 Star Sword",
+  "item.genshingatcha.sword_one": "Dull Blade",
+  "item.genshingatcha.sword_two": "Silver Sword",
   "item.genshingatcha.sword_three": "3 Star Sword",
   "item.genshingatcha.sword_four": "4 Star Sword",
   "item.genshingatcha.sword_five": "5 Star Sword",
-  "item.genshingatcha.claymore_one": "1 Star Claymore",
-  "item.genshingatcha.claymore_two": "2 Star Claymore",
+  "item.genshingatcha.claymore_one": "Waster Greatsword",
+  "item.genshingatcha.claymore_two": "Old Merc's Pal",
   "item.genshingatcha.claymore_three": "3 Star Claymore",
   "item.genshingatcha.claymore_four": "4 Star Claymore",
-  "item.genshingatcha.claymore_five": "5 Star Claymore",
+  "item.genshingatcha.claymore_five": "Wolf's Gravestone",
+  "item.genshingatcha.claymore_fish": "Lord of the Sea",
   "item.genshingatcha.spear_one": "1 Star Spear",
   "item.genshingatcha.spear_two": "2 Star Spear",
   "item.genshingatcha.spear_three": "3 Star Spear",
   "item.genshingatcha.spear_four": "4 Star Spear",
-  "item.genshingatcha.spear_five": "5 Star Spear",
+  "item.genshingatcha.spear_five": "Staff of Homa",
   "item.genshingatcha.bow_one": "1 Star Bow",
   "item.genshingatcha.bow_two": "2 Star Bow",
   "item.genshingatcha.bow_three": "3 Star Bow",
@@ -44,7 +45,9 @@
   "item.genshingatcha.leggings_five": "5 Star Leggings Artifact",
   "item.genshingatcha.boots_five": "5 Star Boots Artifact",
 
-  "entity.minecraft.villager.genshingatcha.gatcha_guy": "Gatcha Guy",
+  "tooltip.genshingatcha.fish": "§6The Ultimate Weapon",
+
+  "entity.minecraft.villager.genshingatcha.gatcha_guy": "Kazari Hanachirusato",
 
   "effect.genshingatcha.freezing": "Freezing",
 
@@ -52,5 +55,10 @@
   "container.genshingatcha.weapon_banner": "Weapon Banner",
   "container.genshingatcha.character_banner": "Character Banner",
 
-  "itemGroup.GenshinGatcha": "Genshin Impact The Mod"
+  "key.categories.genshingatcha": "Genshin Impact the Mod",
+  "key.genshingatcha.dash": "Dash",
+  "key.genshingatcha.activate_tool_element": "Activate Weapon Element Attacks",
+  "key.genshingatcha.ult": "Ultimate Attack",
+
+  "itemGroup.GenshinGatcha": "Genshin Impact the Mod"
 }

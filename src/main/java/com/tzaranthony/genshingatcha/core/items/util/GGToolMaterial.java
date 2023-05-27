@@ -7,19 +7,22 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum GGToolMaterial implements Tier {
-    ONE(2, 3072, 11.0F, 4.0F, 20, () -> {
+    ONE(2, 3072, 11.0F, 0.5F, 20, () -> {
         return Ingredient.of(GGItems.PRIMOGEM.get());
             }),
-    TWO(3, 4096, 12.0F, 6.0F, 25, () -> {
+    TWO(3, 4096, 12.0F, 1.5F, 25, () -> {
         return Ingredient.of(GGItems.PRIMOGEM.get());
     }),
-    THREE(4, 5120, 13.0F, 8.0F, 30, () -> {
+    THREE(4, 5120, 13.0F, 3.5F, 30, () -> {
         return Ingredient.of(GGItems.PRIMOGEM.get());
     }),
-    FOUR(5, 6144, 14.0F, 10.0F, 35, () -> {
+    FOUR(5, 6144, 14.0F, 6.0F, 35, () -> {
         return Ingredient.of(GGItems.PRIMOGEM.get());
     }),
-    FIVE(6, 7168, 15.0F, 12.0F, 40, () -> {
+    FIVE(6, 7168, 15.0F, 8.0F, 40, () -> {
+        return Ingredient.of(GGItems.PRIMOGEM.get());
+    }),
+    FISH(8, 8192, 1000.0F, 994.0F, 100, () -> {
         return Ingredient.of(GGItems.PRIMOGEM.get());
     });
 

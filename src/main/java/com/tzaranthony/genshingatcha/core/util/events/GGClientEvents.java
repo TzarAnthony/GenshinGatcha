@@ -1,11 +1,13 @@
 package com.tzaranthony.genshingatcha.core.util.events;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
+import com.tzaranthony.genshingatcha.core.capabilities.CharacterClient;
 import com.tzaranthony.genshingatcha.core.items.util.IAttackReachExtending;
-import com.tzaranthony.genshingatcha.core.networks.ExtendAttackRangeC2SPacket;
 import com.tzaranthony.genshingatcha.core.util.tags.GGItemTags;
-import com.tzaranthony.genshingatcha.registries.GGPackets;
+import com.tzaranthony.genshingatcha.registries.GGCharacters;
+import com.tzaranthony.genshingatcha.registries.GGKeybinds;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -18,13 +20,35 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = GenshinGacha.MOD_ID, value = Dist.CLIENT)
 public class GGClientEvents {
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void onKeyInput(InputEvent.KeyInputEvent event) {
+        //TODO: add cooldown bar icons
+        Player player = Minecraft.getInstance().player;
+        if (!player.isSpectator()) {
+            if (GGKeybinds.DASH.consumeClick() && CharacterClient.getDashTicks() <= 0) {
+                double tpAmt = 5.0D;
+                Vec3 view = player.getViewVector(1.0F);
+                Vec3 wanted = player.getEyePosition().add(view.x * tpAmt, view.y * tpAmt - 1.0D, view.z * tpAmt);
+                BlockPos wantedPos = new BlockPos(wanted.x, wanted.y, wanted.z);
+                if (player.level.isEmptyBlock(wantedPos) && player.level.isEmptyBlock(wantedPos.above())) {
+                    player.setPos(wanted.x, wantedPos.getY(), wanted.z);
+                }
+                CharacterClient.resetDashFromUse();
+            } else if (GGKeybinds.ELEMENT_ART.consumeClick() && CharacterClient.getMainTicks() <= 0 && GGCharacters.characterMap.get(CharacterClient.getElement()) != null) {
+                CharacterClient.resetMainFromUse();
+            } else if (GGKeybinds.ULT.consumeClick() && CharacterClient.getUltTicks() <= 0 && GGCharacters.characterMap.get(CharacterClient.getElement()) != null) {
+                CharacterClient.resetUltFromUse();
+            }
+        }
+    }
+
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void onClickInput(InputEvent.ClickInputEvent event) {
@@ -41,9 +65,9 @@ public class GGClientEvents {
             double d1 = d0 * d0;
             AABB aabb = player.getBoundingBox();
             if (holding.is(GGItemTags.CLAYMORES)) {
-                aabb.expandTowards(vec31.scale(d0 - 1)).inflate(2.0D, 1.5D, 2.0D);
+                aabb = aabb.expandTowards(vec31.scale(d0 - 1)).inflate(2.0D, 1.5D, 2.0D);
             } else {
-                aabb.expandTowards(vec31.scale(d0)).inflate(1.0D, 1.0D, 1.0D);
+                aabb = aabb.expandTowards(vec31.scale(d0)).inflate(1.0D, 1.0D, 1.0D);
             }
             EntityHitResult entityhitresult = ProjectileUtil.getEntityHitResult(player, vec3, vec32, aabb, (entity) -> {
                 return !entity.isSpectator() && entity.isPickable();
@@ -62,4 +86,7 @@ public class GGClientEvents {
             }
         }
     }
+
+    //TODO: make paimon steal your primo gems????? Shuuu don't tell Pat ---- use this for the player when they pull a character, also use the server announcements
+//            Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(GGItems.PRIMOGEM.get()));
 }
