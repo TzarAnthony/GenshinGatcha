@@ -2,7 +2,6 @@ package com.tzaranthony.genshingatcha.core.elements;
 
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 
@@ -28,7 +27,7 @@ public class Fischl extends Character {
     public void applyConstellationAttributes(Player player, int constRank) {
         AttributeMap map = player.getAttributes();
         if (constRank >= 1) {
-            map.getInstance(Attributes.ATTACK_DAMAGE).addPermanentModifier(new AttributeModifier(EntityUtil.CharacterAttributeMap.get(Attributes.ATTACK_DAMAGE), "diluc_c1", 0.20D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            map.getInstance(Attributes.ATTACK_DAMAGE).addPermanentModifier(EntityUtil.CharacterAttributeMap.get(1.1F));
         }
     }
 }

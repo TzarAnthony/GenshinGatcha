@@ -1,5 +1,7 @@
 package com.tzaranthony.genshingatcha.core.util;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -8,6 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -52,11 +55,6 @@ public class EntityUtil {
         return le instanceof Player || (le instanceof TamableAnimal ta && ta.isOwnedBy(owner));
     }
 
-    public static final HashMap<Attribute, UUID> CharacterAttributeMap = new HashMap<>() {{
-        put(Attributes.ATTACK_DAMAGE, UUID.fromString("c6dd5127-b284-4bb0-9c23-e1954f92080b"));
-        put(Attributes.ATTACK_SPEED, UUID.fromString("bec8d239-34b4-4635-9205-e60993369f95"));
-    }};
-
     public class primogemDeathStorer {
         protected static final HashMap<Player, NonNullList<ItemStack>> playerPrimogems = new HashMap<>();
 
@@ -76,5 +74,21 @@ public class EntityUtil {
                 nPlayer.getInventory().add(stack);
             }
         }
+    }
+
+    public static final HashMap<Float, AttributeModifier> CharacterAttributeMap = new HashMap<>() {{
+        put(1.1F, new AttributeModifier(UUID.fromString("c6dd5127-b284-4bb0-9c23-e1954f92080b"), "diluc_c1", 0.10D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+        put(1.2F, new AttributeModifier(UUID.fromString("bec8d239-34b4-4635-9205-e60993369f95"), "diluc_c2", 0.03D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+        put(2.1F, new AttributeModifier(UUID.fromString("ca0337f5-3396-4da7-ae03-44dbe21cef83"), "fischl_c1", 0.20D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+        put(4.2F, new AttributeModifier(UUID.fromString("ff863bb0-9b7d-4366-8027-6a2502cd95c3"), "qiqi_c1", 0.10D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+    }};
+
+    public static Multimap<Attribute, AttributeModifier> getAttributeModifiers() {
+        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
+        multimap.put(Attributes.ATTACK_DAMAGE, CharacterAttributeMap.get(1.1F));
+        multimap.put(Attributes.ATTACK_SPEED, CharacterAttributeMap.get(1.2F));
+        multimap.put(Attributes.ATTACK_DAMAGE, CharacterAttributeMap.get(2.1F));
+        multimap.put(Attributes.ATTACK_DAMAGE, CharacterAttributeMap.get(4.2F));
+        return multimap;
     }
 }

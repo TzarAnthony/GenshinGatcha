@@ -2,38 +2,58 @@ package com.tzaranthony.genshingatcha.core.entities.elements;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import com.tzaranthony.genshingatcha.core.util.MagicExplosion;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
 
 public class FallingMeteor extends Projectile {
     private static final EntityDataAccessor<Integer> DATA_ROTATION = SynchedEntityData.defineId(FallingMeteor.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_SIZE = SynchedEntityData.defineId(FallingMeteor.class, EntityDataSerializers.FLOAT);
+    protected int constRank;
 
     public FallingMeteor(EntityType<? extends FallingMeteor> type, Level level) {
         super(type, level);
     }
 
-    public FallingMeteor(Level level, double x, double y, double z, float size, LivingEntity owner) {
+    public FallingMeteor(Level level, double x, double y, double z, LivingEntity owner, int constRank) {
         this(GGEntities.METEOR.get(), level);
         this.setPos(x - 40 + this.random.nextInt(80), level.getMaxBuildHeight() + 20, z - 40 + this.random.nextInt(80));
         this.calculateVectorAndStartFalling(x, y, z);
-        this.setSize(size);
+        this.setSize(5.0F);
         this.setOwner(owner);
+        this.constRank = constRank;
     }
 
+    protected void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.constRank = tag.getInt("ConstRank");
+    }
+
+    protected void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("ConstRank", this.constRank);
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -120,12 +140,38 @@ public class FallingMeteor extends Projectile {
     }
 
     protected void explode() {
-        this.level.explode(this.getOwner(), this.getX(), this.getY(), this.getZ(), 10.0F, Explosion.BlockInteraction.NONE);
+        float radius = 10.0F;
+        if (this.constRank >= 4) {
+            radius *= 1.2F;
+        }
 
-//        MagicExplosion explosion = new MagicExplosion(this.getOwner(), this.getX(), this.getY(), this.getZ(), 10.0F + (this.getSize() * 2.5F));
-//        if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this.level, explosion)) return;
-//        explosion.explode();
-//        explosion.finalizeExplosion(true);
+        float dmgBonus = 0.0F;
+        if (this.constRank >= 5) {
+            dmgBonus = 5.0F;
+        }
+
+        MagicExplosion explosion = new MagicExplosion(this.getOwner(), this.getX(), this.getY(), this.getZ(), radius, dmgBonus);
+        if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this.level, explosion)) return;
+        explosion.explode();
+        explosion.finalizeExplosion(true);
+
+        if (this.constRank >= 2) {
+            float f2 = radius * 2.0F;
+            double k1 = Mth.floor(this.getX() - (double)f2 - 1.0D);
+            double l1 = Mth.floor(this.getX() + (double)f2 + 1.0D);
+            double i2 = Mth.floor(this.getY() - (double)f2 - 1.0D);
+            double i1 = Mth.floor(this.getY() + (double)f2 + 1.0D);
+            double j2 = Mth.floor(this.getZ() - (double)f2 - 1.0D);
+            double j1 = Mth.floor(this.getZ() + (double)f2 + 1.0D);
+            List<Player> players = this.level.getEntitiesOfClass(Player.class, new AABB(k1, i2, j2, l1, i1, j1));
+            for (Player player : players) {
+                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 3));
+                player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 4));
+                if (this.constRank >= 6) {
+                    player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60));
+                }
+            }
+        }
     }
 
     public float getBlockExplosionResistance(Explosion explosion, BlockGetter getter, BlockPos pos, BlockState bState, FluidState fState, float resistance) {

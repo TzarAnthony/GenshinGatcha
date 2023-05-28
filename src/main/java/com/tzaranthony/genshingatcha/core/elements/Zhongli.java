@@ -40,11 +40,10 @@ public class Zhongli extends Character {
 
     @Override
     public void performUltimateAttack(Player player) {
-        Vec3 pos = player.pick(5.0D, 0.0F, false).getLocation();
-        //TODO: add shield for players in area CharacterHelper.getCharacter(sPlayer) >= 2
-        //TODO: increase AOE range by 20% CharacterHelper.getCharacter(sPlayer) >= 4
-        //TODO: add level? CharacterHelper.getCharacter(sPlayer) >= 5
-        player.level.addFreshEntity(new FallingMeteor(player.level, pos.x, pos.y, pos.z, 5.0F, player));
+        if (player instanceof ServerPlayer sPlayer) {
+            Vec3 pos = player.pick(5.0D, 0.0F, false).getLocation();
+            player.level.addFreshEntity(new FallingMeteor(player.level, pos.x, pos.y, pos.z, player, CharacterHelper.getConstRank(sPlayer)));
+        }
     }
 
     @Override

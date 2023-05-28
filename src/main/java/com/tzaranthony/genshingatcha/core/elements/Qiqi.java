@@ -7,7 +7,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 
@@ -52,7 +51,7 @@ public class Qiqi extends Character {
     public void applyConstellationAttributes(Player player, int constRank) {
         AttributeMap map = player.getAttributes();
         if (constRank >= 2) {
-            map.getInstance(Attributes.ATTACK_DAMAGE).addPermanentModifier(new AttributeModifier(EntityUtil.CharacterAttributeMap.get(Attributes.ATTACK_DAMAGE), "qiqi_c1", 0.10D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            map.getInstance(Attributes.ATTACK_DAMAGE).addPermanentModifier(EntityUtil.CharacterAttributeMap.get(1.2F));
         }
     }
 }

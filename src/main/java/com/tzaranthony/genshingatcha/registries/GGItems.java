@@ -46,11 +46,11 @@ public class GGItems {
     public static final RegistryObject<Item> BOW_FIVE = reg.register("bow_five", () -> new ElementalBow(GGBowMaterial.FIVE, StandardRarity(Rarity.EPIC)));
 
     // artifacts
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_1 = reg.register("artifact_fragment_1", () -> new Item(Standard()));
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_2 = reg.register("artifact_fragment_2", () -> new Item(Standard()));
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_3 = reg.register("artifact_fragment_3", () -> new Item(StandardRarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_4 = reg.register("artifact_fragment_4", () -> new Item(StandardRarity(Rarity.RARE)));
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_5 = reg.register("artifact_fragment_5", () -> new Item(StandardRarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_1 = reg.register("artifact_fragment_one", () -> new Item(Standard()));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_2 = reg.register("artifact_fragment_two", () -> new Item(Standard()));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_3 = reg.register("artifact_fragment_three", () -> new Item(StandardRarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_4 = reg.register("artifact_fragment_four", () -> new Item(StandardRarity(Rarity.RARE)));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_5 = reg.register("artifact_fragment_five", () -> new Item(StandardRarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> HELMET_ONE = reg.register("helmet_one", () -> new ArmorItem(GGArmorMaterial.ONE, EquipmentSlot.HEAD, Standard()));
     public static final RegistryObject<Item> CHESTPLATE_ONE = reg.register("chestplate_one", () -> new ArmorItem(GGArmorMaterial.ONE, EquipmentSlot.CHEST, Standard()));

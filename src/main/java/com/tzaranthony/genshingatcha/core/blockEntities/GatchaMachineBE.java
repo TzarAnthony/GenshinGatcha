@@ -156,17 +156,19 @@ public class GatchaMachineBE extends BlockEntity implements MenuProvider, Nameab
         PrimoCard.calulatePrimoStorage(this.itemHandler.getStackInSlot(slot), -this.pullCost);
         ItemStack stack = ItemStack.EMPTY;
         if (slot == 0) {
-            int characterID = this.level.random.nextInt(5);
-            stack = this.getCharacterRoll(characterID);
+            if (this.level.random.nextInt(10) == 0) {
+                stack = this.rollForCharacter();
+            } else {
+                stack = this.rollForTieredWeapon();
+            }
         } else if (slot == 1) {
-            int weaponType = this.level.random.nextInt(4);
-            float starRank = this.level.random.nextFloat();
-            stack = this.getTieredWeaponRoll(weaponType, starRank);
+            stack = this.rollForTieredWeapon();
         }
         this.itemHandler.setStackInSlot(2, stack);
     }
 
-    private ItemStack getCharacterRoll(int characterID) {
+    private ItemStack rollForCharacter() {
+        int characterID = this.level.random.nextInt(5);
         switch (characterID) {
             case 0:
                 return new ItemStack(GGItems.DILUC_C0.get());
@@ -179,7 +181,9 @@ public class GatchaMachineBE extends BlockEntity implements MenuProvider, Nameab
         }
     }
 
-    private ItemStack getTieredWeaponRoll(int weaponType, float starRank) {
+    private ItemStack rollForTieredWeapon() {
+        int weaponType = this.level.random.nextInt(4);
+        float starRank = this.level.random.nextFloat();
         if (starRank > 0.95F) {
             switch (weaponType) {
                 case 0:

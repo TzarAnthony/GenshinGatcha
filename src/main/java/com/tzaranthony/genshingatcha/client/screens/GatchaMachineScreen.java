@@ -32,8 +32,8 @@ public class GatchaMachineScreen extends AbstractContainerScreen<GachaMachineMen
 
     protected void renderLabels(PoseStack poseStack, int x, int y) {
         super.renderLabels(poseStack, x, y);
-        this.font.draw(poseStack, this.weapon_banner, (float) this.charLabelX, (float) this.charLabelY, 4210752);
-        this.font.draw(poseStack, this.char_banner, (float) this.weaponLabelX, (float) this.weaponLabelY, 4210752);
+        this.font.draw(poseStack, this.char_banner, (float) this.charLabelX, (float) this.charLabelY, 4210752);
+        this.font.draw(poseStack, this.weapon_banner, (float) this.weaponLabelX, (float) this.weaponLabelY, 4210752);
     }
 
     protected void renderBg(PoseStack poseStack, float partialTick, int x, int y) {
