@@ -27,6 +27,7 @@ public abstract class ParticleCloudEntity extends Entity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(ParticleCloudEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(ParticleCloudEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(ParticleCloudEntity.class, EntityDataSerializers.PARTICLE);
+    protected int constRank = 0;
     protected int lifespan = 600;
     protected int waitTime = 20;
     @Nullable
@@ -67,7 +68,7 @@ public abstract class ParticleCloudEntity extends Entity {
         if (tag.hasUUID("Owner")) {
             this.ownerUUID = tag.getUUID("Owner");
         }
-
+        this.constRank = tag.getInt("ConstRank");
         if (tag.contains("Particle", 8)) {
             try {
                 this.setParticle(ParticleArgument.readParticle(new StringReader(tag.getString("Particle"))));
@@ -86,6 +87,7 @@ public abstract class ParticleCloudEntity extends Entity {
         if (this.ownerUUID != null) {
             tag.putUUID("Owner", this.ownerUUID);
         }
+        tag.putInt("ConstRank", this.constRank);
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> dataAccessor) {

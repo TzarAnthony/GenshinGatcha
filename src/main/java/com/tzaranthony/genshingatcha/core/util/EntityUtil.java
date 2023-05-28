@@ -1,23 +1,22 @@
 package com.tzaranthony.genshingatcha.core.util;
 
+import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -49,32 +48,33 @@ public class EntityUtil {
         return null;
     }
 
-    public static void performExplosion(DamageSource source, Entity entity, @Nullable LivingEntity owner, float baseDmg, double range, boolean shouldIgnite) {
-        Vec3 vec3 = entity.position();
-        for(Mob le : entity.level.getEntitiesOfClass(Mob.class, entity.getBoundingBox().inflate(3.0D))) {
-            if (!(entity.distanceToSqr(le) > 25.0D) && le instanceof TamableAnimal ta && !ta.isOwnedBy(owner)) {
-                boolean flag = false;
-                for(int i = 0; i < 2; ++i) {
-                    Vec3 vec31 = new Vec3(le.getX(), le.getY(0.5D * (double)i), le.getZ());
-                    HitResult hitresult = entity.level.clip(new ClipContext(vec3, vec31, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
-                    if (hitresult.getType() == HitResult.Type.MISS) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (flag) {
-                    float f1 = baseDmg * (float)Math.sqrt((range - (double) entity.distanceTo(le)) / range);
-                    le.hurt(source, f1);
-                    if (shouldIgnite) {
-                        le.setSecondsOnFire(10);
-                    }
-                }
-            }
-        }
+    public static boolean ignoreElementAttackEntity(LivingEntity le, LivingEntity owner) {
+        return le instanceof Player || (le instanceof TamableAnimal ta && ta.isOwnedBy(owner));
     }
 
     public static final HashMap<Attribute, UUID> CharacterAttributeMap = new HashMap<>() {{
         put(Attributes.ATTACK_DAMAGE, UUID.fromString("c6dd5127-b284-4bb0-9c23-e1954f92080b"));
         put(Attributes.ATTACK_SPEED, UUID.fromString("bec8d239-34b4-4635-9205-e60993369f95"));
     }};
+
+    public class primogemDeathStorer {
+        protected static final HashMap<Player, NonNullList<ItemStack>> playerPrimogems = new HashMap<>();
+
+        public static void storePlayerPrimos(Player player, Collection<ItemEntity> items) {
+            NonNullList<ItemStack> primos = NonNullList.create();
+            for (ItemEntity ie : items) {
+                if (ie.getItem().is(GGItems.PRIMOGEM.get()) || ie.getItem().is(GGItems.PRIMO_CARD.get())) {
+                    primos.add(ie.getItem());
+                }
+            }
+            playerPrimogems.put(player, primos);
+        }
+
+        public static void retrievePlayerPrimos(Player oPlayer, Player nPlayer) {
+            NonNullList<ItemStack> primos = playerPrimogems.get(oPlayer);
+            for (ItemStack stack : primos) {
+                nPlayer.getInventory().add(stack);
+            }
+        }
+    }
 }

@@ -4,6 +4,7 @@ import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.networks.CharacterC2SPacket;
 import com.tzaranthony.genshingatcha.core.networks.CharacterS2CPacket;
 import com.tzaranthony.genshingatcha.core.networks.ExtendAttackRangeC2SPacket;
+import com.tzaranthony.genshingatcha.core.networks.ItemS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -42,6 +43,12 @@ public class GGPackets {
                 .decoder(CharacterS2CPacket::new)
                 .encoder(CharacterS2CPacket::write)
                 .consumer(CharacterS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(ItemS2CPacket.class, nextId(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ItemS2CPacket::new)
+                .encoder(ItemS2CPacket::write)
+                .consumer(ItemS2CPacket::handle)
                 .add();
     }
 

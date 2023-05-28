@@ -16,7 +16,8 @@ import net.minecraftforge.registries.RegistryObject;
 public class GGItems {
     public static final DeferredRegister<Item> reg = DeferredRegister.create(ForgeRegistries.ITEMS, GenshinGacha.MOD_ID);
 
-    public static final RegistryObject<Item> PRIMOGEM = reg.register("primogem", () -> new Item(Standard().fireResistant())); //TODO: make these not lost on death, and increase stack size to 2048
+    public static final RegistryObject<Item> PRIMOGEM = reg.register("primogem", () -> new Item(Standard().fireResistant()));
+    public static final RegistryObject<Item> PRIMO_CARD = reg.register("primogem_card", () -> new PrimoCard(StandardRarity(Rarity.EPIC).stacksTo(1).fireResistant()));
 
     // weapons
     public static final RegistryObject<Item> SWORD_ONE = reg.register("sword_one", () -> new ElementalSword(GGToolMaterial.ONE, 0.0F, Standard()));
@@ -45,6 +46,12 @@ public class GGItems {
     public static final RegistryObject<Item> BOW_FIVE = reg.register("bow_five", () -> new ElementalBow(GGBowMaterial.FIVE, StandardRarity(Rarity.EPIC)));
 
     // artifacts
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_1 = reg.register("artifact_fragment_1", () -> new Item(Standard()));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_2 = reg.register("artifact_fragment_2", () -> new Item(Standard()));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_3 = reg.register("artifact_fragment_3", () -> new Item(StandardRarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_4 = reg.register("artifact_fragment_4", () -> new Item(StandardRarity(Rarity.RARE)));
+    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_5 = reg.register("artifact_fragment_5", () -> new Item(StandardRarity(Rarity.EPIC)));
+
     public static final RegistryObject<Item> HELMET_ONE = reg.register("helmet_one", () -> new ArmorItem(GGArmorMaterial.ONE, EquipmentSlot.HEAD, Standard()));
     public static final RegistryObject<Item> CHESTPLATE_ONE = reg.register("chestplate_one", () -> new ArmorItem(GGArmorMaterial.ONE, EquipmentSlot.CHEST, Standard()));
     public static final RegistryObject<Item> LEGGINGS_ONE = reg.register("leggings_one", () -> new ArmorItem(GGArmorMaterial.ONE, EquipmentSlot.LEGS, Standard()));

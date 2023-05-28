@@ -25,7 +25,7 @@ public class Zhongli extends Character {
         player.level.addFreshEntity(new EvokerFangs(player.level, pos.getX(), pos.getY(), pos.getZ(), player.getYRot(), 0, player));
         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 3));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 4));
-        if (player instanceof ServerPlayer sPlayer && CharacterHelper.getCharacter(sPlayer) >= 6) {
+        if (player instanceof ServerPlayer sPlayer && CharacterHelper.getConstRank(sPlayer) >= 6) {
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60));
         }
     }

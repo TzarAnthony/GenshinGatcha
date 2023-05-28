@@ -2,6 +2,7 @@
   "block.genshingatcha.gatcha_machine": "Wishing Machine",
 
   "item.genshingatcha.primogem": "Primogem",
+  "item.genshingatcha.primogem_card": "Primogem Card",
   "item.genshingatcha.sword_one": "Dull Blade",
   "item.genshingatcha.sword_two": "Silver Sword",
   "item.genshingatcha.sword_three": "3 Star Sword",
@@ -46,6 +47,7 @@
   "item.genshingatcha.boots_five": "5 Star Boots Artifact",
 
   "tooltip.genshingatcha.fish": "§6The Ultimate Weapon",
+  "tooltip.genshingatcha.primo_card": " Primogems",
 
   "entity.minecraft.villager.genshingatcha.gatcha_guy": "Kazari Hanachirusato",
 

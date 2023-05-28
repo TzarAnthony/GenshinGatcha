@@ -30,7 +30,7 @@ public class FishClaymore extends Claymore {
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity user) {
         BlockPos pos = user.getOnPos().relative(user.getDirection(), 3).above(2);
         Direction perpDir = user.getDirection().getClockWise();
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 3; ++i) {
             LivingEntity le;
             switch (user.level.random.nextInt(4)) {
                 case 0:

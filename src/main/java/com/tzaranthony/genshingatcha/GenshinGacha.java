@@ -30,11 +30,11 @@ public class GenshinGacha {
         GGBlocks.reg.register(bus);
         GGEntities.reg.register(bus);
         GGItems.reg.register(bus);
-//        GGBlockEntities.reg.register(bus);
+        GGBlockEntities.reg.register(bus);
 //        GGSounds.reg.register(bus);
 //        GGParticleTypes.reg.register(bus);
         GGEffects.reg.register(bus);
-//        GGMenus.reg.register(bus);
+        GGMenus.reg.register(bus);
         GGVillagers.register(bus);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new GGServerEvents());
@@ -48,11 +48,9 @@ public class GenshinGacha {
 
     private void ClientSetup(final FMLClientSetupEvent event) {
         GGKeybinds.registerKeybinds();
-//        GGBlocksRender.renderBlocks();
-//        GGBlockEntityRender.renderBlockEntities();
         GGEntityRender.renderEntities();
 //        GGItemsRender.renderItemProperties();
-//        GGScreenRender.renderScreens();
+        GGScreenRender.renderScreens();
         MinecraftForge.EVENT_BUS.register(new GGClientEvents());
     }
 

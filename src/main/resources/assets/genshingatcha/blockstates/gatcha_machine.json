@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "genshingatcha:block/gatcha_machine"
+    }
+  }
+}

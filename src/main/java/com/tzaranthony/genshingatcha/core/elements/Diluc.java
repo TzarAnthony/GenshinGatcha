@@ -20,36 +20,41 @@ public class Diluc extends Character {
 
     @Override
     public void performMainAttack(Player player) {
-        double x = player.getX();
-        double y = player.getY() + 0.8D;
-        double z = player.getZ();
-        float rot = player.getYRot() + 180.0F;
-        player.level.playSound(null, x, y, z, SoundEvents.PLAYER_ATTACK_SWEEP, player.getSoundSource(), 1.0F, 1.0F);
-        for (int j = -3; j < 4; ++j) {
-            double k = Math.PI * ((rot + j * 20.0D) / 180.0D);
-            player.swing(InteractionHand.MAIN_HAND);
-            //TODO: add level? CharacterHelper.getCharacter(sPlayer) >= 3
-            //TODO: add damage boost every other attack
-            player.level.addFreshEntity(new AreaFireCloud(player.level, x + Math.sin(k) * 2.5D, y - (((float) j) * 0.2F), z + -Math.cos(k) * 2.5D, player.getYRot(), 6 + (j * 2), player));
+        if (player instanceof ServerPlayer sPlayer) {
+            int constRank = CharacterHelper.getConstRank(sPlayer);
+            boolean isSecond = false;
+            if (constRank >= 4 && player.level.getEntitiesOfClass(AreaFireCloud.class, player.getBoundingBox().inflate(8)).size() >= 4) {
+                isSecond = true;
+            }
+
+            double x = player.getX();
+            double y = player.getY() + 0.8D;
+            double z = player.getZ();
+            float rot = player.getYRot() + 180.0F;
+            player.level.playSound(null, x, y, z, SoundEvents.PLAYER_ATTACK_SWEEP, player.getSoundSource(), 1.0F, 1.0F);
+            for (int j = -3; j < 4; ++j) {
+                double k = Math.PI * ((rot + j * 20.0D) / 180.0D);
+                player.swing(InteractionHand.MAIN_HAND);
+                player.level.addFreshEntity(new AreaFireCloud(player.level, x + Math.sin(k) * 2.5D, y - (((float) j) * 0.2F), z + -Math.cos(k) * 2.5D, player.getYRot(), 6 + (j * 2), player,  constRank, isSecond));
+            }
+            if (constRank >= 6) {
+                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 2));
+                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200, 2));
+            }
         }
-        if (player instanceof ServerPlayer sPlayer && CharacterHelper.getCharacter(sPlayer) >= 6) {
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 2));
-            player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200, 2));
+    }
+
+    @Override
+    public int getMainCooldown(int constRank) {
+        if (constRank >= 4) {
+            return this.mainCooldown - 25;
         }
+        return this.ultCooldown;
     }
 
     @Override
     public void performUltimateAttack(Player player) {
         //TODO: replace with fire slice when i get the render
-        //TODO: add level? CharacterHelper.getCharacter(sPlayer) >= 5
-        double x = player.getX();
-        double y = player.getY() + 0.8D;
-        double z = player.getZ();
-        float rot = player.getYRot() + 180.0F;
-        for (int j = -3; j < 4; ++j) {
-            double k = Math.PI * ((rot + j * 20.0D) / 180.0D);
-            player.level.addFreshEntity(new AreaFireCloud(player.level, x + Math.sin(k) * 2.5D, y - (((float) -j) * 0.2F), z + -Math.cos(k) * 2.5D, player.getYRot(), 6 + (j * 2), player));
-        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.registries;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFireCloud;
+import com.tzaranthony.genshingatcha.core.entities.elements.AreaFrostCloud;
 import com.tzaranthony.genshingatcha.core.entities.elements.FallingMeteor;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -15,6 +16,9 @@ public class GGEntities {
     // elements main
     public static final RegistryObject<EntityType<AreaFireCloud>> FIRE_CLOUD = reg.register("fire_cloud", () ->
             EntityType.Builder.<AreaFireCloud>of(AreaFireCloud::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("fire_cloud")
+    );
+    public static final RegistryObject<EntityType<AreaFrostCloud>> FROST_CLOUD = reg.register("frost_cloud", () ->
+            EntityType.Builder.<AreaFrostCloud>of(AreaFrostCloud::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("frost_cloud")
     );
 
     // elements ultimate

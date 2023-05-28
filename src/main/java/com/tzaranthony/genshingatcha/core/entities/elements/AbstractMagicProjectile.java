@@ -19,6 +19,8 @@ public abstract class AbstractMagicProjectile extends Projectile {
     private static final Logger LOGGER = LogUtils.getLogger();
     private int life;
     private int lifetime = 20 + this.random.nextInt(3);
+    protected int constRank = 0;
+    protected boolean discardOnEntityHit = false;
     private Class ignoreType = null;
 
     public AbstractMagicProjectile(EntityType<? extends AbstractMagicProjectile> projectile, Level level) {
@@ -75,25 +77,26 @@ public abstract class AbstractMagicProjectile extends Projectile {
         Entity user = this.getOwner();
         if ((target.getClass() != this.ignoreType)) {
             this.performOnEntity(target, user);
-            this.discard();
+            if (this.discardOnEntityHit) {
+                this.fizzle();
+            }
         }
     }
 
     protected void onHitBlock(BlockHitResult result) {
         BlockPos pos = result.getBlockPos();
         super.onHitBlock(result);
-        this.performSpellOnBlock(this.getOwner(), this.level, pos);
+        this.performOnBlock(this.getOwner(), this.level, pos);
         if (!this.noPhysics) {
-            this.level.broadcastEntityEvent(this, (byte)17);
-            this.discard();
+            this.fizzle();
         }
     }
 
     protected abstract void performOnEntity(Entity target, Entity user);
 
-    protected abstract void performSpellOnBlock(Entity owner, Level level, BlockPos pos);
+    protected abstract void performOnBlock(Entity owner, Level level, BlockPos pos);
 
-    private void fizzle() {
+    protected void fizzle() {
         this.level.broadcastEntityEvent(this, (byte)17);
         this.discard();
     }
@@ -105,6 +108,8 @@ public abstract class AbstractMagicProjectile extends Projectile {
         if (tag.hasUUID("Owner")) {
             this.setOwner(this.level.getPlayerByUUID(tag.getUUID("Owner")));
         }
+        this.constRank = tag.getInt("ConstRank");
+        this.discardOnEntityHit = tag.getBoolean("ShouldDiscard");
     }
 
     protected void addAdditionalSaveData(CompoundTag tag) {
@@ -114,6 +119,8 @@ public abstract class AbstractMagicProjectile extends Projectile {
         if (this.getOwner() != null) {
             tag.putUUID("Owner", this.getOwner().getUUID());
         }
+        tag.putInt("ConstRank", this.constRank);
+        tag.putBoolean("ShouldDiscard", this.discardOnEntityHit);
     }
 
     public void setLifetime(int lifetime) {

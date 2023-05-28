@@ -10,6 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class GGEntityRender {
     public static void renderEntities() {
         EntityRenderers.register(GGEntities.FIRE_CLOUD.get(), NoopRenderer::new);
+        EntityRenderers.register(GGEntities.FROST_CLOUD.get(), NoopRenderer::new);
         EntityRenderers.register(GGEntities.METEOR.get(), MeteorRender::new);
     }
 }

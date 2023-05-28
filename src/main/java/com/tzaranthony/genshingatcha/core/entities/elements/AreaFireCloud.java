@@ -4,17 +4,23 @@ import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
 
 public class AreaFireCloud extends FullParticleCloudEntity {
+    protected boolean isSecond;
+
     public AreaFireCloud(EntityType<? extends AreaFireCloud> wall, Level level) {
         super(wall, level);
         this.setParticle(ParticleTypes.FLAME);
@@ -22,12 +28,24 @@ public class AreaFireCloud extends FullParticleCloudEntity {
         this.setRadius(0.5F);
     }
 
-    public AreaFireCloud(Level level, double x, double y, double z, float yRot, int waitTime, LivingEntity owner) {
+    public AreaFireCloud(Level level, double x, double y, double z, float yRot, int waitTime, LivingEntity owner, int constRank, boolean isSecond) {
         this(GGEntities.FIRE_CLOUD.get(), level);
         this.setPos(x, y, z);
         this.setYRot(yRot);
         this.waitTime = waitTime;
         this.owner = owner;
+        this.constRank = constRank;
+        this.isSecond = isSecond;
+    }
+
+    protected void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.isSecond = tag.getBoolean("IsSecond");
+    }
+
+    protected void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("IsSecond", this.isSecond);
     }
 
     @Override
@@ -52,15 +70,40 @@ public class AreaFireCloud extends FullParticleCloudEntity {
 
     @Override
     protected void performOnEntity(LivingEntity le) {
-        le.hurt(DamageSource.ON_FIRE,3.5F);
-        le.setSecondsOnFire(10);
-        le.addEffect(new MobEffectInstance(GGEffects.PYRO.get(), 100));
+        if (!EntityUtil.ignoreElementAttackEntity(le, this.owner)) {
+            float dmg = 2.0F + (this.constRank >= 3 ? 1.0F : 0.0F);
+            dmg = dmg * (this.isSecond ? 1.4F : 1.0F);
+            le.hurt(DamageSource.ON_FIRE, dmg);
+            le.setSecondsOnFire(10);
+            le.addEffect(new MobEffectInstance(GGEffects.PYRO.get(), 100));
+        }
     }
 
     @Override
     protected void performOnDiscard() {
         playSound(SoundEvents.FIRECHARGE_USE, 2.2F + this.random.nextFloat() * 0.2F, 0.9F + this.random.nextFloat() * 0.15F);
-        EntityUtil.performExplosion(DamageSource.explosion(this.getOwner()), this, this.owner, 8.0F, 5.0D, true);
+
+        float dmg = 3.5F + (this.constRank >= 3 ? 2.0F : 0.0F);
+        dmg = dmg * (this.isSecond ? 1.4F : 1.0F);
+        double range = 5.0D;
+        Vec3 vec3 = this.position();
+        for (LivingEntity le : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(3.0D))) {
+            if (!(this.distanceToSqr(le) > 25.0D) && !EntityUtil.ignoreElementAttackEntity(le, this.owner)) {
+                boolean flag = false;
+                for(int i = 0; i < 2; ++i) {
+                    Vec3 vec31 = new Vec3(le.getX(), le.getY(0.5D * (double)i), le.getZ());
+                    HitResult hitresult = this.level.clip(new ClipContext(vec3, vec31, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+                    if (hitresult.getType() == HitResult.Type.MISS) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) {
+                    float fDmg = dmg * (float)Math.sqrt((range - (double) this.distanceTo(le)) / range);
+                    le.hurt(DamageSource.explosion(this.getOwner()), fDmg);
+                }
+            }
+        }
         this.discard();
     }
 

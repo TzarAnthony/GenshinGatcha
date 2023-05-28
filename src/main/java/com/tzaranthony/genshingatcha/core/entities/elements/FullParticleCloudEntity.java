@@ -3,7 +3,6 @@ package com.tzaranthony.genshingatcha.core.entities.elements;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -15,9 +14,9 @@ public abstract class FullParticleCloudEntity extends ParticleCloudEntity{
 
     public void tick() {
         if (!this.isWaiting()) {
-            List<Mob> entities = this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox());
+            List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
             if (!entities.isEmpty()) {
-                for(Mob le : entities) {
+                for(LivingEntity le : entities) {
                     this.performOnEntity(le);
                 }
             }
