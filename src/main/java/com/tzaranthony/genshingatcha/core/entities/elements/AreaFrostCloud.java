@@ -18,8 +18,8 @@ import net.minecraft.world.level.Level;
 public class AreaFrostCloud extends FullParticleCloudEntity {
     protected boolean isUlt;
 
-    public AreaFrostCloud(EntityType<? extends AreaFrostCloud> wall, Level level) {
-        super(wall, level);
+    public AreaFrostCloud(EntityType<? extends AreaFrostCloud> type, Level level) {
+        super(type, level);
         this.setParticle(ParticleTypes.SNOWFLAKE);
         this.lifespan = 60;
         this.waitTime = 0;

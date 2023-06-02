@@ -1,8 +1,10 @@
 package com.tzaranthony.genshingatcha.core.capabilities;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 
 public class CharacterHelper {
+    // Server Side
     public static void tickCooldowns(ServerPlayer sPlayer) {
         sPlayer.getCapability(CharacterProvider.CHARACTER).ifPresent(ele -> {
             ele.tickCooldowns(sPlayer);
@@ -23,9 +25,9 @@ public class CharacterHelper {
         return 0;
     }
 
-    public static void setElement(int charID, int constRank, ServerPlayer sPlayer) {
+    public static void setChar(int charID, int constRank, ServerPlayer sPlayer) {
         sPlayer.getCapability(CharacterProvider.CHARACTER).ifPresent(ele -> {
-            ele.setElement(charID, constRank, sPlayer);
+            ele.setChar(charID, constRank, sPlayer);
         });
     }
 
@@ -45,5 +47,25 @@ public class CharacterHelper {
         sPlayer.getCapability(CharacterProvider.CHARACTER).ifPresent(ele -> {
             ele.setDashCooldown(dash, sPlayer);
         });
+    }
+
+    // Both Sides
+    public static int getCharacter(Player player) {
+        if (player instanceof ServerPlayer sPlayer) {
+            return getCharacter(sPlayer);
+        }
+        return CharacterClient.getChar();
+    }
+
+
+
+    // WIP
+    public static void syncSizeClient(Player player) {
+        int charID = CharacterHelper.getCharacter(player);
+        CharacterHelper.syncSize(player, charID);
+    }
+
+    public static void syncSize(Player player, int charID) {
+        player.refreshDimensions();
     }
 }

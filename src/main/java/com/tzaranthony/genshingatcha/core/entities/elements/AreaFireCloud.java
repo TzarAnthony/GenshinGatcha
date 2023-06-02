@@ -21,8 +21,8 @@ import java.util.Random;
 public class AreaFireCloud extends FullParticleCloudEntity {
     protected boolean isSecond;
 
-    public AreaFireCloud(EntityType<? extends AreaFireCloud> wall, Level level) {
-        super(wall, level);
+    public AreaFireCloud(EntityType<? extends AreaFireCloud> type, Level level) {
+        super(type, level);
         this.setParticle(ParticleTypes.FLAME);
         this.lifespan = 30;
         this.setRadius(0.5F);

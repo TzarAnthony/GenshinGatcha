@@ -31,7 +31,7 @@ public class GGClientEvents {
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         //TODO: add cooldown bar icons
         Player player = Minecraft.getInstance().player;
-        if (!player.isSpectator()) {
+        if (player != null && !player.isSpectator()) {
             if (GGKeybinds.DASH.consumeClick() && CharacterClient.getDashTicks() <= 0) {
                 double tpAmt = 5.0D;
                 Vec3 view = player.getViewVector(1.0F);
@@ -41,9 +41,9 @@ public class GGClientEvents {
                     player.setPos(wanted.x, wantedPos.getY(), wanted.z);
                 }
                 CharacterClient.resetDashFromUse();
-            } else if (GGKeybinds.ELEMENT_ART.consumeClick() && CharacterClient.getMainTicks() <= 0 && GGCharacters.characterMap.get(CharacterClient.getElement()) != null) {
+            } else if (GGKeybinds.ELEMENT_ART.consumeClick() && CharacterClient.getMainTicks() <= 0 && GGCharacters.characterMap.get(CharacterClient.getChar()) != null) {
                 CharacterClient.resetMainFromUse();
-            } else if (GGKeybinds.ULT.consumeClick() && CharacterClient.getUltTicks() <= 0 && GGCharacters.characterMap.get(CharacterClient.getElement()) != null) {
+            } else if (GGKeybinds.ULT.consumeClick() && CharacterClient.getUltTicks() <= 0 && GGCharacters.characterMap.get(CharacterClient.getChar()) != null) {
                 CharacterClient.resetUltFromUse();
             }
         }

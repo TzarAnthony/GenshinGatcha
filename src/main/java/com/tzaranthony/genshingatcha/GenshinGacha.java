@@ -34,6 +34,7 @@ public class GenshinGacha {
 //        GGSounds.reg.register(bus);
 //        GGParticleTypes.reg.register(bus);
         GGEffects.reg.register(bus);
+        GGPotions.reg.register(bus);
         GGMenus.reg.register(bus);
         GGVillagers.register(bus);
         MinecraftForge.EVENT_BUS.register(this);

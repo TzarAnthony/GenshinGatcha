@@ -1,4 +1,4 @@
-package com.tzaranthony.genshingatcha.core.elements;
+package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFrostCloud;
@@ -49,9 +49,17 @@ public class Qiqi extends Character {
 
     @Override
     public void applyConstellationAttributes(Player player, int constRank) {
+        //TODO: height changes???
+        //I think what I need to do is call player.refreshDimensions() then intercept the EntityEvent.Size on refresh and check if the player now has Qiqi (4) then resize to a .5?
+        //looks like I also have to deal with the hit box
         AttributeMap map = player.getAttributes();
         if (constRank >= 2) {
             map.getInstance(Attributes.ATTACK_DAMAGE).addPermanentModifier(EntityUtil.CharacterAttributeMap.get(1.2F));
         }
+    }
+
+    @Override
+    public Element getElement() {
+        return Element.CRYO;
     }
 }

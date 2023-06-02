@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "genshingatcha:zhongli_c1"
+    },
+    {
+      "item": "genshingatcha:zhongli_c1"
+    }
+  ],
+  "result": {
+    "item": "genshingatcha:zhongli_c3"
+  }
+}

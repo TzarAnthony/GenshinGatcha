@@ -1,22 +1,22 @@
 package com.tzaranthony.genshingatcha.core.items.util;
 
 public enum GGBowMaterial {
-    ONE(3072, 4.0F, 15, 20),
-    TWO(4096, 6.0F, 17, 25),
-    THREE(5120, 8.0F, 20, 30),
-    FOUR(6144, 10.0F, 25, 35),
-    FIVE(7168, 12.0F, 30, 40);
+    ONE(3072, 4.0F, 30.0F, 160),
+    TWO(4096, 6.0F, 25.0F, 120),
+    THREE(5120, 8.0F, 20.0F, 80),
+    FOUR(6144, 10.0F, 15.0F, 60),
+    FIVE(7168, 12.0F, 10.0F, 40);
 
     private final int maxUses;
     private final float drawSpeed;
     private final float attackDamage;
-    private final int range;
+    private final int cooldown;
 
-    GGBowMaterial(int maxUses, float attackDamage, int drawSpeed, int range) {
+    GGBowMaterial(int maxUses, float attackDamage, float drawSpeed, int cooldown) {
         this.maxUses = maxUses;
         this.attackDamage = attackDamage;
         this.drawSpeed = drawSpeed;
-        this.range = range;
+        this.cooldown = cooldown;
     }
 
     public int getUses() {
@@ -31,7 +31,7 @@ public enum GGBowMaterial {
         return drawSpeed;
     }
 
-    public int getRange() {
-        return range;
+    public int getCooldown() {
+        return cooldown;
     }
 }

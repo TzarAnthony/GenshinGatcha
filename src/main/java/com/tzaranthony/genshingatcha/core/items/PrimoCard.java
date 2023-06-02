@@ -24,7 +24,7 @@ import java.util.List;
 
 public class PrimoCard extends Item {
     public static final String STORAGE = "PrimosStored";
-    private static final int maxPrimos = 131072;
+    private static final int maxPrimos = 100800;
     private static final int BAR_COLOR = Mth.color(0.4F, 0.4F, 1.0F);
 
     public PrimoCard(Item.Properties properties) {
@@ -78,6 +78,10 @@ public class PrimoCard extends Item {
         return stack.getOrCreateTag().getInt(STORAGE);
     }
 
+    public static void setPrimoCount(ItemStack stack, int count) {
+        stack.getOrCreateTag().putInt(STORAGE, Math.min(count, maxPrimos));
+    }
+
     public static int calulatePrimoStorage(ItemStack stack, int change) {
         CompoundTag tag = stack.getOrCreateTag();
         int cPrimos = tag.getInt(STORAGE);
@@ -90,9 +94,30 @@ public class PrimoCard extends Item {
     }
 
     @Override
+    public boolean isRepairable(ItemStack stack) {
+        return getPrimoCount(stack) < this.maxPrimos;
+    }
+
+    @Override
+    public int getDamage(ItemStack stack) {
+        return getPrimoCount(stack);
+    }
+
+    @Override
+    public void setDamage(ItemStack stack, int damage) {
+        setPrimoCount(stack, damage);
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return 0;
+    }
+
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(new TextComponent(String.valueOf(getPrimoCount(stack))).append(new TranslatableComponent("tooltip.genshingatcha.primo_card")));
+        tooltip.add(new TranslatableComponent("tooltip.genshingatcha.no_drop"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 

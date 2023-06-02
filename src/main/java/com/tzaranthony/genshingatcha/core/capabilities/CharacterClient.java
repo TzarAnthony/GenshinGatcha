@@ -31,7 +31,7 @@ public class CharacterClient {
         CharacterClient.dashTicks = dashTicks;
     }
 
-    public static int getElement() {
+    public static int getChar() {
         return characterID;
     }
 

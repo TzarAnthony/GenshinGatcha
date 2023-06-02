@@ -54,21 +54,21 @@ public class GGVillagers {
     public static void addTrades(VillagerTradesEvent event) {
         if(event.getType() == GGVillagers.GATCHA_GUY.get()) {
             Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-            trades.get(1).add(new VillagerBuys(Items.COBBLESTONE, 16, 1, 1000, 1));
-            trades.get(1).add(new VillagerBuys(Items.COBBLED_DEEPSLATE, 24, 2, 1000, 1));
+            trades.get(1).add(new VillagerBuys(Items.COBBLESTONE, 16, 1, 1024, 1));
+            trades.get(1).add(new VillagerBuys(Items.COBBLED_DEEPSLATE, 24, 2, 1024, 1));
 
-            trades.get(2).add(new VillagerBuys(Items.COPPER_INGOT, 16, 3, 10));
-            trades.get(2).add(new VillagerBuys(Items.IRON_INGOT, 8, 5, 10));
-            trades.get(2).add(new VillagerBuys(Items.EMERALD, 2, 1, 128, 10));
+            trades.get(2).add(new VillagerBuys(Items.COPPER_INGOT, 1, 1, 3));
+            trades.get(2).add(new VillagerBuys(Items.IRON_INGOT, 1, 4, 3));
+            trades.get(2).add(new VillagerBuys(Items.EMERALD, 1, 2, 3));
 
-            trades.get(3).add(new VillagerBuys(Items.LAPIS_LAZULI, 8, 3, 15));
-            trades.get(3).add(new VillagerBuys(Items.GOLD_INGOT, 4, 5, 15));
+            trades.get(3).add(new VillagerBuys(Items.LAPIS_LAZULI, 1, 4, 5));
+            trades.get(3).add(new VillagerBuys(Items.GOLD_INGOT, 1, 6, 5));
 
-            trades.get(4).add(new VillagerBuys(Items.REDSTONE, 8, 10, 20));
-            trades.get(4).add(new VillagerBuys(Items.QUARTZ, 8, 10, 20));
+            trades.get(4).add(new VillagerBuys(Items.REDSTONE, 1, 10, 7));
+            trades.get(4).add(new VillagerBuys(Items.AMETHYST_BLOCK, 1, 16, 7));
 
-            trades.get(5).add(new VillagerBuys(Items.DIAMOND, 1, 16, 30));
-            trades.get(5).add(new VillagerBuys(Items.ANCIENT_DEBRIS, 1, 64, 30));
+            trades.get(5).add(new VillagerBuys(Items.QUARTZ, 1, 10, 9));
+            trades.get(5).add(new VillagerBuys(Items.DIAMOND, 1, 24, 11));
         }
     }
 
@@ -81,7 +81,7 @@ public class GGVillagers {
         private final float priceMultiplier;
 
         public VillagerBuys(ItemLike wants, int amount, int price, int xp) {
-            this(wants, amount, price, 64, xp);
+            this(wants, amount, price, 512, xp);
         }
 
         public VillagerBuys(ItemLike wants, int amount, int price, int uses, int xp) {

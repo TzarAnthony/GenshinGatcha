@@ -4,17 +4,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
 public interface ElementalWeapon {
-    void setCooldown(int coolDown, ItemStack stack);
+    void resetCooldown(ItemStack stack);
 
     int getCooldown(ItemStack stack);
 
     void interateCooldown(CompoundTag tag);
 
-    void activate(ItemStack stack);
-
-    boolean isActive(CompoundTag tag);
-
-    default int getMaxCooldown() {
-        return 200;
-    }
+    boolean isOffCooldown(CompoundTag tag);
 }

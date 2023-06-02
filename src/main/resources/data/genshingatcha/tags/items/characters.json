@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "genshingatcha:diluc_c0",
+    "genshingatcha:diluc_c1",
+    "genshingatcha:diluc_c2",
+    "genshingatcha:diluc_c3",
+    "genshingatcha:diluc_c4",
+    "genshingatcha:diluc_c5",
+    "genshingatcha:diluc_c6",
+    "genshingatcha:fischl_c0",
+    "genshingatcha:fischl_c1",
+    "genshingatcha:fischl_c2",
+    "genshingatcha:fischl_c3",
+    "genshingatcha:fischl_c4",
+    "genshingatcha:fischl_c5",
+    "genshingatcha:fischl_c6",
+    "genshingatcha:zhongli_c0",
+    "genshingatcha:zhongli_c1",
+    "genshingatcha:zhongli_c2",
+    "genshingatcha:zhongli_c3",
+    "genshingatcha:zhongli_c4",
+    "genshingatcha:zhongli_c5",
+    "genshingatcha:zhongli_c6",
+    "genshingatcha:qiqi_c0",
+    "genshingatcha:qiqi_c1",
+    "genshingatcha:qiqi_c2",
+    "genshingatcha:qiqi_c3",
+    "genshingatcha:qiqi_c4",
+    "genshingatcha:qiqi_c5",
+    "genshingatcha:qiqi_c6"
+  ]
+}

@@ -1,4 +1,4 @@
-package com.tzaranthony.genshingatcha.core.elements;
+package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFireCloud;
@@ -65,5 +65,10 @@ public class Diluc extends Character {
         if (constRank >= 2) {
             map.getInstance(Attributes.ATTACK_SPEED).addPermanentModifier(EntityUtil.CharacterAttributeMap.get(1.2F));
         }
+    }
+
+    @Override
+    public Element getElement() {
+        return Element.PYRO;
     }
 }

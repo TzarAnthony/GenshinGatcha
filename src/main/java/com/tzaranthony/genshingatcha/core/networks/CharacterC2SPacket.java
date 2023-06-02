@@ -1,7 +1,7 @@
 package com.tzaranthony.genshingatcha.core.networks;
 
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
-import com.tzaranthony.genshingatcha.core.elements.Character;
+import com.tzaranthony.genshingatcha.core.character.Character;
 import com.tzaranthony.genshingatcha.registries.GGCharacters;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

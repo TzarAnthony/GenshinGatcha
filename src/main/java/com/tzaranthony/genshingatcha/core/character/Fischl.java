@@ -1,4 +1,4 @@
-package com.tzaranthony.genshingatcha.core.elements;
+package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
@@ -12,10 +12,7 @@ public class Fischl extends Character {
 
     @Override
     public void performMainAttack(Player player) {
-        // bird turret
-        //TODO: add extra damage and range CharacterHelper.getCharacter(sPlayer) >= 2
-        //TODO: add level? CharacterHelper.getCharacter(sPlayer) >= 3
-        //TODO: add extra summons time CharacterHelper.getCharacter(sPlayer) >= 6
+        //TODO: bird turret
     }
 
     @Override
@@ -29,5 +26,10 @@ public class Fischl extends Character {
         if (constRank >= 1) {
             map.getInstance(Attributes.ATTACK_DAMAGE).addPermanentModifier(EntityUtil.CharacterAttributeMap.get(1.1F));
         }
+    }
+
+    @Override
+    public Element getElement() {
+        return Element.ELECTRO;
     }
 }

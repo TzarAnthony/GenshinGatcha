@@ -1,7 +1,7 @@
 package com.tzaranthony.genshingatcha.registries;
 
-import com.tzaranthony.genshingatcha.core.elements.Character;
-import com.tzaranthony.genshingatcha.core.elements.*;
+import com.tzaranthony.genshingatcha.core.character.Character;
+import com.tzaranthony.genshingatcha.core.character.*;
 
 import java.util.HashMap;
 

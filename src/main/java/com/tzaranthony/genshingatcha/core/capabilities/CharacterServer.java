@@ -1,6 +1,6 @@
 package com.tzaranthony.genshingatcha.core.capabilities;
 
-import com.tzaranthony.genshingatcha.core.elements.Character;
+import com.tzaranthony.genshingatcha.core.character.Character;
 import com.tzaranthony.genshingatcha.core.networks.CharacterS2CPacket;
 import com.tzaranthony.genshingatcha.registries.GGCharacters;
 import com.tzaranthony.genshingatcha.registries.GGPackets;
@@ -48,7 +48,7 @@ public class CharacterServer {
         sendPacket(player);
     }
 
-    public void setElement(int charID, int constRank, ServerPlayer player) {
+    public void setChar(int charID, int constRank, ServerPlayer player) {
         this.charID = Math.max(charID, 0);
         this.constRank = Math.max(constRank, 0);
         Character e = GGCharacters.characterMap.get(this.charID);

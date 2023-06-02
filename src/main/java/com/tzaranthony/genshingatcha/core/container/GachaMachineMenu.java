@@ -20,9 +20,11 @@ public class GachaMachineMenu extends AbstractContainerMenu {
     protected final ContainerData data;
     protected final Level level;
     protected final Inventory inventory;
-    public final int characterSlotID = 0;
-    public final int weaponSlotID = 1;
-    public final int outputSlotID = 2;
+    public static final int characterSlotID = 0;
+    public static final int characterSlotID10 = 1;
+    public static final int weaponSlotID = 2;
+    public static final int weaponSlotID10 = 3;
+    public static final int outputSlotID = 4;
 
     public GachaMachineMenu(int id, Inventory inventory, BlockPos pos) {
         this(id, inventory, pos, new SimpleContainerData(2));
@@ -38,9 +40,11 @@ public class GachaMachineMenu extends AbstractContainerMenu {
 
         checkContainerSize(inventory, 3);
 
-        this.addInputSlot(characterSlotID, 98, 17);
-        this.addInputSlot(weaponSlotID, 98, 48);
-        this.addResultSlot(outputSlotID, 148, 35);
+        this.addInputSlot(characterSlotID, 62, 29);
+        this.addInputSlot(characterSlotID10, 98, 29);
+        this.addInputSlot(weaponSlotID, 62, 60);
+        this.addInputSlot(weaponSlotID10, 98, 60);
+        this.addResultSlot(outputSlotID, 148, 47);
         this.addInventory(8, 84);
 
         this.addDataSlots(this.data);

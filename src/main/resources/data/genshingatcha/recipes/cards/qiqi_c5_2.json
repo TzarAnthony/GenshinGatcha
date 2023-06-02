@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "genshingatcha:qiqi_c2"
+    },
+    {
+      "item": "genshingatcha:qiqi_c2"
+    }
+  ],
+  "result": {
+    "item": "genshingatcha:qiqi_c5"
+  }
+}

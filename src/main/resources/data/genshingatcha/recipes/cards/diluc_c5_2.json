@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "genshingatcha:diluc_c2"
+    },
+    {
+      "item": "genshingatcha:diluc_c2"
+    }
+  ],
+  "result": {
+    "item": "genshingatcha:diluc_c5"
+  }
+}

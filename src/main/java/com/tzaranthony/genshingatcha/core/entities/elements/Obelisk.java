@@ -1,5 +1,6 @@
 package com.tzaranthony.genshingatcha.core.entities.elements;
 
+import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -21,39 +22,39 @@ import java.util.UUID;
 public class Obelisk extends Entity {
     protected int warmupDelayTicks;
     protected boolean sentSpikeEvent;
-    protected int lifeTicks = 600;
+    protected int lifeTicks = 400;
     protected boolean clientSideAttackStarted;
-    @Nullable
     protected LivingEntity owner;
     @Nullable
     protected UUID ownerUUID;
+    protected int constRank = 0;
 
     public Obelisk(EntityType<? extends EvokerFangs> type, Level level) {
         super(type, level);
     }
 
-    public Obelisk(Level level, double x, double y, double z, float yRot, int warmup, LivingEntity le) {
+    public Obelisk(Level level, double x, double y, double z, float yRot, int warmup, LivingEntity le, int constRank) {
         this(EntityType.EVOKER_FANGS, level);
         this.warmupDelayTicks = warmup;
         this.setOwner(le);
         this.setYRot(yRot * (180F / (float)Math.PI));
         this.setPos(x, y, z);
+        this.constRank = constRank;
     }
 
     protected void defineSynchedData() {
     }
 
-    public void setOwner(@Nullable LivingEntity le) {
+    public void setOwner(LivingEntity le) {
         this.owner = le;
         this.ownerUUID = le == null ? null : le.getUUID();
     }
 
-    @Nullable
     public LivingEntity getOwner() {
         if (this.owner == null && this.ownerUUID != null && this.level instanceof ServerLevel) {
-            Entity entity = ((ServerLevel)this.level).getEntity(this.ownerUUID);
+            Entity entity = ((ServerLevel) this.level).getEntity(this.ownerUUID);
             if (entity instanceof LivingEntity) {
-                this.owner = (LivingEntity)entity;
+                this.owner = (LivingEntity) entity;
             }
         }
         return this.owner;
@@ -64,6 +65,7 @@ public class Obelisk extends Entity {
         if (tag.hasUUID("Owner")) {
             this.ownerUUID = tag.getUUID("Owner");
         }
+        this.constRank = tag.getInt("ConstRank");
     }
 
     protected void addAdditionalSaveData(CompoundTag tag) {
@@ -71,6 +73,7 @@ public class Obelisk extends Entity {
         if (this.ownerUUID != null) {
             tag.putUUID("Owner", this.ownerUUID);
         }
+        tag.putInt("ConstRank", this.constRank);
     }
 
     public void tick() {
@@ -78,7 +81,7 @@ public class Obelisk extends Entity {
         if (this.level.isClientSide) {
             if (this.clientSideAttackStarted) {
                 --this.lifeTicks;
-                if (this.lifeTicks == 10) {
+                if (this.lifeTicks % 20 == 0) {
                     for(int i = 0; i < 12; ++i) {
                         double d0 = this.getX() + (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.getBbWidth() * 0.5D;
                         double d1 = this.getY() + 0.05D + this.random.nextDouble();
@@ -86,46 +89,33 @@ public class Obelisk extends Entity {
                         double d3 = (this.random.nextDouble() * 2.0D - 1.0D) * 0.3D;
                         double d4 = 0.3D + this.random.nextDouble() * 0.3D;
                         double d5 = (this.random.nextDouble() * 2.0D - 1.0D) * 0.3D;
-                        this.level.addParticle(ParticleTypes.CRIT, d0, d1 + 1.0D, d2, d3, d4, d5);
+                        this.level.addParticle(ParticleTypes.CRIT, d0, d1, d2, d3, d4, d5);
                     }
                 }
             }
         } else if (--this.warmupDelayTicks < 0) {
-            if (this.warmupDelayTicks == -8) {
-                for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0D, 0.0D, 1.0D))) {
-                    this.dealDamageTo(livingentity);
-                }
-            }
-
             if (!this.sentSpikeEvent) {
                 this.level.broadcastEntityEvent(this, (byte) 4);
                 this.sentSpikeEvent = true;
             }
 
-            if (--this.lifeTicks < 0) {
-                this.discard();
-            }
-
-            if (this.lifeTicks % 60 == 0) {
+            if (this.lifeTicks % 20 == 0) {
                 for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D, 0.0D, 2.0D))) {
                     this.dealDamageTo(livingentity);
                 }
+            }
+
+            if (--this.lifeTicks < 0) {
+                this.discard();
             }
         }
     }
 
     protected void dealDamageTo(LivingEntity target) {
-        LivingEntity livingentity = this.getOwner();
-        if (target.isAlive() && !target.isInvulnerable() && target != livingentity) {
-            if (livingentity == null) {
-                target.hurt(DamageSource.GENERIC, 6.0F);
-            } else {
-                if (livingentity.isAlliedTo(target)) {
-                    return;
-                }
-                target.hurt(DamageSource.indirectMagic(this, livingentity), 6.0F);
-                target.addEffect(new MobEffectInstance(GGEffects.GEO.get()));
-            }
+        if (target.isAlive() && !target.isInvulnerable() && EntityUtil.ignoreElementAttackEntity(target, this.getOwner())) {
+            float dmg = 4.0F + (this.constRank >= 3 ? 2.0F : 0.0F);
+            target.hurt(DamageSource.indirectMagic(this, this.getOwner()), dmg);
+            target.addEffect(new MobEffectInstance(GGEffects.GEO.get()));
         }
     }
 

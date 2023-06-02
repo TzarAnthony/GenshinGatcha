@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public class GGItemTags {
+    public static final TagKey<Item> CHARACTERS = registerItemTag("characters");
     public static final TagKey<Item> CLAYMORES = registerItemTag("claymores");
     public static final TagKey<Item> SPEARS = registerItemTag("spears");
 

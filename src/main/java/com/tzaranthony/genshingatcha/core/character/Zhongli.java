@@ -1,4 +1,4 @@
-package com.tzaranthony.genshingatcha.core.elements;
+package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
 import com.tzaranthony.genshingatcha.core.entities.elements.FallingMeteor;
@@ -21,7 +21,6 @@ public class Zhongli extends Character {
         BlockPos pos = player.blockPosition().relative(player.getDirection(), 2);
         pos = EntityUtil.getFloorInRange(player.level, pos.getX(), pos.below(4).getY(), pos.above(4).getY(), pos.getZ());
         //TODO: replace with obelisk when i get the render
-        //TODO: add level? CharacterHelper.getCharacter(sPlayer) >= 3
         player.level.addFreshEntity(new EvokerFangs(player.level, pos.getX(), pos.getY(), pos.getZ(), player.getYRot(), 0, player));
         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 3));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 4));
@@ -48,5 +47,10 @@ public class Zhongli extends Character {
 
     @Override
     public void applyConstellationAttributes(Player player, int constRank) {
+    }
+
+    @Override
+    public Element getElement() {
+        return Element.GEO;
     }
 }

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "genshingatcha:fischl_c1"
+    },
+    {
+      "item": "genshingatcha:fischl_c4"
+    }
+  ],
+  "result": {
+    "item": "genshingatcha:fischl_c6"
+  }
+}

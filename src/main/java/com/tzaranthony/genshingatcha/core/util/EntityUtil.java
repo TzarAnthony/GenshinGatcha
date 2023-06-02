@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.core.util;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.tzaranthony.genshingatcha.core.util.tags.GGItemTags;
 import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -55,21 +56,21 @@ public class EntityUtil {
         return le instanceof Player || (le instanceof TamableAnimal ta && ta.isOwnedBy(owner));
     }
 
-    public class primogemDeathStorer {
-        protected static final HashMap<Player, NonNullList<ItemStack>> playerPrimogems = new HashMap<>();
+    public class deathStorer {
+        protected static final HashMap<Player, NonNullList<ItemStack>> playerLoot = new HashMap<>();
 
-        public static void storePlayerPrimos(Player player, Collection<ItemEntity> items) {
+        public static void storePlayerItems(Player player, Collection<ItemEntity> items) {
             NonNullList<ItemStack> primos = NonNullList.create();
             for (ItemEntity ie : items) {
-                if (ie.getItem().is(GGItems.PRIMOGEM.get()) || ie.getItem().is(GGItems.PRIMO_CARD.get())) {
+                if (ie.getItem().is(GGItems.PRIMOGEM.get()) || ie.getItem().is(GGItems.PRIMO_CARD.get()) || ie.getItem().is(GGItemTags.CHARACTERS)) {
                     primos.add(ie.getItem());
                 }
             }
-            playerPrimogems.put(player, primos);
+            playerLoot.put(player, primos);
         }
 
-        public static void retrievePlayerPrimos(Player oPlayer, Player nPlayer) {
-            NonNullList<ItemStack> primos = playerPrimogems.get(oPlayer);
+        public static void retrievePlayerItems(Player oPlayer, Player nPlayer) {
+            NonNullList<ItemStack> primos = playerLoot.get(oPlayer);
             for (ItemStack stack : primos) {
                 nPlayer.getInventory().add(stack);
             }

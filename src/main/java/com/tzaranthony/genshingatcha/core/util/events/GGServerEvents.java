@@ -53,7 +53,7 @@ public class GGServerEvents {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onDropItemsEvent(LivingDropsEvent event) {
         if (event.getEntity() instanceof Player player) {
-            EntityUtil.primogemDeathStorer.storePlayerPrimos(player, event.getDrops());
+            EntityUtil.deathStorer.storePlayerItems(player, event.getDrops());
         }
     }
 
@@ -62,7 +62,7 @@ public class GGServerEvents {
         if (event.isWasDeath()) {
             Player oPlayer = event.getOriginal();
             Player nPlayer = event.getPlayer();
-            EntityUtil.primogemDeathStorer.retrievePlayerPrimos(oPlayer, nPlayer);
+            EntityUtil.deathStorer.retrievePlayerItems(oPlayer, nPlayer);
 
             if (nPlayer instanceof ServerPlayer sPlayer) {
                 event.getOriginal().getCapability(CharacterProvider.CHARACTER).ifPresent(oldEle -> {

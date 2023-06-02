@@ -4,6 +4,8 @@ import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFireCloud;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFrostCloud;
 import com.tzaranthony.genshingatcha.core.entities.elements.FallingMeteor;
+import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
+import com.tzaranthony.genshingatcha.core.entities.projectiles.ExplodingThrownPotion;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.DeferredRegister;
@@ -12,6 +14,14 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class GGEntities {
     public static final DeferredRegister<EntityType<?>> reg = DeferredRegister.create(ForgeRegistries.ENTITIES, GenshinGacha.MOD_ID);
+
+    // arrows
+    public static final RegistryObject<EntityType<ElementalArrow>> ELECTRO_ARROW = reg.register("electro_arrow", () ->
+            EntityType.Builder.<ElementalArrow>of(ElementalArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("electro_arrow")
+    );
+    public static final RegistryObject<EntityType<ExplodingThrownPotion>> EXPLODING_POTION = reg.register("exploding_potion", () ->
+            EntityType.Builder.<ExplodingThrownPotion>of(ExplodingThrownPotion::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build("exploding_potion")
+    );
 
     // elements main
     public static final RegistryObject<EntityType<AreaFireCloud>> FIRE_CLOUD = reg.register("fire_cloud", () ->

@@ -14,10 +14,10 @@ import net.minecraft.world.entity.player.Inventory;
 public class GatchaMachineScreen extends AbstractContainerScreen<GachaMachineMenu> {
     public static final ResourceLocation MENU = new ResourceLocation(GenshinGacha.MOD_ID, "textures/gui/gatcha_machine.png");
     protected final Component char_banner = new TranslatableComponent("container.genshingatcha.character_banner");
-    protected int charLabelX = 4;
+    protected int charLabelX = 8;
     protected int charLabelY = 18;
     protected final Component weapon_banner = new TranslatableComponent("container.genshingatcha.weapon_banner");
-    protected int weaponLabelX = 4;
+    protected int weaponLabelX = 8;
     protected int weaponLabelY = 49;
 
     public GatchaMachineScreen(GachaMachineMenu menu, Inventory inventory, Component component) {
@@ -38,7 +38,7 @@ public class GatchaMachineScreen extends AbstractContainerScreen<GachaMachineMen
 
     protected void renderBg(PoseStack poseStack, float partialTick, int x, int y) {
         int progX = 117;
-        int progY = 32;
+        int progY = 44;
         int progXo = 176;
         int progYo = 0;
 
