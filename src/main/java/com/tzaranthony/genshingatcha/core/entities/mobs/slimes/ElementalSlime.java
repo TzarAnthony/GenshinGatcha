@@ -1,6 +1,7 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.slimes;
 
-import com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls.ElementalMonster;
+import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalGroupData;
+import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalMob;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityElementDamageSource;
 import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
@@ -11,18 +12,23 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
-public class ElementalSlime extends Slime implements ElementalMonster {
+public class ElementalSlime extends Slime implements ElementalMob {
     protected int element;
 
     public ElementalSlime(EntityType<? extends Slime> type, Level level) {
@@ -50,6 +56,16 @@ public class ElementalSlime extends Slime implements ElementalMonster {
     protected void setSize(int size, boolean setHealth) {
         super.setSize(size, setHealth);
         this.getAttribute(Attributes.ARMOR).setBaseValue((size * 3));
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
+        groupData = super.finalizeSpawn(accessor, difficulty, spawnType, groupData, tag);
+        int eSetter = getElementFromBiome(accessor.getBiome(this.blockPosition()), this.random);
+        this.element = eSetter;
+        groupData = new ElementalGroupData(eSetter);
+        return groupData;
     }
 
     protected ResourceLocation getDefaultLootTable() {
