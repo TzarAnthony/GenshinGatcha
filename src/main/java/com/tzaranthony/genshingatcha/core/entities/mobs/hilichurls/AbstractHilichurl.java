@@ -105,10 +105,6 @@ public abstract class AbstractHilichurl extends Monster implements ElementalMob 
         return SoundEvents.PILLAGER_HURT;
     }
 
-    public void setElement(int element) {
-        this.element = element;
-    }
-
     public int getElement() {
         return this.element;
     }

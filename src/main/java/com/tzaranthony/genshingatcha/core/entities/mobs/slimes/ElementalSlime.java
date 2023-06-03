@@ -45,10 +45,6 @@ public class ElementalSlime extends Slime implements ElementalMob {
         this.element = tag.getInt("Element");
     }
 
-    public void setElement(int element) {
-        this.element = element;
-    }
-
     public int getElement() {
         return this.element;
     }
