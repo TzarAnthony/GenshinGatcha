@@ -53,7 +53,7 @@ public class EntityUtil {
     }
 
     public static boolean ignoreElementAttackEntity(LivingEntity le, LivingEntity owner) {
-        return le instanceof Player || (le instanceof TamableAnimal ta && ta.isOwnedBy(owner));
+        return owner.isAlliedTo(le) || (le instanceof TamableAnimal ta && ta.isOwnedBy(owner));
     }
 
     public class deathStorer {

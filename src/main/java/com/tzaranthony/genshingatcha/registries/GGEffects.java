@@ -20,11 +20,10 @@ public class GGEffects {
     public static final RegistryObject<MobEffect> CHARGED = reg.register("charged", ()-> new ComboEffect(MobEffectCategory.NEUTRAL, 8004577));
     public static final RegistryObject<MobEffect> CATALYZE = reg.register("catalyze", ()-> new ComboEffect(MobEffectCategory.NEUTRAL, 11638767));
 
-
+    public static final RegistryObject<MobEffect> CRYO = reg.register("cryo", ()-> new ElementalEffect(MobEffectCategory.NEUTRAL, 60671));
     public static final RegistryObject<MobEffect> PYRO = reg.register("pyro", ()-> new ElementalEffect(MobEffectCategory.NEUTRAL, 14885657));
     public static final RegistryObject<MobEffect> ELECTRO = reg.register("electro", ()-> new ElementalEffect(MobEffectCategory.NEUTRAL, 12714239));
     public static final RegistryObject<MobEffect> GEO = reg.register("geo", ()-> new ElementalEffect(MobEffectCategory.NEUTRAL, 6966058));
-    public static final RegistryObject<MobEffect> CRYO = reg.register("cryo", ()-> new ElementalEffect(MobEffectCategory.NEUTRAL, 60671));
     public static final RegistryObject<MobEffect> HYDRO = reg.register("hydro", ()-> new ElementalEffect(MobEffectCategory.NEUTRAL, 1315999));
     public static final RegistryObject<MobEffect> DENDRO = reg.register("dendro", ()-> new ElementalEffect(MobEffectCategory.NEUTRAL, 2478929));
     public static final RegistryObject<MobEffect> ANEMO = reg.register("anemo", ()-> new ElementalEffect(MobEffectCategory.NEUTRAL, 1364904));

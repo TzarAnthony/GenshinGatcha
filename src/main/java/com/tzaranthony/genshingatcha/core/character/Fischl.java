@@ -1,5 +1,6 @@
 package com.tzaranthony.genshingatcha.core.character;
 
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -29,7 +30,7 @@ public class Fischl extends Character {
     }
 
     @Override
-    public Element getElement() {
-        return Element.ELECTRO;
+    public Element.E getElement() {
+        return Element.E.ELECTRO;
     }
 }

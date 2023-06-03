@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFireCloud;
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -68,7 +69,7 @@ public class Diluc extends Character {
     }
 
     @Override
-    public Element getElement() {
-        return Element.PYRO;
+    public Element.E getElement() {
+        return Element.E.PYRO;
     }
 }

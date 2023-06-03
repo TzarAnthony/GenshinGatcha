@@ -1,6 +1,8 @@
 package com.tzaranthony.genshingatcha.core.entities.elements;
 
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
+import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -38,7 +40,7 @@ public class ElectroSlice extends AbstractMagicProjectile {
     @Override
     protected void performOnEntity(Entity target, Entity user) {
         float dmg = 10.0F + (this.constRank >= 5 ? 5.0F : 0.0F);
-        target.hurt(DamageSource.indirectMagic(this, this.getOwner()), dmg);
+        target.hurt(GGDamageSource.magicElement(this, user, Element.E.ELECTRO.getId()), dmg);
         if (target instanceof LivingEntity) {
             ((LivingEntity) target).addEffect(new MobEffectInstance(GGEffects.ELECTRO.get(), 300));
         }

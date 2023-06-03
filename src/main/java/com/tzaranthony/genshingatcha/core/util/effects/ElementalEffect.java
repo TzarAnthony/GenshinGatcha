@@ -1,5 +1,6 @@
 package com.tzaranthony.genshingatcha.core.util.effects;
 
+import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -23,7 +24,7 @@ public class ElementalEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity affected, int amplifier) {
         if (affected.hasEffect(GGEffects.ANEMO.get()) && hasAnyElementalEffect(affected)) {
-            this.doElementalExplosion(affected, DamageSource.IN_WALL);
+            this.doElementalExplosion(affected, GGDamageSource.ANEMO);
             affected.removeEffect(GGEffects.ANEMO.get());
             clearAllElementalEffects(affected);
             return;
@@ -36,7 +37,8 @@ public class ElementalEffect extends MobEffect {
             return;
         }
         if (affected.hasEffect(GGEffects.PYRO.get()) && affected.hasEffect(GGEffects.HYDRO.get())) {
-            affected.hurt(DamageSource.MAGIC, 8.0F);
+            affected.hurt(GGDamageSource.PYRO, 3.0F);
+            affected.hurt(GGDamageSource.HYDRO, 3.0F);
             affected.removeEffect(GGEffects.PYRO.get());
             affected.removeEffect(GGEffects.HYDRO.get());
             return;
@@ -49,13 +51,14 @@ public class ElementalEffect extends MobEffect {
             return;
         }
         if (affected.hasEffect(GGEffects.PYRO.get()) && affected.hasEffect(GGEffects.CRYO.get())) {
-            affected.hurt(DamageSource.MAGIC, 8.0F);
+            affected.hurt(GGDamageSource.PYRO, 3.0F);
+            affected.hurt(GGDamageSource.CRYO, 3.0F);
             affected.removeEffect(GGEffects.PYRO.get());
             affected.removeEffect(GGEffects.CRYO.get());
             return;
         }
         if (affected.hasEffect(GGEffects.PYRO.get()) && affected.hasEffect(GGEffects.DENDRO.get())) {
-            this.doElementalExplosion(affected, DamageSource.IN_FIRE, 1.5D, true);
+            this.doElementalExplosion(affected, GGDamageSource.PYRO, 1.5D, true);
             affected.removeEffect(GGEffects.PYRO.get());
             affected.removeEffect(GGEffects.DENDRO.get());
             return;
@@ -74,13 +77,13 @@ public class ElementalEffect extends MobEffect {
         }
         if (affected.hasEffect(GGEffects.HYDRO.get()) && affected.hasEffect(GGEffects.DENDRO.get())) {
             affected.level.setBlock(affected.getOnPos().above(), Blocks.CACTUS.defaultBlockState(), 0);
-            this.doElementalExplosion(affected, DamageSource.CACTUS);
+            this.doElementalExplosion(affected, GGDamageSource.DENDRO);
             affected.removeEffect(GGEffects.HYDRO.get());
             affected.removeEffect(GGEffects.DENDRO.get());
             return;
         }
         if (affected.hasEffect(GGEffects.ELECTRO.get()) && affected.hasEffect(GGEffects.CRYO.get())) {
-            this.doElementalExplosion(affected, DamageSource.FREEZE);
+            this.doElementalExplosion(affected, GGDamageSource.CRYO);
             affected.removeEffect(GGEffects.ELECTRO.get());
             affected.removeEffect(GGEffects.CRYO.get());
             return;
@@ -128,7 +131,7 @@ public class ElementalEffect extends MobEffect {
         float f = 8.0F;
         Vec3 vec3 = affected.position();
 
-        for(LivingEntity le : affected.level.getEntitiesOfClass(Mob.class, affected.getBoundingBox().inflate(3.0D))) {
+        for(LivingEntity le : affected.level.getEntitiesOfClass(Mob.class, affected.getBoundingBox().inflate(distance))) {
             if (!(affected.distanceToSqr(le) > 25.0D)) {
                 boolean flag = false;
 

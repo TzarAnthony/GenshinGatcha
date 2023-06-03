@@ -2,7 +2,7 @@ package com.tzaranthony.genshingatcha.core.entities.projectiles;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import com.tzaranthony.genshingatcha.core.character.Character;
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
@@ -135,7 +135,7 @@ public class ElectroTurret extends Entity {
     }
 
     private AbstractArrow getArrow() {
-        AbstractArrow abstractarrow = new ElementalArrow(this.owner, Character.Element.ELECTRO, this.level);
+        AbstractArrow abstractarrow = new ElementalArrow(this.owner, Element.E.ELECTRO, this.level);
         abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
         abstractarrow.setShotFromCrossbow(true);
         if (this.constRank >= 3) {

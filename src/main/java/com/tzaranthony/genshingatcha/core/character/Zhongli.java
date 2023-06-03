@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
 import com.tzaranthony.genshingatcha.core.entities.elements.FallingMeteor;
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -50,7 +51,7 @@ public class Zhongli extends Character {
     }
 
     @Override
-    public Element getElement() {
-        return Element.GEO;
+    public Element.E getElement() {
+        return Element.E.GEO;
     }
 }

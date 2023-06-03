@@ -2,20 +2,19 @@ package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
-import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -24,11 +23,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
-public class MeleeHilichurl extends AbstractHilichurl {
+public class EliteHilichurl extends AbstractHilichurl {
     protected int cannotUseItemRemaining;
+    private static final UUID FAST_FALLING_ID = UUID.fromString("d4cc6724-db47-4503-969c-d9ff00aa8758");
+    private static final AttributeModifier FAST_FALLING = new AttributeModifier(FAST_FALLING_ID, "Gravity acceleration", 0.08, AttributeModifier.Operation.ADDITION); // Add -0.07 to 0.08 so we get the vanilla default of 0.01
 
-    public MeleeHilichurl(EntityType<? extends AbstractHilichurl> type, Level level) {
+    public EliteHilichurl(EntityType<? extends AbstractHilichurl> type, Level level) {
         super(type, level);
     }
 
@@ -75,10 +77,8 @@ public class MeleeHilichurl extends AbstractHilichurl {
         return spawngroupdata;
     }
 
-    @Override
-    public void stopUsingItem() {
-        super.stopUsingItem();
-        this.cannotUseItemRemaining = 100;
+    public boolean causeFallDamage(float p_149717_, float p_149718_, DamageSource p_149719_) {
+        return false;
     }
 
     @Override
@@ -94,17 +94,12 @@ public class MeleeHilichurl extends AbstractHilichurl {
                 tgt.setSecondsOnFire(i * 4);
             }
 
-            tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.element).getEffect(), 200));
+            tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.element).getEffect(), 100));
             boolean flag = tgt.hurt(GGDamageSource.mobElementAttack(this, this.element), f);
             if (flag) {
                 if (f1 > 0.0F) {
                     tgt.knockback((f1 * 0.5F), Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));
                     this.setDeltaMovement(this.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
-                }
-
-                if (tgt instanceof Player) {
-                    Player player = (Player)tgt;
-                    this.maybeDisableShield(player, this.getMainHandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
                 }
 
                 this.doEnchantDamageEffects(this, tgt);
@@ -115,41 +110,16 @@ public class MeleeHilichurl extends AbstractHilichurl {
         return super.doHurtTarget(target);
     }
 
-    private void maybeDisableShield(Player player, ItemStack weaponStack, ItemStack shieldStack) {
-        if (!weaponStack.isEmpty() && !shieldStack.isEmpty() && weaponStack.getItem() instanceof AxeItem && shieldStack.is(Items.SHIELD)) {
-            float f = 0.25F + (float)EnchantmentHelper.getBlockEfficiency(this) * 0.05F;
-            if (this.random.nextFloat() < f) {
-                player.getCooldowns().addCooldown(Items.SHIELD, 100);
-                this.level.broadcastEntityEvent(player, (byte)30);
-            }
-        }
-    }
-
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-        ItemStack stack;
-        switch (this.level.random.nextInt(6)) {
-            case 0:
-                stack = new ItemStack(GGItems.SWORD_ONE.get());
-                break;
-            case 1:
-                stack = new ItemStack(GGItems.SWORD_TWO.get());
-                break;
-            case 2:
-                stack = new ItemStack(GGItems.SWORD_THREE.get());
-                break;
-            case 3:
-                stack = new ItemStack(Items.IRON_SWORD);
-                break;
-            default:
-                stack = new ItemStack(Items.IRON_AXE);
-                break;
+        if (this.element == Element.E.PYRO.getId()) {
+            //replace with giant axe
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
         }
-        this.setItemSlot(EquipmentSlot.MAINHAND, stack);
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
     }
 
     class WeaponMeleeAttackGoal extends MeleeAttackGoal {
-        public WeaponMeleeAttackGoal(MeleeHilichurl hilichurl) {
+        //TODO: add attack sequences and elemental effects
+        public WeaponMeleeAttackGoal(EliteHilichurl hilichurl) {
             super(hilichurl, 1.0D, false);
         }
 

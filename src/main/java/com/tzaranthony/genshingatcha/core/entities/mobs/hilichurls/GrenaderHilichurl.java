@@ -1,8 +1,7 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
-import com.tzaranthony.genshingatcha.core.character.Character;
 import com.tzaranthony.genshingatcha.core.entities.projectiles.ExplodingThrownPotion;
-import com.tzaranthony.genshingatcha.registries.GGPotions;
+import com.tzaranthony.genshingatcha.core.util.Element;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -44,8 +42,8 @@ public class GrenaderHilichurl  extends AbstractHilichurl implements RangedAttac
         double d1 = tgt.getEyeY() - (double)1.1F - this.getY();
         double d2 = tgt.getZ() + vec3.z - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        Potion potion = getPotionForElement();
-        ExplodingThrownPotion etp = new ExplodingThrownPotion(this.level, this);
+        Potion potion = Element.ElementGetter.get(this.element).getPotion();
+        ExplodingThrownPotion etp = new ExplodingThrownPotion(this.level, this, this.element);
         etp.setItem(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion));
         etp.setXRot(etp.getXRot() - -20.0F);
         etp.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
@@ -53,24 +51,5 @@ public class GrenaderHilichurl  extends AbstractHilichurl implements RangedAttac
             this.level.playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_THROW, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
         }
         this.level.addFreshEntity(etp);
-    }
-
-    public Potion getPotionForElement() {
-        if (this.element == Character.Element.CRYO.getId()) {
-            return GGPotions.CRYO.get();
-        } else if (this.element == Character.Element.PYRO.getId()) {
-            return GGPotions.PYRO.get();
-        } else if (this.element == Character.Element.ELECTRO.getId()) {
-            return GGPotions.ELECTRO.get();
-        } else if (this.element == Character.Element.GEO.getId()) {
-            return GGPotions.GEO.get();
-        } else if (this.element == Character.Element.HYDRO.getId()) {
-            return GGPotions.HYDRO.get();
-        } else if (this.element == Character.Element.DENDRO.getId()) {
-            return GGPotions.DENDRO.get();
-        } else if (this.element == Character.Element.ANEMO.getId()) {
-            return GGPotions.ANEMO.get();
-        }
-        return Potions.HARMING;
     }
 }

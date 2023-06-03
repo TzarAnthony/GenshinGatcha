@@ -4,6 +4,7 @@ import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFireCloud;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFrostCloud;
 import com.tzaranthony.genshingatcha.core.entities.elements.FallingMeteor;
+import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.ElementalSlime;
 import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
 import com.tzaranthony.genshingatcha.core.entities.projectiles.ExplodingThrownPotion;
 import net.minecraft.world.entity.EntityType;
@@ -15,9 +16,14 @@ import net.minecraftforge.registries.RegistryObject;
 public class GGEntities {
     public static final DeferredRegister<EntityType<?>> reg = DeferredRegister.create(ForgeRegistries.ENTITIES, GenshinGacha.MOD_ID);
 
+    // mobs
+    public static final RegistryObject<EntityType<ElementalSlime>> ELEMENTAL_SLIME = reg.register("elemental_slime", () ->
+            EntityType.Builder.of(ElementalSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("elemental_slime")
+    );
+
     // arrows
-    public static final RegistryObject<EntityType<ElementalArrow>> ELECTRO_ARROW = reg.register("electro_arrow", () ->
-            EntityType.Builder.<ElementalArrow>of(ElementalArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("electro_arrow")
+    public static final RegistryObject<EntityType<ElementalArrow>> ELEMENTAL_ARROW = reg.register("elemental_arrow", () ->
+            EntityType.Builder.<ElementalArrow>of(ElementalArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("elemental_arrow")
     );
     public static final RegistryObject<EntityType<ExplodingThrownPotion>> EXPLODING_POTION = reg.register("exploding_potion", () ->
             EntityType.Builder.<ExplodingThrownPotion>of(ExplodingThrownPotion::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build("exploding_potion")

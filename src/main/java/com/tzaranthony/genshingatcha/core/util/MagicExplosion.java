@@ -6,9 +6,9 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
@@ -22,7 +22,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class MagicExplosion extends Explosion {
@@ -33,34 +32,35 @@ public class MagicExplosion extends Explosion {
     private final double x;
     private final double y;
     private final double z;
-    @Nullable
     private final Entity source;
     private final float radius;
+    private final int element;
     private final DamageSource damageSource;
     private final ExplosionDamageCalculator damageCalculator;
     private final List<BlockPos> toBlow = Lists.newArrayList();
     private final Map<Player, Vec3> hitPlayers = Maps.newHashMap();
     private final float dmgBonus;
 
-    public MagicExplosion(Entity entity, double x, double y, double z, float radius, float dmgBonus) {
-        this(entity.level, entity, x, y, z, radius, false, dmgBonus);
+    public MagicExplosion(Entity entity, double x, double y, double z, float radius, int element, float dmgBonus) {
+        this(entity.level, entity, x, y, z, radius, element, false, dmgBonus);
     }
 
-    public MagicExplosion(Level p_46051_, @Nullable Entity p_46052_, double x, double y, double z, float radius, boolean fires, float dmgBonus) {
-        super(p_46051_, p_46052_, null, null, x, y, z, radius, fires, BlockInteraction.NONE);
-        this.level = p_46051_;
-        this.source = p_46052_;
+    public MagicExplosion(Level level, Entity entity, double x, double y, double z, float radius, int element, boolean fires, float dmgBonus) {
+        super(level, entity, Element.ElementGetter.get(element).getDamage(), null, x, y, z, radius, fires, BlockInteraction.NONE);
+        this.level = level;
+        this.source = entity;
         this.radius = radius;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.damageSource = DamageSource.explosion(this);
-        this.damageCalculator = this.makeDamageCalculator(p_46052_);
+        this.element = element;
+        this.damageSource = Element.ElementGetter.get(element).getDamage();
+        this.damageCalculator = this.makeDamageCalculator(entity);
         this.fire = fires;
         this.dmgBonus = dmgBonus;
     }
 
-    private ExplosionDamageCalculator makeDamageCalculator(@Nullable Entity p_46063_) {
+    private ExplosionDamageCalculator makeDamageCalculator(Entity p_46063_) {
         return (p_46063_ == null ? EXPLOSION_DAMAGE_CALCULATOR : new EntityBasedExplosionDamageCalculator(p_46063_));
     }
 
@@ -125,7 +125,7 @@ public class MagicExplosion extends Explosion {
 
         for(int k2 = 0; k2 < list.size(); ++k2) {
             Entity entity = list.get(k2);
-            if (!entity.ignoreExplosion() && !(entity instanceof Player) && !(entity instanceof TamableAnimal)) {
+            if (!entity.ignoreExplosion() && !isLivingAlly(entity)) {
                 double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double)f2;
                 if (d12 <= 1.0D) {
                     double d5 = entity.getX() - this.x;
@@ -140,8 +140,9 @@ public class MagicExplosion extends Explosion {
                         double d10 = (1.0D - d12) * d14;
                         entity.hurt(this.getDamageSource(), this.dmgBonus + (float)((int)((d10 * d10 + d10) / 2.0D * 7.0D * (double)f2 + 1.0D)));
                         double d11 = d10;
-                        if (entity instanceof LivingEntity) {
-                            d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity)entity, d10);
+                        if (entity instanceof LivingEntity le) {
+                            d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener(le, d10);
+                            le.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.element).getEffect(), 200));
                         }
 
                         entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
@@ -149,6 +150,10 @@ public class MagicExplosion extends Explosion {
                 }
             }
         }
+    }
+
+    private boolean isLivingAlly(Entity entity) {
+        return entity instanceof LivingEntity tgt && this.source instanceof LivingEntity owner && EntityUtil.ignoreElementAttackEntity(tgt, owner);
     }
 
     public Map<Player, Vec3> getHitPlayers() {

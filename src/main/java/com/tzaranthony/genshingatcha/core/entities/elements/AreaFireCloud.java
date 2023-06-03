@@ -1,6 +1,7 @@
 package com.tzaranthony.genshingatcha.core.entities.elements;
 
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
+import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
 import net.minecraft.core.particles.ParticleTypes;
@@ -73,7 +74,7 @@ public class AreaFireCloud extends FullParticleCloudEntity {
         if (!EntityUtil.ignoreElementAttackEntity(le, this.owner)) {
             float dmg = 2.0F + (this.constRank >= 3 ? 1.0F : 0.0F);
             dmg = dmg * (this.isSecond ? 1.4F : 1.0F);
-            le.hurt(DamageSource.ON_FIRE, dmg);
+            le.hurt(GGDamageSource.PYRO, dmg);
             le.setSecondsOnFire(10);
             le.addEffect(new MobEffectInstance(GGEffects.PYRO.get(), 100));
         }

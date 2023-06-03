@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFrostCloud;
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -59,7 +60,7 @@ public class Qiqi extends Character {
     }
 
     @Override
-    public Element getElement() {
-        return Element.CRYO;
+    public Element.E getElement() {
+        return Element.E.CRYO;
     }
 }

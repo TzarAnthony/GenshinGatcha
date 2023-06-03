@@ -1,9 +1,10 @@
 package com.tzaranthony.genshingatcha.core.entities.elements;
 
+import com.tzaranthony.genshingatcha.core.util.Element;
+import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -37,7 +38,7 @@ public class FireSlice extends AbstractMagicProjectile {
         float dmg = 10.0F + (this.constRank >= 5 ? 5.0F : 0.0F);
         int dur = this.constRank >= 5 ? 20 : 12;
         target.setSecondsOnFire(dur);
-        target.hurt(DamageSource.indirectMagic(this, user).setIsFire(), dmg);
+        target.hurt(GGDamageSource.magicElement(this, user, Element.E.PYRO.getId()).setIsFire(), dmg);
         if (target instanceof LivingEntity) {
             ((LivingEntity) target).addEffect(new MobEffectInstance(GGEffects.PYRO.get(), dur * 20));
         }

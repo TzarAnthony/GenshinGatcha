@@ -1,6 +1,8 @@
 package com.tzaranthony.genshingatcha.core.entities.elements;
 
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
+import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -8,7 +10,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -114,7 +115,7 @@ public class Obelisk extends Entity {
     protected void dealDamageTo(LivingEntity target) {
         if (target.isAlive() && !target.isInvulnerable() && EntityUtil.ignoreElementAttackEntity(target, this.getOwner())) {
             float dmg = 4.0F + (this.constRank >= 3 ? 2.0F : 0.0F);
-            target.hurt(DamageSource.indirectMagic(this, this.getOwner()), dmg);
+            target.hurt(GGDamageSource.indirectMagicElement(this, this.getOwner(), Element.E.GEO.getId()), dmg);
             target.addEffect(new MobEffectInstance(GGEffects.GEO.get()));
         }
     }

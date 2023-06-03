@@ -33,7 +33,7 @@ public class GGClientEvents {
         Player player = Minecraft.getInstance().player;
         if (player != null && !player.isSpectator()) {
             if (GGKeybinds.DASH.consumeClick() && CharacterClient.getDashTicks() <= 0) {
-                double tpAmt = 5.0D;
+                double tpAmt = 8.0D;
                 Vec3 view = player.getViewVector(1.0F);
                 Vec3 wanted = player.getEyePosition().add(view.x * tpAmt, view.y * tpAmt - 1.0D, view.z * tpAmt);
                 BlockPos wantedPos = new BlockPos(wanted.x, wanted.y, wanted.z);

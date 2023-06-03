@@ -7,6 +7,7 @@ import com.tzaranthony.genshingatcha.core.character.Character;
 import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
 import com.tzaranthony.genshingatcha.core.items.util.ElementalWeapon;
 import com.tzaranthony.genshingatcha.core.items.util.GGBowMaterial;
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.registries.GGCharacters;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -61,7 +62,7 @@ public class ElementalBow extends BowItem implements ElementalWeapon {
                 if (isOffCooldown(bowStack.getOrCreateTag())) {
                     Character character = GGCharacters.characterMap.get(CharacterHelper.getCharacter(sPlayer));
                     if (character != null) {
-                        Character.Element element = character.getElement();
+                        Element.E element = character.getElement();
                         abstractarrow = new ElementalArrow(sPlayer, element, level);
                         this.resetCooldown(bowStack);
                         createdArrow = true;

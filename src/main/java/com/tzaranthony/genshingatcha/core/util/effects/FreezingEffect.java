@@ -1,6 +1,6 @@
 package com.tzaranthony.genshingatcha.core.util.effects;
 
-import net.minecraft.world.damagesource.DamageSource;
+import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,7 +12,7 @@ public class FreezingEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity affected, int amplifier) {
-        affected.hurt(DamageSource.FREEZE, (float) (amplifier + 1));
+        affected.hurt(GGDamageSource.CRYO, (float) (amplifier + 1));
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.core.entities.elements;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.MagicExplosion;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
 import net.minecraft.core.BlockPos;
@@ -150,7 +151,7 @@ public class FallingMeteor extends Projectile {
             dmgBonus = 5.0F;
         }
 
-        MagicExplosion explosion = new MagicExplosion(this.getOwner(), this.getX(), this.getY(), this.getZ(), radius, dmgBonus);
+        MagicExplosion explosion = new MagicExplosion(this.getOwner(), this.getX(), this.getY(), this.getZ(), radius, Element.E.GEO.getId(), dmgBonus);
         if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this.level, explosion)) return;
         explosion.explode();
         explosion.finalizeExplosion(true);

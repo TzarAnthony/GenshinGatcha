@@ -65,9 +65,10 @@ public class CrossbowHilichurl extends AbstractHilichurl implements CrossbowAtta
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
+        SpawnGroupData spawngroupdata = super.finalizeSpawn(accessor, difficulty, spawnType, groupData, tag);
         this.populateDefaultEquipmentSlots(difficulty);
         this.populateDefaultEquipmentEnchantments(difficulty);
-        return super.finalizeSpawn(accessor, difficulty, spawnType, groupData, tag);
+        return spawngroupdata;
     }
 
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {

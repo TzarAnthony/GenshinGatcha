@@ -1,8 +1,12 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
+import com.tzaranthony.genshingatcha.core.util.Element;
+import com.tzaranthony.genshingatcha.core.util.EntityElementDamageSource;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -17,10 +21,9 @@ import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractHilichurl extends Monster implements ElementalMonster {
     protected int element;
@@ -56,6 +59,45 @@ public abstract class AbstractHilichurl extends Monster implements ElementalMons
     public MobType getMobType() {
         //TODO: maybe change this to a custom Hilichurl type
         return MobType.ILLAGER;
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
+        SpawnGroupData spawngroupdata = super.finalizeSpawn(accessor, difficulty, spawnType, groupData, tag);
+        Holder<Biome> holder = accessor.getBiome(this.blockPosition());
+        Biome biome = holder.value();
+        Biome.BiomeCategory cat = Biome.getBiomeCategory(holder);
+        //**
+        // Cold = cryo (0)
+        // Neutral = anemo (6)
+        // Hot = pyro (1)
+        // Mountains = geo (3)
+        // Forest = dendro (5)
+        // Plains = electro (2)
+        // Wetlands = hydro (4)
+        // **//
+        boolean isCold = biome.getBaseTemperature() < 0.15F;
+        boolean isHot = biome.getBaseTemperature() > 1.0F;
+        boolean isWarm = !isCold && !isHot;
+        boolean isMountains = cat == Biome.BiomeCategory.EXTREME_HILLS || cat == Biome.BiomeCategory.MESA || cat == Biome.BiomeCategory.MOUNTAIN;
+        boolean isForest = cat == Biome.BiomeCategory.JUNGLE || cat == Biome.BiomeCategory.FOREST || cat == Biome.BiomeCategory.TAIGA;
+        boolean isPlains = cat == Biome.BiomeCategory.PLAINS || cat == Biome.BiomeCategory.SAVANNA;
+        boolean isHumid = biome.isHumid() && biome.getPrecipitation() != Biome.Precipitation.SNOW;
+
+        return spawngroupdata;
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source == Element.ElementGetter.get(this.element).getDamage() || (source instanceof EntityElementDamageSource eds && eds.getElement() == this.element) || super.isInvulnerableTo(source);
+    }
+
+    public boolean isOnFire() {
+        if (this.element == Element.E.PYRO.getId()) {
+            return false;
+        }
+        return super.isOnFire();
     }
 
     public boolean isAlliedTo(Entity entity) {
@@ -100,19 +142,6 @@ public abstract class AbstractHilichurl extends Monster implements ElementalMons
         CROSSBOW_CHARGE,
         NEUTRAL;
     }
-
-    // move to spawning
-    //**
-    // Cold = cryo (0)
-    // Neutral = anemo (6)
-    // Hot = pyro (1)
-    // Mountains = geo (3)
-    // Forest = dendro (5)
-    // Plains = electro (2)
-    // Wetlands = hydro (4)
-    // **//
-    protected static final Map<Biome, Integer> ElementMap = new HashMap<>() {{
-    }};
 
     protected float getStandingEyeHeight(Pose p_34146_, EntityDimensions p_34147_) {
         return 1.62F;
