@@ -8,13 +8,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Slime;
 
 public class ElementalSlimeRender extends SlimeRenderer {
-    public static final ResourceLocation CRYO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/projectiles/cryo_arrow.png");
-    public static final ResourceLocation PYRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/projectiles/pyro_arrow.png");
-    public static final ResourceLocation ELECTRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/projectiles/electro_arrow.png");
-    public static final ResourceLocation GEO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/projectiles/geo_arrow.png");
-    public static final ResourceLocation HYDRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/projectiles/hydro_arrow.png");
-    public static final ResourceLocation DENDRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/projectiles/dendro_arrow.png");
-    public static final ResourceLocation ANEMO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/projectiles/anemo_arrow.png");
+    public static final ResourceLocation CRYO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/cryo_slime.png");
+    public static final ResourceLocation PYRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/pyro_slime.png");
+    public static final ResourceLocation ELECTRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/electro_slime.png");
+    public static final ResourceLocation GEO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/geo_slime.png");
+    public static final ResourceLocation HYDRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/hydro_slime.png");
+    public static final ResourceLocation DENDRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/dendro_slime.png");
+    public static final ResourceLocation ANEMO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/anemo_slime.png");
 
     public ElementalSlimeRender(EntityRendererProvider.Context context) {
         super(context);
@@ -24,19 +24,25 @@ public class ElementalSlimeRender extends SlimeRenderer {
         if (slime instanceof ElementalSlime es) {
             switch (es.getElement()) {
                 case 0:
-                    return CRYO_LOCATION;
+//                    return CRYO_LOCATION;
+                    return ELECTRO_LOCATION;
                 case 1:
-                    return PYRO_LOCATION;
+//                    return PYRO_LOCATION;
+                    return ELECTRO_LOCATION;
                 case 2:
                     return ELECTRO_LOCATION;
                 case 3:
-                    return GEO_LOCATION;
+//                    return GEO_LOCATION;
+                    return ELECTRO_LOCATION;
                 case 4:
-                    return HYDRO_LOCATION;
+//                    return HYDRO_LOCATION;
+                    return ELECTRO_LOCATION;
                 case 5:
-                    return DENDRO_LOCATION;
+//                    return DENDRO_LOCATION;
+                    return ELECTRO_LOCATION;
                 default:
-                    return ANEMO_LOCATION;
+//                    return ANEMO_LOCATION;
+                    return ELECTRO_LOCATION;
             }
         }
         return super.getTextureLocation(slime);

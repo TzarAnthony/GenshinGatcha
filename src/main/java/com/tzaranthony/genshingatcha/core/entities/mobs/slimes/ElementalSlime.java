@@ -30,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ElementalSlime extends Slime implements ElementalMob {
     protected int element;
+    //TODO: why break???
 
     public ElementalSlime(EntityType<? extends Slime> type, Level level) {
         super(type, level);
@@ -50,8 +51,8 @@ public class ElementalSlime extends Slime implements ElementalMob {
     }
 
     protected void setSize(int size, boolean setHealth) {
-        super.setSize(size, setHealth);
-        this.getAttribute(Attributes.ARMOR).setBaseValue((size * 3));
+//        super.setSize(size, setHealth);
+//        this.getAttribute(Attributes.ARMOR).setBaseValue((size * 3));
     }
 
     @Nullable
@@ -107,14 +108,14 @@ public class ElementalSlime extends Slime implements ElementalMob {
 
     @Override
     protected void dealDamage(LivingEntity le) {
-        if (this.isAlive()) {
-            int i = this.getSize();
-            if (this.distanceToSqr(le) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(le) && le.hurt(GGDamageSource.mobElementAttack(this, this.element), this.getAttackDamage())) {
-                le.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.element).getEffect(), 100));
-                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.doEnchantDamageEffects(this, le);
-            }
-        }
+//        if (this.isAlive()) {
+//            int i = this.getSize();
+//            if (this.distanceToSqr(le) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(le) && le.hurt(GGDamageSource.mobElementAttack(this, this.element), this.getAttackDamage())) {
+//                le.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.element).getEffect(), 100));
+//                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+//                this.doEnchantDamageEffects(this, le);
+//            }
+//        }
     }
 
     public boolean causeFallDamage(float p_149717_, float p_149718_, DamageSource p_149719_) {
