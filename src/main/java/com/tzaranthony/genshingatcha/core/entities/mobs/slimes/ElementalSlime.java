@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ElementalSlime extends Slime implements ElementalMob {
     protected int element;
-    //TODO: why break???
+    //TODO: why attributes break???
 
     public ElementalSlime(EntityType<? extends Slime> type, Level level) {
         super(type, level);
