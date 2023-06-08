@@ -21,30 +21,25 @@ public class ElementalSlimeRender extends SlimeRenderer {
     }
 
     public ResourceLocation getTextureLocation(Slime slime) {
-        if (slime instanceof ElementalSlime es) {
-            switch (es.getElement()) {
-                case 0:
+        return PYRO_LOCATION;
+//        if (slime instanceof ElementalSlime es) {
+//            switch (es.getElement()) {
+//                case 0:
 //                    return CRYO_LOCATION;
-                    return ELECTRO_LOCATION;
-                case 1:
+//                case 1:
 //                    return PYRO_LOCATION;
-                    return ELECTRO_LOCATION;
-                case 2:
-                    return ELECTRO_LOCATION;
-                case 3:
+//                case 2:
+//                    return ELECTRO_LOCATION;
+//                case 3:
 //                    return GEO_LOCATION;
-                    return ELECTRO_LOCATION;
-                case 4:
+//                case 4:
 //                    return HYDRO_LOCATION;
-                    return ELECTRO_LOCATION;
-                case 5:
+//                case 5:
 //                    return DENDRO_LOCATION;
-                    return ELECTRO_LOCATION;
-                default:
+//                default:
 //                    return ANEMO_LOCATION;
-                    return ELECTRO_LOCATION;
-            }
-        }
-        return super.getTextureLocation(slime);
+//            }
+//        }
+//        return super.getTextureLocation(slime);
     }
 }
