@@ -108,6 +108,7 @@ public class ElementalSlime extends Slime implements ElementalMob {
 
     @Override
     protected void dealDamage(LivingEntity le) {
+        //TODO: add extra attacks for max size slimes
 //        if (this.isAlive()) {
 //            int i = this.getSize();
 //            if (this.distanceToSqr(le) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(le) && le.hurt(GGDamageSource.mobElementAttack(this, this.element), this.getAttackDamage())) {
