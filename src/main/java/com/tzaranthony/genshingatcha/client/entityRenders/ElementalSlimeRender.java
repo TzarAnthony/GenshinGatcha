@@ -21,7 +21,7 @@ public class ElementalSlimeRender extends SlimeRenderer {
     }
 
     public ResourceLocation getTextureLocation(Slime slime) {
-        return PYRO_LOCATION;
+        return DENDRO_LOCATION;
 //        if (slime instanceof ElementalSlime es) {
 //            switch (es.getElement()) {
 //                case 0:
