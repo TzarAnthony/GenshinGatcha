@@ -42,8 +42,8 @@ public class GrenaderHilichurl  extends AbstractHilichurl implements RangedAttac
         double d1 = tgt.getEyeY() - (double)1.1F - this.getY();
         double d2 = tgt.getZ() + vec3.z - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        Potion potion = Element.ElementGetter.get(this.element).getPotion();
-        ExplodingThrownPotion etp = new ExplodingThrownPotion(this.level, this, this.element);
+        Potion potion = Element.ElementGetter.get(this.getElement()).getPotion();
+        ExplodingThrownPotion etp = new ExplodingThrownPotion(this.level, this, this.getElement());
         etp.setItem(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion));
         etp.setXRot(etp.getXRot() - -20.0F);
         etp.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);

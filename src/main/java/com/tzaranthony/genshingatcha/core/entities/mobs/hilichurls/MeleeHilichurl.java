@@ -94,8 +94,8 @@ public class MeleeHilichurl extends AbstractHilichurl {
                 tgt.setSecondsOnFire(i * 4);
             }
 
-            tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.element).getEffect(), 200));
-            boolean flag = tgt.hurt(GGDamageSource.mobElementAttack(this, this.element), f);
+            tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 200));
+            boolean flag = tgt.hurt(GGDamageSource.mobElementAttack(this, this.getElement()), f);
             if (flag) {
                 if (f1 > 0.0F) {
                     tgt.knockback((f1 * 0.5F), Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));

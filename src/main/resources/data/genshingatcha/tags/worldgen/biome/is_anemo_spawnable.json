@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:is_peak",
+    "#forge:is_plains",
+    "#forge:is_plateau",
+    "#forge:is_slope",
+    "#forge:is_sparse"
+  ]
+}

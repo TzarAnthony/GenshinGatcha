@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:is_beach",
+    "#forge:is_lush",
+    "#forge:is_swamp",
+    "#forge:is_wet",
+    "minecraft:dripstone_caves"
+  ]
+}

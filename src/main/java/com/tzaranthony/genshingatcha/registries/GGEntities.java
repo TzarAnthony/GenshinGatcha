@@ -9,6 +9,7 @@ import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
 import com.tzaranthony.genshingatcha.core.entities.projectiles.ExplodingThrownPotion;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -48,6 +49,6 @@ public class GGEntities {
 
     @SubscribeEvent
     public static void bakeAttributes(EntityAttributeCreationEvent creationEvent) {
-        creationEvent.put(ELEMENTAL_SLIME.get(), ElementalSlime.createMobAttributes().build());
+        creationEvent.put(ELEMENTAL_SLIME.get(), Monster.createMonsterAttributes().build());
     }
 }

@@ -125,7 +125,7 @@ public class CrossbowHilichurl extends AbstractHilichurl implements CrossbowAtta
 
     @Override
     public void shootCrossbowProjectile(LivingEntity tgt, ItemStack bowStack, Projectile prj, float offset) {
-        ElementalArrow ea = new ElementalArrow(this, this.element, this.level);
+        ElementalArrow ea = new ElementalArrow(this, this.getElement(), this.level);
         this.shootCrossbowProjectile(this, tgt, ea, offset, power);
     }
 

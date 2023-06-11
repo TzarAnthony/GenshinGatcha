@@ -94,8 +94,8 @@ public class EliteHilichurl extends AbstractHilichurl {
                 tgt.setSecondsOnFire(i * 4);
             }
 
-            tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.element).getEffect(), 100));
-            boolean flag = tgt.hurt(GGDamageSource.mobElementAttack(this, this.element), f);
+            tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 100));
+            boolean flag = tgt.hurt(GGDamageSource.mobElementAttack(this, this.getElement()), f);
             if (flag) {
                 if (f1 > 0.0F) {
                     tgt.knockback((f1 * 0.5F), Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));
@@ -111,7 +111,7 @@ public class EliteHilichurl extends AbstractHilichurl {
     }
 
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-        if (this.element == Element.E.PYRO.getId()) {
+        if (this.getElement() == Element.E.PYRO.getId()) {
             //replace with giant axe
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
         }

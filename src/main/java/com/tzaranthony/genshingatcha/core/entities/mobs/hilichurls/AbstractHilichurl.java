@@ -2,9 +2,13 @@ package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
 import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalGroupData;
 import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalMob;
+import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.ElementalSlime;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityElementDamageSource;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -26,7 +30,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractHilichurl extends Monster implements ElementalMob {
-    protected int element;
+    private static final EntityDataAccessor<Integer> ELEMENT = SynchedEntityData.defineId(ElementalSlime.class, EntityDataSerializers.INT);
 
     public AbstractHilichurl(EntityType<? extends AbstractHilichurl> type, Level level) {
         super(type, level);
@@ -46,14 +50,27 @@ public abstract class AbstractHilichurl extends Monster implements ElementalMob 
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ELEMENT, 1);
+    }
+
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putInt("Element", this.element);
+        tag.putInt("Element", this.getElement());
     }
 
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.element = tag.getInt("Element");
+        this.setElement(tag.getInt("Element"));
+    }
+
+    public void setElement(int elementId) {
+        this.entityData.set(ELEMENT, elementId);
+    }
+
+    public int getElement() {
+        return this.entityData.get(ELEMENT);
     }
 
     public MobType getMobType() {
@@ -66,18 +83,18 @@ public abstract class AbstractHilichurl extends Monster implements ElementalMob 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
         groupData = super.finalizeSpawn(accessor, difficulty, spawnType, groupData, tag);
         int eSetter = getElementFromBiome(accessor.getBiome(this.blockPosition()), this.random);
-        this.element = eSetter;
+        this.setElement(eSetter);
         groupData = new ElementalGroupData(eSetter);
         return groupData;
     }
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source == Element.ElementGetter.get(this.element).getDamage() || (source instanceof EntityElementDamageSource eds && eds.getElement() == this.element) || super.isInvulnerableTo(source);
+        return source == Element.ElementGetter.get(this.getElement()).getDamage() || (source instanceof EntityElementDamageSource eds && eds.getElement() == this.getElement()) || super.isInvulnerableTo(source);
     }
 
     public boolean isOnFire() {
-        if (this.element == Element.E.PYRO.getId()) {
+        if (this.getElement() == Element.E.PYRO.getId()) {
             return false;
         }
         return super.isOnFire();
@@ -103,10 +120,6 @@ public abstract class AbstractHilichurl extends Monster implements ElementalMob 
 
     protected SoundEvent getHurtSound(DamageSource p_33306_) {
         return SoundEvents.PILLAGER_HURT;
-    }
-
-    public int getElement() {
-        return this.element;
     }
 
     public HilichurlArmPose getArmPose() {

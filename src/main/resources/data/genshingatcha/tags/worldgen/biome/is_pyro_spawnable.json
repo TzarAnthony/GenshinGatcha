@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:is_dry",
+    "#forge:is_hot",
+    "#forge:is_sandy",
+    "#forge:is_savanna"
+  ]
+}

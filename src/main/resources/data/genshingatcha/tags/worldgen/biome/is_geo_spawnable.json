@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:is_dry",
+    "#forge:is_peak",
+    "#forge:is_plateau",
+    "#forge:is_sandy",
+    "#forge:is_underground",
+    "#forge:is_slope"
+  ]
+}
