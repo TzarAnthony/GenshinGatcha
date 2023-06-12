@@ -1,5 +1,6 @@
 package com.tzaranthony.genshingatcha.core.entities.elements;
 
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.core.util.effects.FreezingEffectInstance;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
@@ -53,8 +54,11 @@ public class AreaFrostCloud extends FullParticleCloudEntity {
     protected void performOnEntity(LivingEntity le) {
         if (!this.isUlt) {
             if (EntityUtil.ignoreElementAttackEntity(le, this.owner)) {
-                le.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100));
-            } else {
+                int amp = this.constRank >= 5 ? 1 : 0;
+                if (!le.hasEffect(MobEffects.REGENERATION)) {
+                    le.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, amp));
+                }
+            } else if (!EntityUtil.isEntityImmuneToElement(le, Element.E.CRYO.getId())) {
                 int amp = this.constRank >= 5 ? 2 : 0;
                 le.addEffect(new FreezingEffectInstance(60, amp));
                 le.addEffect(new MobEffectInstance(GGEffects.CRYO.get(), 100));
@@ -64,20 +68,20 @@ public class AreaFrostCloud extends FullParticleCloudEntity {
 
     @Override
     protected void performOnDiscard() {
-        if (!this.isUlt) {
+        if (this.isUlt) {
             int amp = 0;
             if (this.constRank >= 3) {
-                amp = 1;
+                amp = 2;
             }
 
             for(LivingEntity le : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())) {
                 if (EntityUtil.ignoreElementAttackEntity(le, this.owner)) {
                     le.heal(4.0F);
                     le.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, amp));
-                    if (this.constRank >= 6 && le instanceof Player player) {
+                    if (this.constRank >= 6 && le instanceof Player player && this.random.nextInt(8) == 0) {
                         player.addItem(new ItemStack(Items.TOTEM_OF_UNDYING));
                     }
-                } else {
+                } else if (!EntityUtil.isEntityImmuneToElement(le, Element.E.CRYO.getId())) {
                     le.addEffect(new FreezingEffectInstance(100, amp));
                     le.addEffect(new MobEffectInstance(GGEffects.CRYO.get(), 200));
                     if (this.constRank >= 4) {

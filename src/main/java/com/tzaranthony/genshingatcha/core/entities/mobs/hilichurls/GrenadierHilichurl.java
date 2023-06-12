@@ -18,8 +18,8 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class GrenaderHilichurl  extends AbstractHilichurl implements RangedAttackMob {
-    public GrenaderHilichurl(EntityType<? extends AbstractHilichurl> type, Level level) {
+public class GrenadierHilichurl extends AbstractHilichurl implements RangedAttackMob {
+    public GrenadierHilichurl(EntityType<? extends AbstractHilichurl> type, Level level) {
         super(type, level);
     }
 

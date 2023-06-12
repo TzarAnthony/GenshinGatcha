@@ -23,6 +23,9 @@ public class ElementalEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity affected, int amplifier) {
+        if (affected.hasEffect(GGEffects.CRYO.get()) && affected.isInWater()) {
+            affected.addEffect(new FreezingEffectInstance(100));
+        }
         if (affected.hasEffect(GGEffects.ANEMO.get()) && hasAnyElementalEffect(affected)) {
             this.doElementalExplosion(affected, GGDamageSource.ANEMO);
             affected.removeEffect(GGEffects.ANEMO.get());

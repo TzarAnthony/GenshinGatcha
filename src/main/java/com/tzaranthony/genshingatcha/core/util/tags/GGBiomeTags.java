@@ -10,7 +10,7 @@ public class GGBiomeTags {
     public static final TagKey<Biome> IS_CRYO = registerBiomeTag("is_cryo_spawnable");
     public static final TagKey<Biome> IS_PYRO = registerBiomeTag("is_pyro_spawnable");
     public static final TagKey<Biome> IS_NOT_ELECTRO = registerBiomeTag("not_electro_spawnable");
-    public static final TagKey<Biome> IS_GEO = registerBiomeTag("is_geoo_spawnable");
+    public static final TagKey<Biome> IS_GEO = registerBiomeTag("is_geo_spawnable");
     public static final TagKey<Biome> IS_HYDRO = registerBiomeTag("is_hydro_spawnable");
     public static final TagKey<Biome> IS_DENDRO = registerBiomeTag("is_dendro_spawnable");
     public static final TagKey<Biome> IS_ANEMO = registerBiomeTag("is_anemo_spawnable");

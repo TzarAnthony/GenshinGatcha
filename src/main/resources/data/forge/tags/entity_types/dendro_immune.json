@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:silverfish",
+    "minecraft:endermite",
+    "minecraft:spider",
+    "minecraft:cave_spider",
+    "minecraft:panda",
+    "minecraft:rabbit",
+    "minecraft:turtle",
+    "minecraft:cat",
+    "minecraft:ocelot"
+  ]
+}

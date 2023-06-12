@@ -12,7 +12,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class GGEntityRender {
     public static void renderEntities() {
-        EntityRenderers.register(GGEntities.ELEMENTAL_SLIME.get(), ElementalSlimeRender::new);
+        EntityRenderers.register(GGEntities.CRYO_SLIME.get(), ElementalSlimeRender::new);
+        EntityRenderers.register(GGEntities.PYRO_SLIME.get(), ElementalSlimeRender::new);
+        EntityRenderers.register(GGEntities.ELECTRO_SLIME.get(), ElementalSlimeRender::new);
+        EntityRenderers.register(GGEntities.GEO_SLIME.get(), ElementalSlimeRender::new);
+        EntityRenderers.register(GGEntities.HYDRO_SLIME.get(), ElementalSlimeRender::new);
+        EntityRenderers.register(GGEntities.DENDRO_SLIME.get(), ElementalSlimeRender::new);
+        EntityRenderers.register(GGEntities.ANEMO_SLIME.get(), ElementalSlimeRender::new);
+
         EntityRenderers.register(GGEntities.ELEMENTAL_ARROW.get(), ElementalArrowRender::new);
         EntityRenderers.register(GGEntities.EXPLODING_POTION.get(), ThrownItemRenderer::new);
         EntityRenderers.register(GGEntities.FIRE_CLOUD.get(), NoopRenderer::new);

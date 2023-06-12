@@ -80,10 +80,12 @@ public class ElementalBow extends BowItem implements ElementalWeapon {
                 abstractarrow = customArrow(abstractarrow);
                 abstractarrow.shootFromRotation(sPlayer, sPlayer.getXRot(), sPlayer.getYRot(), 0.0F, f * 3.0F, 1.0F);
 
+                double dmgBonus = this.attackDamage;
                 int j = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, bowStack);
                 if (j > 0) {
-                    abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (double)j * 0.5D + 0.5D);
+                    dmgBonus += abstractarrow.getBaseDamage() + (double) j * 0.5D + 0.5D;
                 }
+                abstractarrow.setBaseDamage(dmgBonus);
 
                 int k = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PUNCH_ARROWS, bowStack);
                 if (k > 0) {

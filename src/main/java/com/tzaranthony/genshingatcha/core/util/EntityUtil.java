@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.core.util;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalMob;
 import com.tzaranthony.genshingatcha.core.util.tags.GGItemTags;
 import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.core.BlockPos;
@@ -53,7 +54,14 @@ public class EntityUtil {
     }
 
     public static boolean ignoreElementAttackEntity(LivingEntity le, LivingEntity owner) {
-        return owner.isAlliedTo(le) || (le instanceof TamableAnimal ta && ta.isOwnedBy(owner));
+        return le == owner || (owner.isAlliedTo(le) || (le instanceof TamableAnimal ta && ta.isOwnedBy(owner)));
+    }
+
+    public static boolean isEntityImmuneToElement(LivingEntity le, int elementId) {
+        if (le instanceof ElementalMob em) {
+            return em.getElement() == elementId;
+        }
+        return Element.ElementGetter.get(elementId).isEntityImmune(le);
     }
 
     public class deathStorer {

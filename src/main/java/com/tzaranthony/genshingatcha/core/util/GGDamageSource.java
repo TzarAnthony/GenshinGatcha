@@ -28,16 +28,15 @@ public class GGDamageSource extends DamageSource {
     }
 
     public static DamageSource indirectMagicElement(Entity magic, @Nullable Entity owner, int elementId) {
-        return (new IndirectEntityElementDamageSource("indirectMagic", magic, owner, elementId)).setProjectile().setMagic();
+        return (new IndirectEntityElementMagicDamageSource("magic", magic, owner, elementId)).setProjectile().setMagic();
+    }
 
+    public static DamageSource magicElement(AbstractMagicProjectile magic, @Nullable Entity owner, int elementId) {
+        return (new IndirectEntityElementMagicDamageSource("indirectMagic", magic, owner, elementId)).setProjectile().setMagic();
     }
 
     public static DamageSource arrowElement(AbstractArrow arrow, @Nullable Entity owner, int elementId) {
         return (new IndirectEntityElementDamageSource("arrow", arrow, owner, elementId)).setProjectile();
-    }
-
-    public static DamageSource magicElement(AbstractMagicProjectile magic, @Nullable Entity owner, int elementId) {
-        return (new IndirectEntityElementDamageSource("magic", magic, owner, elementId)).setProjectile().setMagic();
     }
 
     public GGDamageSource(String p_19333_) {

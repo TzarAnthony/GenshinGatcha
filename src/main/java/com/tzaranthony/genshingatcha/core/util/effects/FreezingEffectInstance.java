@@ -11,7 +11,7 @@ public class FreezingEffectInstance extends MobEffectInstance {
     }
 
     public FreezingEffectInstance(int duration, int amplifier) {
-        super(GGEffects.FREEZING.get(), 0, 0);
+        super(GGEffects.FREEZING.get(), duration, amplifier);
     }
 
     public boolean tick(LivingEntity affected, Runnable func) {

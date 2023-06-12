@@ -2,7 +2,7 @@ package com.tzaranthony.genshingatcha.client.entityRenders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.tzaranthony.genshingatcha.GenshinGacha;
-import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.ElementalSlime;
+import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.AbstractElementalSlime;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.layers.SlimeOuterLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class ElementalSlimeRender extends MobRenderer<ElementalSlime, SlimeModel<ElementalSlime>> {
+public class ElementalSlimeRender extends MobRenderer<AbstractElementalSlime, SlimeModel<AbstractElementalSlime>> {
     public static final ResourceLocation CRYO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/cryo_slime.png");
     public static final ResourceLocation PYRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/pyro_slime.png");
     public static final ResourceLocation ELECTRO_LOCATION = new ResourceLocation(GenshinGacha.MOD_ID, "textures/entity/slimes/electro_slime.png");
@@ -26,12 +26,12 @@ public class ElementalSlimeRender extends MobRenderer<ElementalSlime, SlimeModel
         this.addLayer(new SlimeOuterLayer<>(this, context.getModelSet()));
     }
 
-    public void render(ElementalSlime slime, float v, float pTick, PoseStack pose, MultiBufferSource buff, int lighting) {
+    public void render(AbstractElementalSlime slime, float v, float pTick, PoseStack pose, MultiBufferSource buff, int lighting) {
         this.shadowRadius = 0.25F * (float) slime.getSize();
         super.render(slime, v, pTick, pose, buff, lighting);
     }
 
-    protected void scale(ElementalSlime slime, PoseStack pose, float pTick) {
+    protected void scale(AbstractElementalSlime slime, PoseStack pose, float pTick) {
         float f = 0.999F;
         pose.scale(0.999F, 0.999F, 0.999F);
         pose.translate(0.0D, (double)0.001F, 0.0D);
@@ -41,7 +41,7 @@ public class ElementalSlimeRender extends MobRenderer<ElementalSlime, SlimeModel
         pose.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
     }
 
-    public ResourceLocation getTextureLocation(ElementalSlime slime) {
+    public ResourceLocation getTextureLocation(AbstractElementalSlime slime) {
         switch (slime.getElement()) {
             case 0:
                 return CRYO_LOCATION;

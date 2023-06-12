@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -110,6 +111,25 @@ public class GGItems {
     public static final RegistryObject<Item> QIQI_C4 = reg.register("qiqi_c4", () -> new CharacterCard(GGCharacters.QIQI.getCharacterID(), 4, CharacterRarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> QIQI_C5 = reg.register("qiqi_c5", () -> new CharacterCard(GGCharacters.QIQI.getCharacterID(), 5, CharacterRarity(Rarity.RARE)));
     public static final RegistryObject<Item> QIQI_C6 = reg.register("qiqi_c6", () -> new CharacterCard(GGCharacters.QIQI.getCharacterID(), 6, CharacterRarity(Rarity.EPIC)));
+
+    static {
+        initSpawnEggs();
+    }
+
+    public static void initSpawnEggs() {
+        reg.register("spawn_egg_cryo_slime", () -> new ForgeSpawnEggItem(GGEntities.CRYO_SLIME, 3035890, 3064050, new Item.Properties().tab(GenshinGacha.TAB)));
+        reg.register("spawn_egg_pyro_slime", () -> new ForgeSpawnEggItem(GGEntities.PYRO_SLIME, 12155392, 12866101, new Item.Properties().tab(GenshinGacha.TAB)));
+        reg.register("spawn_egg_electro_slime", () -> new ForgeSpawnEggItem(GGEntities.ELECTRO_SLIME, 6291655, 13458155, new Item.Properties().tab(GenshinGacha.TAB)));
+        reg.register("spawn_egg_geo_slime", () -> new ForgeSpawnEggItem(GGEntities.GEO_SLIME, 4601388, 7960954, new Item.Properties().tab(GenshinGacha.TAB)));
+        reg.register("spawn_egg_hydro_slime", () -> new ForgeSpawnEggItem(GGEntities.HYDRO_SLIME, 3113465, 3130566, new Item.Properties().tab(GenshinGacha.TAB)));
+        reg.register("spawn_egg_dendro_slime", () -> new ForgeSpawnEggItem(GGEntities.DENDRO_SLIME, 5996835, 7189585, new Item.Properties().tab(GenshinGacha.TAB)));
+        reg.register("spawn_egg_anemo_slime", () -> new ForgeSpawnEggItem(GGEntities.ANEMO_SLIME, 59569, 3128459, new Item.Properties().tab(GenshinGacha.TAB)));
+
+//        reg.register("spawn_egg_melee_hilichurl", () -> new ForgeSpawnEggItem(GGEntities.ANEMO_SLIME, 3093086, 11810445, new Item.Properties().tab(GenshinGacha.TAB)));
+//        reg.register("spawn_egg_crossbow_hilichurl", () -> new ForgeSpawnEggItem(GGEntities.ANEMO_SLIME, 3093086, 15480479, new Item.Properties().tab(GenshinGacha.TAB)));
+//        reg.register("spawn_egg_grenadier_hilichurl", () -> new ForgeSpawnEggItem(GGEntities.ANEMO_SLIME, 3093086, 4279967, new Item.Properties().tab(GenshinGacha.TAB)));
+//        reg.register("spawn_egg_elite_hilichurl", () -> new ForgeSpawnEggItem(GGEntities.ANEMO_SLIME, 3093086, 10836496, new Item.Properties().tab(GenshinGacha.TAB)));
+    }
 
     public static Item.Properties Standard() {
         return new Item.Properties().tab(GenshinGacha.TAB);

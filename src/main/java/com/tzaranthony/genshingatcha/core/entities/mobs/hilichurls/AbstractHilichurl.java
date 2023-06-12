@@ -2,7 +2,7 @@ package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
 import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalGroupData;
 import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalMob;
-import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.ElementalSlime;
+import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.AbstractElementalSlime;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityElementDamageSource;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +30,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractHilichurl extends Monster implements ElementalMob {
-    private static final EntityDataAccessor<Integer> ELEMENT = SynchedEntityData.defineId(ElementalSlime.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ELEMENT = SynchedEntityData.defineId(AbstractElementalSlime.class, EntityDataSerializers.INT);
 
     public AbstractHilichurl(EntityType<? extends AbstractHilichurl> type, Level level) {
         super(type, level);

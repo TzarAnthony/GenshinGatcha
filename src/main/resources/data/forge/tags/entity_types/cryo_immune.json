@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wither",
+    "minecraft:stray",
+    "minecraft:polar_bear",
+    "minecraft:snow_golem",
+    "minecraft:goat",
+    "minecraft:llama",
+    "minecraft:sheep",
+    "minecraft:fox"
+  ]
+}

@@ -1,5 +1,6 @@
 package com.tzaranthony.genshingatcha.core.entities.elements;
 
+import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
@@ -71,7 +72,7 @@ public class AreaFireCloud extends FullParticleCloudEntity {
 
     @Override
     protected void performOnEntity(LivingEntity le) {
-        if (!EntityUtil.ignoreElementAttackEntity(le, this.owner)) {
+        if (!EntityUtil.ignoreElementAttackEntity(le, this.owner) && !EntityUtil.isEntityImmuneToElement(le, Element.E.PYRO.getId())) {
             float dmg = 2.0F + (this.constRank >= 3 ? 1.0F : 0.0F);
             dmg = dmg * (this.isSecond ? 1.4F : 1.0F);
             le.hurt(GGDamageSource.PYRO, dmg);
@@ -89,7 +90,7 @@ public class AreaFireCloud extends FullParticleCloudEntity {
         double range = 5.0D;
         Vec3 vec3 = this.position();
         for (LivingEntity le : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(3.0D))) {
-            if (!(this.distanceToSqr(le) > 25.0D) && !EntityUtil.ignoreElementAttackEntity(le, this.owner)) {
+            if (!(this.distanceToSqr(le) > 25.0D) && !EntityUtil.ignoreElementAttackEntity(le, this.owner) && !EntityUtil.isEntityImmuneToElement(le, Element.E.PYRO.getId())) {
                 boolean flag = false;
                 for(int i = 0; i < 2; ++i) {
                     Vec3 vec31 = new Vec3(le.getX(), le.getY(0.5D * (double)i), le.getZ());

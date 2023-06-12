@@ -50,7 +50,7 @@ public class GenshinGacha {
     private void ClientSetup(final FMLClientSetupEvent event) {
         GGKeybinds.registerKeybinds();
         GGEntityRender.renderEntities();
-//        GGItemsRender.renderItemProperties();
+        GGItemsRender.renderItemProperties();
         GGScreenRender.renderScreens();
         MinecraftForge.EVENT_BUS.register(new GGClientEvents());
     }

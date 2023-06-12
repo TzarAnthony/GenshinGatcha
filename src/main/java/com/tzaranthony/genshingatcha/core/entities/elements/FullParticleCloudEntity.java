@@ -13,7 +13,7 @@ public abstract class FullParticleCloudEntity extends ParticleCloudEntity{
     }
 
     public void tick() {
-        if (!this.isWaiting()) {
+        if (!this.isWaiting() && this.owner != null) {
             List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
             if (!entities.isEmpty()) {
                 for(LivingEntity le : entities) {
@@ -22,7 +22,7 @@ public abstract class FullParticleCloudEntity extends ParticleCloudEntity{
             }
         }
 
-        if (this.tickCount >= this.waitTime + this.lifespan) {
+        if (this.tickCount >= this.waitTime + this.lifespan && this.owner != null) {
             this.performOnDiscard();
         }
 

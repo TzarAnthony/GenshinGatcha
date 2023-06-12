@@ -4,7 +4,7 @@ import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFireCloud;
 import com.tzaranthony.genshingatcha.core.entities.elements.AreaFrostCloud;
 import com.tzaranthony.genshingatcha.core.entities.elements.FallingMeteor;
-import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.ElementalSlime;
+import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.*;
 import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
 import com.tzaranthony.genshingatcha.core.entities.projectiles.ExplodingThrownPotion;
 import net.minecraft.world.entity.EntityType;
@@ -22,8 +22,26 @@ public class GGEntities {
     public static final DeferredRegister<EntityType<?>> reg = DeferredRegister.create(ForgeRegistries.ENTITIES, GenshinGacha.MOD_ID);
 
     // mobs
-    public static final RegistryObject<EntityType<ElementalSlime>> ELEMENTAL_SLIME = reg.register("elemental_slime", () ->
-            EntityType.Builder.of(ElementalSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("elemental_slime")
+    public static final RegistryObject<EntityType<CryoSlime>> CRYO_SLIME = reg.register("cryo_slime", () ->
+            EntityType.Builder.of(CryoSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("cryo_slime")
+    );
+    public static final RegistryObject<EntityType<PyroSlime>> PYRO_SLIME = reg.register("pyro_slime", () ->
+            EntityType.Builder.of(PyroSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("pyro_slime")
+    );
+    public static final RegistryObject<EntityType<ElectroSlime>> ELECTRO_SLIME = reg.register("electro_slime", () ->
+            EntityType.Builder.of(ElectroSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("electro_slime")
+    );
+    public static final RegistryObject<EntityType<GeoSlime>> GEO_SLIME = reg.register("geo_slime", () ->
+            EntityType.Builder.of(GeoSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("geo_slime")
+    );
+    public static final RegistryObject<EntityType<HydroSlime>> HYDRO_SLIME = reg.register("hydro_slime", () ->
+            EntityType.Builder.of(HydroSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("hydro_slime")
+    );
+    public static final RegistryObject<EntityType<DendroSlime>> DENDRO_SLIME = reg.register("dendro_slime", () ->
+            EntityType.Builder.of(DendroSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("dendro_slime")
+    );
+    public static final RegistryObject<EntityType<AnemoSlime>> ANEMO_SLIME = reg.register("anemo_slime", () ->
+            EntityType.Builder.of(AnemoSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("anemo_slime")
     );
 
     // arrows
@@ -49,6 +67,12 @@ public class GGEntities {
 
     @SubscribeEvent
     public static void bakeAttributes(EntityAttributeCreationEvent creationEvent) {
-        creationEvent.put(ELEMENTAL_SLIME.get(), Monster.createMonsterAttributes().build());
+        creationEvent.put(CRYO_SLIME.get(), Monster.createMonsterAttributes().build());
+        creationEvent.put(PYRO_SLIME.get(), Monster.createMonsterAttributes().build());
+        creationEvent.put(ELECTRO_SLIME.get(), Monster.createMonsterAttributes().build());
+        creationEvent.put(GEO_SLIME.get(), Monster.createMonsterAttributes().build());
+        creationEvent.put(HYDRO_SLIME.get(), Monster.createMonsterAttributes().build());
+        creationEvent.put(DENDRO_SLIME.get(), Monster.createMonsterAttributes().build());
+        creationEvent.put(ANEMO_SLIME.get(), Monster.createMonsterAttributes().build());
     }
 }
