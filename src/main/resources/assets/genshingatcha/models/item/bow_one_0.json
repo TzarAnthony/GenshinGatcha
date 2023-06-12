@@ -1,0 +1,6 @@
+{
+  "parent": "item/bow",
+  "textures": {
+    "layer0": "genshingatcha:item/bow_one_0"
+  }
+}

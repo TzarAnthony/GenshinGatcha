@@ -1,0 +1,11 @@
+{
+    "parent": "item/bow",
+    "textures": {
+        "layer0": "genshingatcha:item/bow_one"
+    },
+    "overrides": [
+        { "predicate": { "pulling": 1 }, "model": "genshingatcha:item/bow_one_0" },
+        { "predicate": { "pulling": 1, "pull": 0.65 }, "model": "genshingatcha:item/bow_one_1" },
+        { "predicate": { "pulling": 1, "pull": 0.9 }, "model": "genshingatcha:item/bow_one_2" }
+    ]
+}
