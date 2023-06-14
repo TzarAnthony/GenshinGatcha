@@ -2,13 +2,9 @@ package com.tzaranthony.genshingatcha.core.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
-import com.tzaranthony.genshingatcha.core.character.Character;
-import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
 import com.tzaranthony.genshingatcha.core.items.util.ElementalWeapon;
 import com.tzaranthony.genshingatcha.core.items.util.GGBowMaterial;
-import com.tzaranthony.genshingatcha.core.util.Element;
-import com.tzaranthony.genshingatcha.registries.GGCharacters;
+import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -58,17 +54,12 @@ public class ElementalBow extends BowItem implements ElementalWeapon {
             float f = this.getSpeedForTime(i);
             if (!(f < 0.1F)) {
                 AbstractArrow abstractarrow = null;
-                boolean createdArrow = false;
+
                 if (isOffCooldown(bowStack.getOrCreateTag())) {
-                    Character character = GGCharacters.characterMap.get(CharacterHelper.getCharacter(sPlayer));
-                    if (character != null) {
-                        Element.E element = character.getElement();
-                        abstractarrow = new ElementalArrow(sPlayer, element, level);
-                        this.resetCooldown(bowStack);
-                        createdArrow = true;
-                    }
-                }
-                if (!createdArrow) {
+                    ElementalArrowItem arrowitem = (ElementalArrowItem) GGItems.ELEMENTAL_ARROW.get();
+                    abstractarrow = arrowitem.createArrow(level, ItemStack.EMPTY, sPlayer);
+                    this.resetCooldown(bowStack);
+                } else {
                     ArrowItem arrowitem = (ArrowItem) Items.ARROW;
                     abstractarrow = arrowitem.createArrow(level, ItemStack.EMPTY, sPlayer);
                     if (f == 1.0F) {

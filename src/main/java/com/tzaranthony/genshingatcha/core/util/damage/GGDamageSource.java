@@ -1,6 +1,6 @@
-package com.tzaranthony.genshingatcha.core.util;
+package com.tzaranthony.genshingatcha.core.util.damage;
 
-import com.tzaranthony.genshingatcha.core.entities.elements.AbstractMagicProjectile;
+import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.AbstractElementalProjectile;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,7 +31,7 @@ public class GGDamageSource extends DamageSource {
         return (new IndirectEntityElementMagicDamageSource("magic", magic, owner, elementId)).setProjectile().setMagic();
     }
 
-    public static DamageSource magicElement(AbstractMagicProjectile magic, @Nullable Entity owner, int elementId) {
+    public static DamageSource magicElement(AbstractElementalProjectile magic, @Nullable Entity owner, int elementId) {
         return (new IndirectEntityElementMagicDamageSource("indirectMagic", magic, owner, elementId)).setProjectile().setMagic();
     }
 

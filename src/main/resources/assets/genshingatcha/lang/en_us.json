@@ -3,7 +3,7 @@
 
   "item.genshingatcha.primogem": "Primogem",
   "item.genshingatcha.primogem_card": "Primogem Card",
-  "item.genshingatcha.googie_bag": "Goodie Bag",
+  "item.genshingatcha.goodie_bag": "Goodie Bag",
   "item.genshingatcha.sword_one": "Dull Blade",
   "item.genshingatcha.sword_two": "Silver Sword",
   "item.genshingatcha.sword_three": "Dark Iron Sword",
@@ -25,6 +25,12 @@
   "item.genshingatcha.bow_three": "Messenger",
   "item.genshingatcha.bow_four": "Alley Hunter",
   "item.genshingatcha.bow_five": "Aqua Simulacra",
+
+  "item.genshingatcha.artifact_fragment_one": "1 Star Artifact Fragment",
+  "item.genshingatcha.artifact_fragment_two": "2 Star Artifact Fragment",
+  "item.genshingatcha.artifact_fragment_three": "3 Star Artifact Fragment",
+  "item.genshingatcha.artifact_fragment_four": "4 Star Artifact Fragment",
+  "item.genshingatcha.artifact_fragment_five": "5 Star Artifact Fragment",
 
   "item.genshingatcha.helmet_one": "1 Star Helmet Artifact",
   "item.genshingatcha.chestplate_one": "1 Star Chestplate Artifact",

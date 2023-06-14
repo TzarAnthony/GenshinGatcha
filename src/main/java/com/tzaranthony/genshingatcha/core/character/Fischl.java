@@ -1,10 +1,12 @@
 package com.tzaranthony.genshingatcha.core.character;
 
+import com.tzaranthony.genshingatcha.core.items.ElementalBow;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class Fischl extends Character {
     public Fischl(int elementID, int mainCooldown, int ultCooldown) {
@@ -32,5 +34,10 @@ public class Fischl extends Character {
     @Override
     public Element.E getElement() {
         return Element.E.ELECTRO;
+    }
+
+    @Override
+    public boolean hasCorrectWeapon(ItemStack stack) {
+        return stack.getItem() instanceof ElementalBow;
     }
 }

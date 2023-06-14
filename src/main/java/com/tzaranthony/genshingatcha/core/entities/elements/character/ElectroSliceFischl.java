@@ -1,8 +1,9 @@
-package com.tzaranthony.genshingatcha.core.entities.elements;
+package com.tzaranthony.genshingatcha.core.entities.elements.character;
 
+import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.AbstractElementalProjectile;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
-import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -15,12 +16,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class ElectroSlice extends AbstractMagicProjectile {
-    public ElectroSlice(EntityType<? extends AbstractMagicProjectile> projectile, Level level) {
+public class ElectroSliceFischl extends AbstractElementalProjectile {
+    public ElectroSliceFischl(EntityType<? extends AbstractElementalProjectile> projectile, Level level) {
         super(projectile, level);
     }
 
-    public ElectroSlice(EntityType<? extends AbstractMagicProjectile> projectile, Level level, Entity owner, double x, double y, double z, int constRank) {
+    public ElectroSliceFischl(EntityType<? extends AbstractElementalProjectile> projectile, Level level, Entity owner, double x, double y, double z, int constRank) {
         this(projectile, level);
         this.setOwner(owner);
         this.setPos(x, y, z);

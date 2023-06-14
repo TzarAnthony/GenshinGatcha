@@ -32,7 +32,7 @@ public class GenshinGacha {
         GGItems.reg.register(bus);
         GGBlockEntities.reg.register(bus);
 //        GGSounds.reg.register(bus);
-//        GGParticleTypes.reg.register(bus);
+        GGParticleTypes.reg.register(bus);
         GGEffects.reg.register(bus);
         GGPotions.reg.register(bus);
         GGMenus.reg.register(bus);

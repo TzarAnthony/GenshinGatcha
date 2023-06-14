@@ -1,7 +1,8 @@
-package com.tzaranthony.genshingatcha.core.entities.projectiles;
+package com.tzaranthony.genshingatcha.core.entities.elements.character;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.registries.GGEffects;

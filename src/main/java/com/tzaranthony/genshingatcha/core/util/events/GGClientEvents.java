@@ -1,6 +1,9 @@
 package com.tzaranthony.genshingatcha.core.util.events;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
+import com.tzaranthony.genshingatcha.client.HUD.dashBarOverlay;
+import com.tzaranthony.genshingatcha.client.HUD.mainBarOverlay;
+import com.tzaranthony.genshingatcha.client.HUD.ultBarOverlay;
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterClient;
 import com.tzaranthony.genshingatcha.core.items.util.IAttackReachExtending;
 import com.tzaranthony.genshingatcha.core.util.tags.GGItemTags;
@@ -20,6 +23,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -29,9 +34,8 @@ public class GGClientEvents {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        //TODO: add cooldown bar icons
         Player player = Minecraft.getInstance().player;
-        if (player != null && !player.isSpectator()) {
+        if (player != null && !player.isSpectator() && CharacterClient.getChar() != 0) {
             if (GGKeybinds.DASH.consumeClick() && CharacterClient.getDashTicks() <= 0) {
                 double tpAmt = 8.0D;
                 Vec3 view = player.getViewVector(1.0F);
@@ -41,11 +45,23 @@ public class GGClientEvents {
                     player.setPos(wanted.x, wantedPos.getY(), wanted.z);
                 }
                 CharacterClient.resetDashFromUse();
-            } else if (GGKeybinds.ELEMENT_ART.consumeClick() && CharacterClient.getMainTicks() <= 0 && GGCharacters.characterMap.get(CharacterClient.getChar()) != null) {
-                CharacterClient.resetMainFromUse();
-            } else if (GGKeybinds.ULT.consumeClick() && CharacterClient.getUltTicks() <= 0 && GGCharacters.characterMap.get(CharacterClient.getChar()) != null) {
-                CharacterClient.resetUltFromUse();
+            } else if (GGCharacters.characterMap.get(CharacterClient.getChar()).hasCorrectWeapon(player.getMainHandItem())) {
+                if (GGKeybinds.ELEMENT_ART.consumeClick() && CharacterClient.getMainTicks() <= 0) {
+                    CharacterClient.resetMainFromUse();
+                } else if (GGKeybinds.ULT.consumeClick() && CharacterClient.getUltTicks() <= 0) {
+                    CharacterClient.resetUltFromUse();
+                }
             }
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent(receiveCanceled = true)
+    public void onOverlayRender(RenderGameOverlayEvent event) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && CharacterClient.getChar() != 0) {
+            dashBarOverlay.HUD_DASH.render((ForgeIngameGui) Minecraft.getInstance().gui, event.getMatrixStack(), event.getPartialTicks(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight());
+            mainBarOverlay.HUD_MAIN.render((ForgeIngameGui) Minecraft.getInstance().gui, event.getMatrixStack(), event.getPartialTicks(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight());
+            ultBarOverlay.HUD_ULT.render((ForgeIngameGui) Minecraft.getInstance().gui, event.getMatrixStack(), event.getPartialTicks(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight());
         }
     }
 

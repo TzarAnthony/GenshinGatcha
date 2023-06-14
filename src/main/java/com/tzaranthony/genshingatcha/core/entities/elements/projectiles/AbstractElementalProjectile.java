@@ -1,4 +1,4 @@
-package com.tzaranthony.genshingatcha.core.entities.elements;
+package com.tzaranthony.genshingatcha.core.entities.elements.projectiles;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
@@ -15,7 +15,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 
-public abstract class AbstractMagicProjectile extends Projectile {
+public abstract class AbstractElementalProjectile extends Projectile {
     private static final Logger LOGGER = LogUtils.getLogger();
     private int life;
     private int lifetime = 20 + this.random.nextInt(3);
@@ -23,7 +23,7 @@ public abstract class AbstractMagicProjectile extends Projectile {
     protected boolean discardOnEntityHit = false;
     private Class ignoreType = null;
 
-    public AbstractMagicProjectile(EntityType<? extends AbstractMagicProjectile> projectile, Level level) {
+    public AbstractElementalProjectile(EntityType<? extends AbstractElementalProjectile> projectile, Level level) {
         super(projectile, level);
     }
 

@@ -1,8 +1,8 @@
-package com.tzaranthony.genshingatcha.core.entities.elements;
+package com.tzaranthony.genshingatcha.core.entities.elements.character;
 
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
-import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class Obelisk extends Entity {
+public class ObeliskZhongli extends Entity {
     protected int warmupDelayTicks;
     protected boolean sentSpikeEvent;
     protected int lifeTicks = 400;
@@ -30,11 +30,11 @@ public class Obelisk extends Entity {
     protected UUID ownerUUID;
     protected int constRank = 0;
 
-    public Obelisk(EntityType<? extends EvokerFangs> type, Level level) {
+    public ObeliskZhongli(EntityType<? extends EvokerFangs> type, Level level) {
         super(type, level);
     }
 
-    public Obelisk(Level level, double x, double y, double z, float yRot, int warmup, LivingEntity le, int constRank) {
+    public ObeliskZhongli(Level level, double x, double y, double z, float yRot, int warmup, LivingEntity le, int constRank) {
         this(EntityType.EVOKER_FANGS, level);
         this.warmupDelayTicks = warmup;
         this.setOwner(le);

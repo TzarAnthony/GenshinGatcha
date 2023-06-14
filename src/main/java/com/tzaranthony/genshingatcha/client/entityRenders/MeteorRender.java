@@ -2,7 +2,7 @@ package com.tzaranthony.genshingatcha.client.entityRenders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.tzaranthony.genshingatcha.core.entities.elements.FallingMeteor;
+import com.tzaranthony.genshingatcha.core.entities.elements.character.FallingMeteorZhongLi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,13 +15,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class MeteorRender extends EntityRenderer<FallingMeteor> {
+public class MeteorRender extends EntityRenderer<FallingMeteorZhongLi> {
     public MeteorRender(EntityRendererProvider.Context context) {
         super(context);
         this.shadowRadius = 0.5F;
     }
 
-    public void render(FallingMeteor meteor, float p_116178_, float p_116179_, PoseStack pose, MultiBufferSource buffer, int light) {
+    public void render(FallingMeteorZhongLi meteor, float p_116178_, float p_116179_, PoseStack pose, MultiBufferSource buffer, int light) {
         pose.pushPose();
         float size = meteor.getSize();
         pose.scale(size, size, size);
@@ -34,7 +34,7 @@ public class MeteorRender extends EntityRenderer<FallingMeteor> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(FallingMeteor p_114482_) {
+    public ResourceLocation getTextureLocation(FallingMeteorZhongLi p_114482_) {
         return TextureAtlas.LOCATION_BLOCKS;
     }
 }

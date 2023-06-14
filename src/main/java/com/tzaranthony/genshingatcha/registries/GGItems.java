@@ -19,7 +19,7 @@ public class GGItems {
 
     public static final RegistryObject<Item> PRIMOGEM = reg.register("primogem", () -> new Item(Standard().fireResistant()));
     public static final RegistryObject<Item> PRIMO_CARD = reg.register("primogem_card", () -> new PrimoCard(StandardRarity(Rarity.EPIC).stacksTo(1).fireResistant()));
-    public static final RegistryObject<Item> GOODIE_BAG = reg.register("googie_bag", () -> new GoodieBag(StandardRarity(Rarity.RARE).stacksTo(1).fireResistant()));
+    public static final RegistryObject<Item> GOODIE_BAG = reg.register("goodie_bag", () -> new GoodieBag(StandardRarity(Rarity.RARE).stacksTo(1).fireResistant()));
 
     // weapons
     public static final RegistryObject<Item> SWORD_ONE = reg.register("sword_one", () -> new ElementalSword(GGToolMaterial.ONE, 0.0F, Standard()));
@@ -111,6 +111,9 @@ public class GGItems {
     public static final RegistryObject<Item> QIQI_C4 = reg.register("qiqi_c4", () -> new CharacterCard(GGCharacters.QIQI.getCharacterID(), 4, CharacterRarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> QIQI_C5 = reg.register("qiqi_c5", () -> new CharacterCard(GGCharacters.QIQI.getCharacterID(), 5, CharacterRarity(Rarity.RARE)));
     public static final RegistryObject<Item> QIQI_C6 = reg.register("qiqi_c6", () -> new CharacterCard(GGCharacters.QIQI.getCharacterID(), 6, CharacterRarity(Rarity.EPIC)));
+
+    // misc
+    public static final RegistryObject<Item> ELEMENTAL_ARROW = reg.register("elemental_arrow", () -> new ElementalArrowItem(new Item.Properties()));
 
     static {
         initSpawnEggs();

@@ -1,6 +1,6 @@
 package com.tzaranthony.genshingatcha.core.util.effects;
 
-import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;

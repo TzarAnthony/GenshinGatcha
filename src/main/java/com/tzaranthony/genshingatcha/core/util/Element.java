@@ -1,5 +1,6 @@
 package com.tzaranthony.genshingatcha.core.util;
 
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.core.util.tags.GGEntityTags;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import com.tzaranthony.genshingatcha.registries.GGPotions;

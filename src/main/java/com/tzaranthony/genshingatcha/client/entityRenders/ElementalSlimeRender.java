@@ -59,4 +59,8 @@ public class ElementalSlimeRender extends MobRenderer<AbstractElementalSlime, Sl
                 return ANEMO_LOCATION;
         }
     }
+
+    protected boolean isShaking(AbstractElementalSlime slime) {
+        return slime.isShaking() || super.isShaking(slime);
+    }
 }

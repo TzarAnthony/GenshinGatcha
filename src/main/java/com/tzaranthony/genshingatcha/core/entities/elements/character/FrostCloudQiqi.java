@@ -1,5 +1,6 @@
-package com.tzaranthony.genshingatcha.core.entities.elements;
+package com.tzaranthony.genshingatcha.core.entities.elements.character;
 
+import com.tzaranthony.genshingatcha.core.entities.elements.FullParticleCloudEntity;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.core.util.effects.FreezingEffectInstance;
@@ -16,10 +17,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
-public class AreaFrostCloud extends FullParticleCloudEntity {
+public class FrostCloudQiqi extends FullParticleCloudEntity {
     protected boolean isUlt;
 
-    public AreaFrostCloud(EntityType<? extends AreaFrostCloud> type, Level level) {
+    public FrostCloudQiqi(EntityType<? extends FrostCloudQiqi> type, Level level) {
         super(type, level);
         this.setParticle(ParticleTypes.SNOWFLAKE);
         this.lifespan = 60;
@@ -27,7 +28,7 @@ public class AreaFrostCloud extends FullParticleCloudEntity {
         this.setRadius(4.0F);
     }
 
-    public AreaFrostCloud(Level level, double x, double y, double z, float yRot, LivingEntity owner, int constRank, boolean isUlt) {
+    public FrostCloudQiqi(Level level, double x, double y, double z, float yRot, LivingEntity owner, int constRank, boolean isUlt) {
         this(GGEntities.FROST_CLOUD.get(), level);
         this.setPos(x, y, z);
         this.setYRot(yRot);

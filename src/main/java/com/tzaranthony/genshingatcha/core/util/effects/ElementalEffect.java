@@ -1,6 +1,6 @@
 package com.tzaranthony.genshingatcha.core.util.effects;
 
-import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;

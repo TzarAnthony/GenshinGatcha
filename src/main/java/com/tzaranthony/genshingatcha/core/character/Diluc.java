@@ -1,7 +1,8 @@
 package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
-import com.tzaranthony.genshingatcha.core.entities.elements.AreaFireCloud;
+import com.tzaranthony.genshingatcha.core.entities.elements.character.FireCloudDiluc;
+import com.tzaranthony.genshingatcha.core.items.Claymore;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,6 +13,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class Diluc extends Character {
     public Diluc(int elementID, int mainCooldown, int ultCooldown) {
@@ -23,7 +25,7 @@ public class Diluc extends Character {
         if (player instanceof ServerPlayer sPlayer) {
             int constRank = CharacterHelper.getConstRank(sPlayer);
             boolean isSecond = false;
-            if (constRank >= 4 && player.level.getEntitiesOfClass(AreaFireCloud.class, player.getBoundingBox().inflate(8)).size() >= 4) {
+            if (constRank >= 4 && player.level.getEntitiesOfClass(FireCloudDiluc.class, player.getBoundingBox().inflate(8)).size() >= 4) {
                 isSecond = true;
             }
 
@@ -35,7 +37,7 @@ public class Diluc extends Character {
             for (int j = -3; j < 4; ++j) {
                 double k = Math.PI * ((rot + j * 20.0D) / 180.0D);
                 player.swing(InteractionHand.MAIN_HAND);
-                player.level.addFreshEntity(new AreaFireCloud(player.level, x + Math.sin(k) * 2.5D, y - (((float) j) * 0.2F), z + -Math.cos(k) * 2.5D, player.getYRot(), 6 + (j * 2), player,  constRank, isSecond));
+                player.level.addFreshEntity(new FireCloudDiluc(player.level, x + Math.sin(k) * 2.5D, y - (((float) j) * 0.2F), z + -Math.cos(k) * 2.5D, player.getYRot(), 6 + (j * 2), player,  constRank, isSecond));
             }
             if (constRank >= 6) {
                 player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 2));
@@ -71,5 +73,10 @@ public class Diluc extends Character {
     @Override
     public Element.E getElement() {
         return Element.E.PYRO;
+    }
+
+    @Override
+    public boolean hasCorrectWeapon(ItemStack stack) {
+        return stack.getItem() instanceof Claymore;
     }
 }

@@ -1,8 +1,9 @@
-package com.tzaranthony.genshingatcha.core.entities.elements;
+package com.tzaranthony.genshingatcha.core.entities.elements.character;
 
+import com.tzaranthony.genshingatcha.core.entities.elements.FullParticleCloudEntity;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
-import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,19 +19,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Random;
-
-public class AreaFireCloud extends FullParticleCloudEntity {
+public class FireCloudDiluc extends FullParticleCloudEntity {
     protected boolean isSecond;
 
-    public AreaFireCloud(EntityType<? extends AreaFireCloud> type, Level level) {
+    public FireCloudDiluc(EntityType<? extends FireCloudDiluc> type, Level level) {
         super(type, level);
         this.setParticle(ParticleTypes.FLAME);
         this.lifespan = 30;
         this.setRadius(0.5F);
     }
 
-    public AreaFireCloud(Level level, double x, double y, double z, float yRot, int waitTime, LivingEntity owner, int constRank, boolean isSecond) {
+    public FireCloudDiluc(Level level, double x, double y, double z, float yRot, int waitTime, LivingEntity owner, int constRank, boolean isSecond) {
         this(GGEntities.FIRE_CLOUD.get(), level);
         this.setPos(x, y, z);
         this.setYRot(yRot);
@@ -48,26 +47,6 @@ public class AreaFireCloud extends FullParticleCloudEntity {
     protected void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("IsSecond", this.isSecond);
-    }
-
-    @Override
-    public void tick() {
-        if (this.level.isClientSide) {
-            if (this.tickCount >= (this.waitTime / 2 + this.lifespan)) {
-                Random rand = this.random;
-                for(int j = 0; j < 128; ++j) {
-                    double d0 = (double) j / 127.0D;
-                    float f = (rand.nextFloat() - 0.5F) * 0.2F;
-                    float f1 = (rand.nextFloat() - 0.5F) * 0.2F;
-                    float f2 = (rand.nextFloat() - 0.5F) * 0.2F;
-                    double d1 = Mth.lerp(d0, this.xo, this.getX()) + (rand.nextDouble() - 0.5D) * this.getBbWidth() * 2.0D;
-                    double d2 = Mth.lerp(d0, this.yo, this.getY()) + rand.nextDouble() * (double) this.getBbHeight();
-                    double d3 = Mth.lerp(d0, this.zo, this.getZ()) + (rand.nextDouble() - 0.5D) * this.getBbWidth() * 2.0D;
-                    level.addParticle(ParticleTypes.SMALL_FLAME, d1, d2, d3, f, f1, f2);
-                }
-            }
-        }
-        super.tick();
     }
 
     @Override

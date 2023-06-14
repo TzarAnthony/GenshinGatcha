@@ -1,6 +1,6 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
-import com.tzaranthony.genshingatcha.core.entities.projectiles.ExplodingThrownPotion;
+import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ExplodingThrownPotion;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;

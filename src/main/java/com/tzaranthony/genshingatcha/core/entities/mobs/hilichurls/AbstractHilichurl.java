@@ -4,7 +4,7 @@ import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalGroupData;
 import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalMob;
 import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.AbstractElementalSlime;
 import com.tzaranthony.genshingatcha.core.util.Element;
-import com.tzaranthony.genshingatcha.core.util.EntityElementDamageSource;
+import com.tzaranthony.genshingatcha.core.util.damage.EntityElementDamageSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;

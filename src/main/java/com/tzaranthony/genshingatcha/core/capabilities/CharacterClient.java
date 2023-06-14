@@ -47,6 +47,18 @@ public class CharacterClient {
         return dashTicks;
     }
 
+    public static float getMainCooldownPct() {
+        return 1.0F - ((float) mainTicks / (float) GGCharacters.characterMap.get(characterID).getMainCooldown(constRank));
+    }
+
+    public static float getUltCooldownPct() {
+        return 1.0F - ((float) ultTicks / (float) GGCharacters.characterMap.get(characterID).getUltCooldown(constRank));
+    }
+
+    public static float getDashCooldownPct() {
+        return 1.0F - ((float) dashTicks / 60.0F);
+    }
+
     public static void resetMainFromUse() {
         CharacterClient.mainTicks = GGCharacters.characterMap.get(characterID).getMainCooldown(constRank);
         GGPackets.sendToServer(new CharacterC2SPacket(CharacterClient.mainTicks, -1, -1));

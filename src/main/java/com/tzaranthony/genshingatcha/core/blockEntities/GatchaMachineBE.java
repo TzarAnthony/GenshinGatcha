@@ -276,7 +276,7 @@ public class GatchaMachineBE extends BlockEntity implements MenuProvider, Nameab
         put(Direction.SOUTH, LazyOptional.of(() -> new SidedItemHandler(itemHandler, List.of(1), List.of())));
         put(Direction.EAST, LazyOptional.of(() -> new SidedItemHandler(itemHandler, List.of(1), List.of())));
         put(Direction.WEST, LazyOptional.of(() -> new SidedItemHandler(itemHandler, List.of(1), List.of())));
-        put(Direction.DOWN, LazyOptional.of(() -> new SidedItemHandler(itemHandler, List.of(), List.of(2))));
+        put(Direction.DOWN, LazyOptional.of(() -> new SidedItemHandler(itemHandler, List.of(), List.of(4))));
     }};
 
     @Override

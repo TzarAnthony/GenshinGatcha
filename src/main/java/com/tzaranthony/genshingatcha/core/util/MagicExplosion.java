@@ -125,7 +125,7 @@ public class MagicExplosion extends Explosion {
 
         for(int k2 = 0; k2 < list.size(); ++k2) {
             Entity entity = list.get(k2);
-            if (!entity.ignoreExplosion() && !isLivingAlly(entity)) {
+            if (!entity.ignoreExplosion() && !ignoreElementalExplosion(entity)) {
                 double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double)f2;
                 if (d12 <= 1.0D) {
                     double d5 = entity.getX() - this.x;
@@ -146,14 +146,20 @@ public class MagicExplosion extends Explosion {
                         }
 
                         entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
+                        if (entity instanceof Player) {
+                            Player player = (Player)entity;
+                            if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
+                                this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    private boolean isLivingAlly(Entity entity) {
-        return entity instanceof LivingEntity tgt && this.source instanceof LivingEntity owner && EntityUtil.ignoreElementAttackEntity(tgt, owner);
+    private boolean ignoreElementalExplosion(Entity entity) {
+        return entity instanceof LivingEntity tgt && this.source instanceof LivingEntity owner && (EntityUtil.ignoreElementAttackEntity(tgt, owner) || EntityUtil.isEntityImmuneToElement(tgt, this.element));
     }
 
     public Map<Player, Vec3> getHitPlayers() {

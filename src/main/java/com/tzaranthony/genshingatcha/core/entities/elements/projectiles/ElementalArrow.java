@@ -1,8 +1,8 @@
-package com.tzaranthony.genshingatcha.core.entities.projectiles;
+package com.tzaranthony.genshingatcha.core.entities.elements.projectiles;
 
 import com.google.common.collect.Lists;
 import com.tzaranthony.genshingatcha.core.util.Element;
-import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -14,8 +14,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -29,12 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.CandleBlock;
-import net.minecraft.world.level.block.CandleCakeBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -194,6 +186,12 @@ public class ElementalArrow extends AbstractArrow {
             super.onHitEntity(result);
         }
         doPostHitEffects(result.getEntity().getOnPos(), result.getEntity().getDirection());
+        if (!this.level.isClientSide && this.getElement() == Element.E.PYRO.getId()) {
+            BlockPos pos = result.getEntity().getOnPos();
+            if (this.level.isEmptyBlock(pos)) {
+                this.level.setBlockAndUpdate(pos, BaseFireBlock.getState(this.level, pos));
+            }
+        }
         this.discard();
     }
 
@@ -204,6 +202,12 @@ public class ElementalArrow extends AbstractArrow {
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
         doPostHitEffects(result.getBlockPos(), result.getDirection());
+        if (!this.level.isClientSide && this.getElement() == Element.E.PYRO.getId()) {
+            BlockPos blockpos = result.getBlockPos().relative(result.getDirection());
+            if (this.level.isEmptyBlock(blockpos)) {
+                this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));
+            }
+        }
         this.discard();
     }
 
@@ -219,27 +223,7 @@ public class ElementalArrow extends AbstractArrow {
         areaeffectcloud.setDuration(40);
         areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float) areaeffectcloud.getDuration());
         areaeffectcloud.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 100));
-        if (this.getElement() == 1) {
-            createFire(pos, dir, (Player) entity);
-        }
         this.level.addFreshEntity(areaeffectcloud);
-    }
-
-    protected void createFire(BlockPos pos, Direction dir, Player player) {
-        BlockState state = this.level.getBlockState(pos);
-        if (!CampfireBlock.canLight(state) && !CandleBlock.canLight(state) && !CandleCakeBlock.canLight(state)) {
-            BlockPos blockpos1 = pos.relative(dir);
-            if (BaseFireBlock.canBePlacedAt(level, blockpos1, dir)) {
-                level.playSound(player, blockpos1, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-                BlockState blockstate1 = BaseFireBlock.getState(level, blockpos1);
-                level.setBlock(blockpos1, blockstate1, 11);
-                level.gameEvent(player, GameEvent.BLOCK_PLACE, pos);
-            }
-        } else {
-            level.playSound(player, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-            level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.valueOf(true)), 11);
-            level.gameEvent(player, GameEvent.BLOCK_PLACE, pos);
-        }
     }
 
     public void setElement(int id) {

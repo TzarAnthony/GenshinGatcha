@@ -1,7 +1,7 @@
-package com.tzaranthony.genshingatcha.client.entityRenders.arrows;
+package com.tzaranthony.genshingatcha.client.entityRenders.projectiles;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
-import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
+import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

@@ -1,4 +1,4 @@
-package com.tzaranthony.genshingatcha.core.entities.elements;
+package com.tzaranthony.genshingatcha.core.entities.elements.character;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
@@ -28,16 +28,16 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public class FallingMeteor extends Projectile {
-    private static final EntityDataAccessor<Integer> DATA_ROTATION = SynchedEntityData.defineId(FallingMeteor.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Float> DATA_SIZE = SynchedEntityData.defineId(FallingMeteor.class, EntityDataSerializers.FLOAT);
+public class FallingMeteorZhongLi extends Projectile {
+    private static final EntityDataAccessor<Integer> DATA_ROTATION = SynchedEntityData.defineId(FallingMeteorZhongLi.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> DATA_SIZE = SynchedEntityData.defineId(FallingMeteorZhongLi.class, EntityDataSerializers.FLOAT);
     protected int constRank;
 
-    public FallingMeteor(EntityType<? extends FallingMeteor> type, Level level) {
+    public FallingMeteorZhongLi(EntityType<? extends FallingMeteorZhongLi> type, Level level) {
         super(type, level);
     }
 
-    public FallingMeteor(Level level, double x, double y, double z, LivingEntity owner, int constRank) {
+    public FallingMeteorZhongLi(Level level, double x, double y, double z, LivingEntity owner, int constRank) {
         this(GGEntities.METEOR.get(), level);
         this.setPos(x - 40 + this.random.nextInt(80), level.getMaxBuildHeight() + 20, z - 40 + this.random.nextInt(80));
         this.calculateVectorAndStartFalling(x, y, z);

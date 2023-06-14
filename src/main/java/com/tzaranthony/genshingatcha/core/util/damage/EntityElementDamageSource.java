@@ -1,5 +1,6 @@
-package com.tzaranthony.genshingatcha.core.util;
+package com.tzaranthony.genshingatcha.core.util.damage;
 
+import com.tzaranthony.genshingatcha.core.util.Element;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.damagesource.DamageSource;

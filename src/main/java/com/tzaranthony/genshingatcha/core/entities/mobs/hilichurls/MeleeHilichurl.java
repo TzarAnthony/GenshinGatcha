@@ -1,7 +1,7 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
 import com.tzaranthony.genshingatcha.core.util.Element;
-import com.tzaranthony.genshingatcha.core.util.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;

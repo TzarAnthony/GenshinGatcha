@@ -1,6 +1,6 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
-import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
+import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -26,6 +26,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class CrossbowHilichurl extends AbstractHilichurl implements CrossbowAttackMob {
     private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Pillager.class, EntityDataSerializers.BOOLEAN);
@@ -125,12 +126,23 @@ public class CrossbowHilichurl extends AbstractHilichurl implements CrossbowAtta
 
     @Override
     public void shootCrossbowProjectile(LivingEntity tgt, ItemStack bowStack, Projectile prj, float offset) {
-        ElementalArrow ea = new ElementalArrow(this, this.getElement(), this.level);
-        this.shootCrossbowProjectile(this, tgt, ea, offset, power);
+        this.shootCrossbowProjectile(this, tgt, prj, offset, power);
     }
 
     @Override
     public void performRangedAttack(LivingEntity tgt, float mod) {
         this.performCrossbowAttack(this, power);
+    }
+
+    @Override
+    public ItemStack getProjectile(ItemStack stack) {
+        if (stack.getItem() instanceof ProjectileWeaponItem && this.random.nextInt(4) == 0) {
+            ItemStack eleArrow = new ItemStack(GGItems.ELEMENTAL_ARROW.get());
+            Predicate<ItemStack> predicate = ((ProjectileWeaponItem) stack.getItem()).getSupportedHeldProjectiles();
+            if (predicate.test(eleArrow)) {
+                return eleArrow;
+            }
+        }
+        return super.getProjectile(stack);
     }
 }

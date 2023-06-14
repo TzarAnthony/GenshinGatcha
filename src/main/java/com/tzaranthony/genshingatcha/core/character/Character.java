@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.core.character;
 
 import com.tzaranthony.genshingatcha.core.util.Element;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public abstract class Character {
     protected final int characterID;
@@ -34,5 +35,5 @@ public abstract class Character {
 
     public abstract Element.E getElement();
 
-
+    public abstract boolean hasCorrectWeapon(ItemStack stack);
 }

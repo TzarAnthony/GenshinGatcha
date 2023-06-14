@@ -1,4 +1,4 @@
-package com.tzaranthony.genshingatcha.core.entities.projectiles;
+package com.tzaranthony.genshingatcha.core.entities.elements.projectiles;
 
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.registries.GGEntities;

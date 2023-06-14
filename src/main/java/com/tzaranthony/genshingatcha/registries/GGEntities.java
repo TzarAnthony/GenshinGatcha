@@ -1,12 +1,12 @@
 package com.tzaranthony.genshingatcha.registries;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
-import com.tzaranthony.genshingatcha.core.entities.elements.AreaFireCloud;
-import com.tzaranthony.genshingatcha.core.entities.elements.AreaFrostCloud;
-import com.tzaranthony.genshingatcha.core.entities.elements.FallingMeteor;
+import com.tzaranthony.genshingatcha.core.entities.elements.character.FallingMeteorZhongLi;
+import com.tzaranthony.genshingatcha.core.entities.elements.character.FireCloudDiluc;
+import com.tzaranthony.genshingatcha.core.entities.elements.character.FrostCloudQiqi;
+import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
+import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ExplodingThrownPotion;
 import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.*;
-import com.tzaranthony.genshingatcha.core.entities.projectiles.ElementalArrow;
-import com.tzaranthony.genshingatcha.core.entities.projectiles.ExplodingThrownPotion;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.Monster;
@@ -53,16 +53,16 @@ public class GGEntities {
     );
 
     // elements main
-    public static final RegistryObject<EntityType<AreaFireCloud>> FIRE_CLOUD = reg.register("fire_cloud", () ->
-            EntityType.Builder.<AreaFireCloud>of(AreaFireCloud::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("fire_cloud")
+    public static final RegistryObject<EntityType<FireCloudDiluc>> FIRE_CLOUD = reg.register("fire_cloud", () ->
+            EntityType.Builder.<FireCloudDiluc>of(FireCloudDiluc::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("fire_cloud")
     );
-    public static final RegistryObject<EntityType<AreaFrostCloud>> FROST_CLOUD = reg.register("frost_cloud", () ->
-            EntityType.Builder.<AreaFrostCloud>of(AreaFrostCloud::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("frost_cloud")
+    public static final RegistryObject<EntityType<FrostCloudQiqi>> FROST_CLOUD = reg.register("frost_cloud", () ->
+            EntityType.Builder.<FrostCloudQiqi>of(FrostCloudQiqi::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("frost_cloud")
     );
 
     // elements ultimate
-    public static final RegistryObject<EntityType<FallingMeteor>> METEOR = reg.register("falling_meteor", () ->
-            EntityType.Builder.<FallingMeteor>of(FallingMeteor::new, MobCategory.MISC).fireImmune().sized(1.0F, 1.0F).build("falling_meteor")
+    public static final RegistryObject<EntityType<FallingMeteorZhongLi>> METEOR = reg.register("falling_meteor", () ->
+            EntityType.Builder.<FallingMeteorZhongLi>of(FallingMeteorZhongLi::new, MobCategory.MISC).fireImmune().sized(1.0F, 1.0F).build("falling_meteor")
     );
 
     @SubscribeEvent
