@@ -10,11 +10,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
 
 public class mainBarOverlay {
-    private static ResourceLocation mainBar = new ResourceLocation(GenshinGacha.MOD_ID, "textures/gui/hud/main_bar.png");
+    private static final ResourceLocation mainBar = new ResourceLocation(GenshinGacha.MOD_ID, "textures/gui/hud/main_bar.png");
+    private static final ResourceLocation iconHolder = new ResourceLocation(GenshinGacha.MOD_ID, "textures/gui/hud/icon_holder.png");
 
     public static final IIngameOverlay HUD_MAIN = ((gui, poseStack, partialTick, width, height) -> {
-        int x = width / 12;
-        int y = height - 58;
+        int x = (width - 33) / 10 * 9;
+        int y = height / 20 + 20;
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -22,15 +23,18 @@ public class mainBarOverlay {
 
         float z = CharacterClient.getMainCooldownPct() * 29.0F;
         int fillLen = (int) (z);
-        GuiComponent.blit(poseStack, x, y, 0, 0, 80, 14, 80, 28);
+        GuiComponent.blit(poseStack, x + 5, y, 0, 0, 60, 14, 60, 28);
         if (fillLen > 0) {
-            GuiComponent.blit(poseStack, x, y, 0, 14, (fillLen + 6) * 2, 14, 80, 28);
+            GuiComponent.blit(poseStack, x + 5, y, 0, 14, fillLen * 2, 14, 60, 28);
         }
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, iconHolder);
+        GuiComponent.blit(poseStack, x - 18, y - 4, 0, 0, 22, 22, 22, 22);
+
         RenderSystem.setShaderTexture(0, getIcon(GGCharacters.characterMap.get(CharacterClient.getChar()).getElement().getId()));
-        GuiComponent.blit(poseStack, x - 6, y - 2, 0, 0, 18, 18, 18, 18);
+        GuiComponent.blit(poseStack, x - 15, y - 1, 0, 0, 16, 16, 16, 16);
     });
 
     protected static ResourceLocation getIcon(int elementId) {
