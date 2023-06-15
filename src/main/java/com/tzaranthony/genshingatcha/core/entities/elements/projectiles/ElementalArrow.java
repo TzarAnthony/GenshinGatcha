@@ -45,7 +45,7 @@ public class ElementalArrow extends AbstractArrowLikeElementalProjectile {
     }
 
     protected void doPostHitEffects(BlockPos pos, Direction dir) {
-        AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
+        AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, this.getX(), this.getY() - 0.3D, this.getZ());
         Entity entity = this.getOwner();
         if (entity instanceof LivingEntity) {
             areaeffectcloud.setOwner((LivingEntity)entity);

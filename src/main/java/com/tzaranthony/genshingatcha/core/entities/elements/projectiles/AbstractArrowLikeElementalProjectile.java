@@ -46,7 +46,7 @@ public abstract class AbstractArrowLikeElementalProjectile extends AbstractArrow
     }
 
     public AbstractArrowLikeElementalProjectile(EntityType<? extends AbstractArrowLikeElementalProjectile> entityType, LivingEntity owner, int element, Level level) {
-        this(entityType, level);
+        super(entityType, owner, level);
         this.setElement(element);
         this.pickup = Pickup.DISALLOWED;
     }
