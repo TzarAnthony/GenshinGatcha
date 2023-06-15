@@ -2,11 +2,13 @@ package com.tzaranthony.genshingatcha.core.entities.mobs.slimes;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
+import com.tzaranthony.genshingatcha.core.entities.elements.mobs.PoisonDendroSeed;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -22,6 +24,10 @@ public class DendroSlime extends AbstractElementalSlime {
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
     }
 
+    public boolean canBeAffected(MobEffectInstance effect) {
+        return effect.getEffect() == MobEffects.POISON ? false : super.canBeAffected(effect);
+    }
+
     protected ParticleOptions getParticleType() {
         return ParticleTypes.SPORE_BLOSSOM_AIR;
     }
@@ -31,26 +37,25 @@ public class DendroSlime extends AbstractElementalSlime {
     }
 
     protected boolean slimeChargeActivity(int chargeTime, LivingEntity tgt) {
-        // need something like crossbow multishot, also should leave longer but smaller damaging AOE not just elemental AOE --- ElementalArrow.doPostHitEffects
         boolean isEnd = chargeTime >= 30;
         if (isEnd) {
             for(int i = 0; i < 3; ++i) {
-                ElementalArrow arrow = new ElementalArrow(this, this.getElement(), this.level);
+                PoisonDendroSeed seed = new PoisonDendroSeed(this, this.level);
                 double x = this.getX() + ((double) (i - 1) * 0.25D);
                 double y = this.getEyeY() + 1.2F;
                 double z = this.getZ() + ((double) (i - 1) * 0.25D);
-                arrow.setPos(x, y, z);
+                seed.setPos(x, y, z);
 
                 if (i == 0) {
-                    shootCrossbowProjectile(tgt, arrow, 0.0F, 1.5F);
+                    shootCrossbowProjectile(tgt, seed, 0.0F, 1.5F);
                 } else if (i == 1) {
-                    shootCrossbowProjectile(tgt, arrow, -10.0F, 1.5F);
+                    shootCrossbowProjectile(tgt, seed, -10.0F, 1.5F);
                 } else if (i == 2) {
-                    shootCrossbowProjectile(tgt, arrow, 10.0F, 1.5F);
+                    shootCrossbowProjectile(tgt, seed, 10.0F, 1.5F);
                 }
 
                 this.playSound(SoundEvents.SHULKER_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-                this.level.addFreshEntity(arrow);
+                this.level.addFreshEntity(seed);
             }
         }
         return isEnd;

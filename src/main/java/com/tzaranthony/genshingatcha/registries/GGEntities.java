@@ -4,6 +4,7 @@ import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.entities.elements.character.FallingMeteorZhongLi;
 import com.tzaranthony.genshingatcha.core.entities.elements.character.FireCloudDiluc;
 import com.tzaranthony.genshingatcha.core.entities.elements.character.FrostCloudQiqi;
+import com.tzaranthony.genshingatcha.core.entities.elements.mobs.*;
 import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
 import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ExplodingThrownPotion;
 import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.*;
@@ -45,22 +46,37 @@ public class GGEntities {
     );
 
     // arrows
-    public static final RegistryObject<EntityType<ElementalArrow>> ELEMENTAL_ARROW = reg.register("elemental_arrow", () ->
-            EntityType.Builder.<ElementalArrow>of(ElementalArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("elemental_arrow")
-    );
     public static final RegistryObject<EntityType<ExplodingThrownPotion>> EXPLODING_POTION = reg.register("exploding_potion", () ->
             EntityType.Builder.<ExplodingThrownPotion>of(ExplodingThrownPotion::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build("exploding_potion")
     );
+    public static final RegistryObject<EntityType<ElementalArrow>> ELEMENTAL_ARROW = reg.register("elemental_arrow", () ->
+            EntityType.Builder.<ElementalArrow>of(ElementalArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("elemental_arrow")
+    );
+    public static final RegistryObject<EntityType<PoisonDendroSeed>> DENDRO_SLIME_SEED = reg.register("dendro_seed", () ->
+            EntityType.Builder.<PoisonDendroSeed>of(PoisonDendroSeed::new, MobCategory.MISC).sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(20).build("dendro_seed")
+    );
+    public static final RegistryObject<EntityType<Pyroball>> PYROBALL = reg.register("pyroball", () ->
+            EntityType.Builder.<Pyroball>of(Pyroball::new, MobCategory.MISC).sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(20).build("pyroball")
+    );
+    public static final RegistryObject<EntityType<RockProjectile>> GEO_ROCK = reg.register("geo_rock", () ->
+            EntityType.Builder.<RockProjectile>of(RockProjectile::new, MobCategory.MISC).sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(20).build("geo_rock")
+    );
+    public static final RegistryObject<EntityType<Waterball>> WATERBALL = reg.register("waterball", () ->
+            EntityType.Builder.<Waterball>of(Waterball::new, MobCategory.MISC).sized(1.0F, 1.0F).clientTrackingRange(4).updateInterval(20).build("waterball")
+    );
+    public static final RegistryObject<EntityType<Windball>> WIND_BALL = reg.register("windball", () ->
+            EntityType.Builder.<Windball>of(Windball::new, MobCategory.MISC).sized(1.0F, 1.0F).clientTrackingRange(4).updateInterval(20).build("windball")
+    );
+    //HYDRO WATER BALL
 
-    // elements main
+
+    // elements area effect
     public static final RegistryObject<EntityType<FireCloudDiluc>> FIRE_CLOUD = reg.register("fire_cloud", () ->
             EntityType.Builder.<FireCloudDiluc>of(FireCloudDiluc::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("fire_cloud")
     );
     public static final RegistryObject<EntityType<FrostCloudQiqi>> FROST_CLOUD = reg.register("frost_cloud", () ->
             EntityType.Builder.<FrostCloudQiqi>of(FrostCloudQiqi::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("frost_cloud")
     );
-
-    // elements ultimate
     public static final RegistryObject<EntityType<FallingMeteorZhongLi>> METEOR = reg.register("falling_meteor", () ->
             EntityType.Builder.<FallingMeteorZhongLi>of(FallingMeteorZhongLi::new, MobCategory.MISC).fireImmune().sized(1.0F, 1.0F).build("falling_meteor")
     );

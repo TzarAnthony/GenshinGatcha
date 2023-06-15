@@ -21,7 +21,7 @@ public class Qiqi extends Character {
     @Override
     public void performMainAttack(Player player) {
         double x = player.getX();
-        double y = player.getY() + 0.8D;
+        double y = player.getY() - 1.5D;
         double z = player.getZ();
         if (player instanceof ServerPlayer sPlayer) {
             player.level.addFreshEntity(new FrostCloudQiqi(player.level, x, y, z, player.getYRot(), player, CharacterHelper.getConstRank(sPlayer), false));

@@ -6,7 +6,6 @@ import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -30,21 +29,10 @@ public class ElectroSliceFischl extends AbstractElementalProjectile {
     }
 
     @Override
-    protected void playCustomSound() {
-        this.playSound(SoundEvents.FIRECHARGE_USE, 1, 1);
-    }
-
-    @Override
-    protected void playOptionalParticle() {
-    }
-
-    @Override
-    protected void performOnEntity(Entity target, Entity user) {
+    protected void performOnEntity(LivingEntity target, Entity user) {
         float dmg = 10.0F + (this.constRank >= 5 ? 5.0F : 0.0F);
         target.hurt(GGDamageSource.magicElement(this, user, Element.E.ELECTRO.getId()), dmg);
-        if (target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new MobEffectInstance(GGEffects.ELECTRO.get(), 300));
-        }
+        target.addEffect(new MobEffectInstance(GGEffects.ELECTRO.get(), 300));
     }
 
     @Override

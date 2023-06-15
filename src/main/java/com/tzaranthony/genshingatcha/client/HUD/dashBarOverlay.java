@@ -10,6 +10,7 @@ import net.minecraftforge.client.gui.IIngameOverlay;
 
 public class dashBarOverlay {
     private static ResourceLocation dashBar = new ResourceLocation(GenshinGacha.MOD_ID, "textures/gui/hud/dash_bar.png");
+    private static ResourceLocation speedIcon = new ResourceLocation("minecraft", "textures/mob_effect/speed.png");
 
     public static final IIngameOverlay HUD_DASH = ((gui, poseStack, partialTick, width, height) -> {
         int x = width / 12;
@@ -25,5 +26,10 @@ public class dashBarOverlay {
         if (fillLen > 0) {
             GuiComponent.blit(poseStack, x, y, 0, 14, (fillLen + 6) * 2, 14, 80, 28);
         }
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, speedIcon);
+        GuiComponent.blit(poseStack, x - 6, y - 2, 0, 0, 18, 18, 18, 18);
     });
 }

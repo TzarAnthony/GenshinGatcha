@@ -1,5 +1,6 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.slimes;
 
+import com.tzaranthony.genshingatcha.core.entities.elements.mobs.Windball;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -10,7 +11,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -37,7 +37,6 @@ public class AnemoSlime extends AbstractElementalSlime {
 
     protected boolean slimeChargeActivity(int chargeTime, LivingEntity tgt) {
         if (chargeTime >= 41 && chargeTime % 10 == 0) {
-            // replace with a wind bubble
             double d1 = 4.0D;
             Vec3 vec3 = this.getViewVector(1.0F);
             double d2 = tgt.getX() - (this.getX() + vec3.x * d1);
@@ -47,9 +46,9 @@ public class AnemoSlime extends AbstractElementalSlime {
                 level.levelEvent((Player)null, 1016, this.blockPosition(), 0);
             }
 
-            LargeFireball largefireball = new LargeFireball(level, this, d2, d3, d4, 0);
-            largefireball.setPos(this.getX() + vec3.x * 4.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + vec3.z * 4.0D);
-            level.addFreshEntity(largefireball);
+            Windball windball = new Windball(this, level, d2, d3, d4);
+            windball.setPos(this.getX() + vec3.x * 4.0D, this.getY(0.5D) + 0.5D, windball.getZ() + vec3.z * 4.0D);
+            level.addFreshEntity(windball);
         }
         return chargeTime >= 80;
     }

@@ -6,6 +6,7 @@ import com.tzaranthony.genshingatcha.core.capabilities.CharacterClient;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.client.gui.IIngameOverlay;
 
 public class ultBarOverlay {
@@ -25,5 +26,23 @@ public class ultBarOverlay {
         if (fillLen > 0) {
             GuiComponent.blit(poseStack, x, y, 0, 14, (fillLen + 6) * 2, 14, 80, 28);
         }
+
+        RenderSystem.setShaderTexture(0, getIcon(CharacterClient.getChar()));
+        GuiComponent.blit(poseStack, x - 6, y - 1, 0, 0, 16, 16, 16, 16);
     });
+
+    protected static ResourceLocation getIcon(int characterId) {
+        switch (characterId) {
+            case 1:
+                return new ResourceLocation(GenshinGacha.MOD_ID, "textures/item/diluc_c6.png");
+            case 2:
+                return new ResourceLocation(GenshinGacha.MOD_ID, "textures/item/fischl_c6.png");
+            case 3:
+                return new ResourceLocation(GenshinGacha.MOD_ID, "textures/item/zhongli_c6.png");
+            case 4:
+                return new ResourceLocation(GenshinGacha.MOD_ID, "textures/item/qiqi_c6.png");
+            default:
+                return Items.AIR.getRegistryName();
+        }
+    }
 }

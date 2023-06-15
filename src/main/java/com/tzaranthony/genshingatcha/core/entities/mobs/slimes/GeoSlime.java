@@ -1,6 +1,6 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.slimes;
 
-import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
+import com.tzaranthony.genshingatcha.core.entities.elements.mobs.RockProjectile;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.registries.GGParticleTypes;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -62,16 +62,15 @@ public class GeoSlime extends AbstractElementalSlime {
     protected boolean slimeChargeActivity(int chargeTime, LivingEntity tgt) {
         boolean isEnd = chargeTime >= 40;
         if (isEnd) {
-            // replace with a rock?
-            ElementalArrow arrow = new ElementalArrow(this, this.getElement(), this.level);
-            arrow.setPos(this.getX(), this.getEyeY() + 1.0F, this.getZ());
+            RockProjectile rock = new RockProjectile(this, this.level);
+            rock.setPos(this.getX(), this.getEyeY() + 1.0F, this.getZ());
             double d0 = tgt.getX() - this.getX();
-            double d1 = tgt.getY(0.3333333333333333D) - arrow.getY();
+            double d1 = tgt.getY(0.3333333333333333D) - rock.getY();
             double d2 = tgt.getZ() - this.getZ();
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-            arrow.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(13 - this.level.getDifficulty().getId() * 4));
+            rock.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(13 - this.level.getDifficulty().getId() * 4));
             this.playSound(SoundEvents.SHULKER_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-            this.level.addFreshEntity(arrow);
+            this.level.addFreshEntity(rock);
         }
         return isEnd;
     }

@@ -2,8 +2,8 @@ package com.tzaranthony.genshingatcha.core.entities.elements.projectiles;
 
 import com.google.common.collect.Lists;
 import com.tzaranthony.genshingatcha.core.util.Element;
+import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
-import com.tzaranthony.genshingatcha.registries.GGEntities;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,12 +45,8 @@ public abstract class AbstractArrowLikeElementalProjectile extends AbstractArrow
         super(entityType, level);
     }
 
-    public AbstractArrowLikeElementalProjectile(LivingEntity owner, Element.E element, Level level) {
-        this(owner, element.getId(), level);
-    }
-
-    public AbstractArrowLikeElementalProjectile(LivingEntity owner, int element, Level level) {
-        super(GGEntities.ELEMENTAL_ARROW.get(), owner, level);
+    public AbstractArrowLikeElementalProjectile(EntityType<? extends AbstractArrowLikeElementalProjectile> entityType, LivingEntity owner, int element, Level level) {
+        this(entityType, level);
         this.setElement(element);
         this.pickup = Pickup.DISALLOWED;
     }
@@ -106,7 +103,7 @@ public abstract class AbstractArrowLikeElementalProjectile extends AbstractArrow
         return (float) i;
     }
 
-    protected void doHitEffects(Entity owner, LivingEntity tgt) {
+    protected void handleHurtEntity(Entity owner, LivingEntity tgt) {
         if (this.getKnockback() > 0) {
             Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale((double)this.getKnockback() * 0.6D);
             if (vec3.lengthSqr() > 0.0D) {
@@ -129,6 +126,17 @@ public abstract class AbstractArrowLikeElementalProjectile extends AbstractArrow
         }
     }
 
+    protected void checkAdvancements(Entity owner, LivingEntity tgt) {
+        if (!this.level.isClientSide && owner instanceof ServerPlayer) {
+            ServerPlayer serverplayer = (ServerPlayer)owner;
+            if (this.piercedAndKilledEntities != null && this.shotFromCrossbow()) {
+                CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(serverplayer, this.piercedAndKilledEntities);
+            } else if (!tgt.isAlive() && this.shotFromCrossbow()) {
+                CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(serverplayer, Arrays.asList(tgt));
+            }
+        }
+    }
+
     @Override
     protected void onHitEntity(EntityHitResult result) {
         if (result.getEntity() instanceof LivingEntity tgt) {
@@ -137,23 +145,15 @@ public abstract class AbstractArrowLikeElementalProjectile extends AbstractArrow
             Entity owner = this.getOwner();
             DamageSource damagesource = makeDamageSource(owner, tgt);
 
-            boolean flag = tgt.getType() == EntityType.ENDERMAN;
+            boolean flag = tgt.getType() == EntityType.ENDERMAN || EntityUtil.isEntityImmuneToElement(tgt, this.getElement());
             int k = tgt.getRemainingFireTicks();
             if (!flag && tgt.hurt(damagesource, calculateDamage())) {
                 if ((this.isOnFire() || this.getElement() == Element.E.PYRO.getId())) {
                     tgt.setSecondsOnFire(5);
                 }
 
-                doHitEffects(owner, tgt);
-
-                if (!this.level.isClientSide && owner instanceof ServerPlayer) {
-                    ServerPlayer serverplayer = (ServerPlayer)owner;
-                    if (this.piercedAndKilledEntities != null && this.shotFromCrossbow()) {
-                        CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(serverplayer, this.piercedAndKilledEntities);
-                    } else if (!tgt.isAlive() && this.shotFromCrossbow()) {
-                        CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(serverplayer, Arrays.asList(tgt));
-                    }
-                }
+                handleHurtEntity(owner, tgt);
+                checkAdvancements(owner, tgt);
 
                 this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 if (this.getPierceLevel() <= 0) {
@@ -174,11 +174,11 @@ public abstract class AbstractArrowLikeElementalProjectile extends AbstractArrow
         } else {
             super.onHitEntity(result);
         }
-        doExtraHitEffects(result.getEntity().getOnPos(), result.getEntity().getDirection());
+        doPostHitEffects(result.getEntity().getOnPos(), result.getEntity().getDirection());
         if (!this.level.isClientSide && this.getElement() == Element.E.PYRO.getId()) {
             createFireAtPos(result.getEntity().getOnPos());
         }
-        this.discard();
+        this.fizzle();
     }
 
     protected boolean canHitEntity(Entity p_36743_) {
@@ -187,19 +187,28 @@ public abstract class AbstractArrowLikeElementalProjectile extends AbstractArrow
 
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
-        doExtraHitEffects(result.getBlockPos(), result.getDirection());
+        doPostHitEffects(result.getBlockPos(), result.getDirection());
         if (!this.level.isClientSide && this.getElement() == Element.E.PYRO.getId()) {
             createFireAtPos(result.getBlockPos().relative(result.getDirection()));
         }
-        this.discard();
+        this.fizzle();
     }
 
-    protected abstract void doExtraHitEffects(BlockPos pos, Direction dir);
+    protected void doPostHurtEffects(LivingEntity tgt) {
+        tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 100));
+        super.doPostHurtEffects(tgt);
+    }
+
+    protected abstract void doPostHitEffects(BlockPos pos, Direction dir);
 
     protected void createFireAtPos(BlockPos pos) {
         if (this.level.isEmptyBlock(pos)) {
             this.level.setBlockAndUpdate(pos, BaseFireBlock.getState(this.level, pos));
         }
+    }
+
+    protected void fizzle() {
+        this.discard();
     }
 
     public void setElement(int id) {

@@ -1,85 +1,85 @@
 package com.tzaranthony.genshingatcha.core.entities.elements.projectiles;
 
-import com.mojang.logging.LogUtils;
+import com.tzaranthony.genshingatcha.core.util.Element;
+import com.tzaranthony.genshingatcha.core.util.EntityUtil;
+import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import org.slf4j.Logger;
 
-public abstract class AbstractElementalProjectile extends Projectile {
-    private static final Logger LOGGER = LogUtils.getLogger();
-    private int life;
-    private int lifetime = 20 + this.random.nextInt(3);
+public abstract class AbstractElementalProjectile extends AbstractHurtingProjectile {
+    private static final EntityDataAccessor<Integer> ELEMENT_ID = SynchedEntityData.defineId(AbstractArrowLikeElementalProjectile.class, EntityDataSerializers.INT);
     protected int constRank = 0;
     protected boolean discardOnEntityHit = false;
-    private Class ignoreType = null;
 
-    public AbstractElementalProjectile(EntityType<? extends AbstractElementalProjectile> projectile, Level level) {
-        super(projectile, level);
+    public AbstractElementalProjectile(EntityType<? extends AbstractElementalProjectile> entityType, Level level) {
+        super(entityType, level);
     }
 
-    @Override
+    public AbstractElementalProjectile(EntityType<? extends AbstractElementalProjectile> entityType, LivingEntity owner, int element, Level level, double powX, double powY, double powZ) {
+        super(entityType, owner, powX, powY, powZ, level);
+        this.setElement(element);
+    }
+
     protected void defineSynchedData() {
+        this.entityData.define(ELEMENT_ID, 0);
     }
 
-    @Override
-    public boolean shouldRenderAtSqrDistance(double dist) {
-        return dist < 4096.0D;
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setElement(tag.getInt("Element"));
     }
 
-    @Override
-    public boolean shouldRender(double x, double y, double z) {
-        return super.shouldRender(x, y, z);
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("Element", this.getElement());
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-
-        Vec3 vec33 = this.getDeltaMovement();
-        this.move(MoverType.SELF, vec33);
-        this.setDeltaMovement(vec33);
-
-        HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
-        this.onHit(hitresult);
-
-        this.updateRotation();
-        if (this.life == 0 && !this.isSilent() && this.getOwner() != null) {
-            this.playCustomSound();
-        }
-
-        ++this.life;
-        if (this.level.isClientSide && this.life % 2 < 2) {
-            this.playOptionalParticle();
-        }
-
-        if (!this.level.isClientSide && this.life > this.lifetime) {
-            this.fizzle();
-        }
+    protected boolean shouldBurn() {
+        return false;
     }
 
-    protected abstract void playCustomSound();
+    public boolean isPickable() {
+        return false;
+    }
 
-    protected abstract void playOptionalParticle();
+    public boolean isAttackable() {
+        return false;
+    }
+
+    public boolean hurt(DamageSource source, float p_37382_) {
+        return false;
+    }
+
+    public float getBrightness() {
+        return 0.0F;
+    }
 
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         Entity target = result.getEntity();
         Entity user = this.getOwner();
-        if ((target.getClass() != this.ignoreType)) {
-            this.performOnEntity(target, user);
-            if (this.discardOnEntityHit) {
-                this.fizzle();
+        if (target instanceof LivingEntity tgt) {
+            if (!EntityUtil.isEntityImmuneToElement(tgt, this.getElement())) {
+                tgt.hurt(GGDamageSource.indirectMagicElement(this, user, this.getElement()), 7.0F);
+                tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 100));
+                this.performOnEntity(tgt, user);
+                if (user instanceof LivingEntity owner) {
+                    this.doEnchantDamageEffects(owner, tgt);
+                }
             }
+            this.fizzle();
         }
     }
 
@@ -92,42 +92,19 @@ public abstract class AbstractElementalProjectile extends Projectile {
         }
     }
 
-    protected abstract void performOnEntity(Entity target, Entity user);
+    protected abstract void performOnEntity(LivingEntity target, Entity user);
 
     protected abstract void performOnBlock(Entity owner, Level level, BlockPos pos);
 
     protected void fizzle() {
-        this.level.broadcastEntityEvent(this, (byte)17);
         this.discard();
     }
 
-    protected void readAdditionalSaveData(CompoundTag tag) {
-        this.tickCount = tag.getInt("Age");
-        this.life = tag.getInt("Life");
-        this.lifetime = tag.getInt("MaxLife");
-        if (tag.hasUUID("Owner")) {
-            this.setOwner(this.level.getPlayerByUUID(tag.getUUID("Owner")));
-        }
-        this.constRank = tag.getInt("ConstRank");
-        this.discardOnEntityHit = tag.getBoolean("ShouldDiscard");
+    public void setElement(int id) {
+        this.entityData.set(ELEMENT_ID, id);
     }
 
-    protected void addAdditionalSaveData(CompoundTag tag) {
-        tag.putInt("Age", this.tickCount);
-        tag.putInt("Life", this.life);
-        tag.putInt("MaxLife", this.lifetime);
-        if (this.getOwner() != null) {
-            tag.putUUID("Owner", this.getOwner().getUUID());
-        }
-        tag.putInt("ConstRank", this.constRank);
-        tag.putBoolean("ShouldDiscard", this.discardOnEntityHit);
-    }
-
-    public void setLifetime(int lifetime) {
-        this.lifetime = lifetime;
-    }
-
-    public boolean isAttackable() {
-        return false;
+    public int getElement() {
+        return this.entityData.get(ELEMENT_ID);
     }
 }

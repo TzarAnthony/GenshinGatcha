@@ -1,6 +1,6 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.slimes;
 
-import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
+import com.tzaranthony.genshingatcha.core.entities.elements.mobs.Pyroball;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.registries.GGParticleTypes;
@@ -135,19 +135,18 @@ public class PyroSlime extends AbstractElementalSlime {
 
     protected boolean slimeChargeActivity(int chargeTime, LivingEntity tgt) {
         if (chargeTime >= 41 && chargeTime % 5 == 0) {
-            //create custom fireball projectile
-            ElementalArrow arrow = new ElementalArrow(this, this.getElement(), this.level);
+            Pyroball pyroball = new Pyroball(this, this.level);
             double x = this.getX();
             double y = this.getEyeY() - 0.5D;
             double z = this.getZ();
-            arrow.setPos(x, y, z);
+            pyroball.setPos(x, y, z);
             double d0 = tgt.getX() - x;
             double d1 = tgt.getY(0.3333333333333333D) - y;
             double d2 = tgt.getZ() - z;
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-            arrow.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(13 - this.level.getDifficulty().getId() * 4));
+            pyroball.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(13 - this.level.getDifficulty().getId() * 4));
             this.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-            this.level.addFreshEntity(arrow);
+            this.level.addFreshEntity(pyroball);
         }
         return chargeTime >= 55;
     }

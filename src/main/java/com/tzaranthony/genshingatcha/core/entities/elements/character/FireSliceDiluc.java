@@ -5,7 +5,6 @@ import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
 import com.tzaranthony.genshingatcha.registries.GGEffects;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -26,23 +25,12 @@ public class FireSliceDiluc extends AbstractElementalProjectile {
     }
 
     @Override
-    protected void playCustomSound() {
-        this.playSound(SoundEvents.FIRECHARGE_USE, 1, 1);
-    }
-
-    @Override
-    protected void playOptionalParticle() {
-    }
-
-    @Override
-    protected void performOnEntity(Entity target, Entity user) {
+    protected void performOnEntity(LivingEntity target, Entity user) {
         float dmg = 10.0F + (this.constRank >= 5 ? 5.0F : 0.0F);
         int dur = this.constRank >= 5 ? 20 : 12;
         target.setSecondsOnFire(dur);
         target.hurt(GGDamageSource.magicElement(this, user, Element.E.PYRO.getId()).setIsFire(), dmg);
-        if (target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new MobEffectInstance(GGEffects.PYRO.get(), dur * 20));
-        }
+        target.addEffect(new MobEffectInstance(GGEffects.PYRO.get(), dur * 20));
     }
 
     @Override

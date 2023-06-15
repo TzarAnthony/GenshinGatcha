@@ -20,8 +20,14 @@ public class GGEntityRender {
         EntityRenderers.register(GGEntities.DENDRO_SLIME.get(), ElementalSlimeRender::new);
         EntityRenderers.register(GGEntities.ANEMO_SLIME.get(), ElementalSlimeRender::new);
 
-        EntityRenderers.register(GGEntities.ELEMENTAL_ARROW.get(), ElementalArrowRender::new);
         EntityRenderers.register(GGEntities.EXPLODING_POTION.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(GGEntities.ELEMENTAL_ARROW.get(), ElementalArrowRender::new);
+        EntityRenderers.register(GGEntities.DENDRO_SLIME_SEED.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(GGEntities.PYROBALL.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(GGEntities.GEO_ROCK.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(GGEntities.WATERBALL.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(GGEntities.WIND_BALL.get(), ThrownItemRenderer::new);
+
         EntityRenderers.register(GGEntities.FIRE_CLOUD.get(), NoopRenderer::new);
         EntityRenderers.register(GGEntities.FROST_CLOUD.get(), NoopRenderer::new);
         EntityRenderers.register(GGEntities.METEOR.get(), MeteorRender::new);
