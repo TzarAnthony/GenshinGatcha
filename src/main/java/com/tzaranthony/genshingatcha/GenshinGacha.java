@@ -57,6 +57,7 @@ public class GenshinGacha {
 
     private void CompleteSetup(final FMLLoadCompleteEvent event) {
         GGVillagers.registerPOIs();
+        GGSpawnPlacements.createSpawnPlacements();
     }
 
     public static final CreativeModeTab TAB = new CreativeModeTab("GenshinGatcha") {
