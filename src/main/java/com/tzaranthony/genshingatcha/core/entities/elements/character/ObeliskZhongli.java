@@ -116,7 +116,7 @@ public class ObeliskZhongli extends Entity {
         if (target.isAlive() && !target.isInvulnerable() && EntityUtil.ignoreElementAttackEntity(target, this.getOwner())) {
             float dmg = 4.0F + (this.constRank >= 3 ? 2.0F : 0.0F);
             target.hurt(GGDamageSource.indirectMagicElement(this, this.getOwner(), Element.E.GEO.getId()), dmg);
-            target.addEffect(new MobEffectInstance(GGEffects.GEO.get()));
+            target.addEffect(new MobEffectInstance(GGEffects.GEO.get(), 200));
         }
     }
 

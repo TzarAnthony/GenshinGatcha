@@ -1,15 +1,14 @@
 package com.tzaranthony.genshingatcha.core.entities.elements.projectiles;
 
-import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.effects.ElementEffectInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -73,7 +72,7 @@ public abstract class AbstractElementalProjectile extends AbstractHurtingProject
         if (target instanceof LivingEntity tgt) {
             if (!EntityUtil.isEntityImmuneToElement(tgt, this.getElement())) {
                 tgt.hurt(GGDamageSource.indirectMagicElement(this, user, this.getElement()), 7.0F);
-                tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 100));
+                tgt.addEffect(new ElementEffectInstance(this.getElement()));
                 this.performOnEntity(tgt, user);
                 if (user instanceof LivingEntity owner) {
                     this.doEnchantDamageEffects(owner, tgt);

@@ -62,7 +62,7 @@ public class FrostCloudQiqi extends FullParticleCloudEntity {
             } else if (!EntityUtil.isEntityImmuneToElement(le, Element.E.CRYO.getId())) {
                 int amp = this.constRank >= 5 ? 2 : 0;
                 le.addEffect(new FreezingEffectInstance(60, amp));
-                le.addEffect(new MobEffectInstance(GGEffects.CRYO.get(), 100));
+                le.addEffect(new MobEffectInstance(GGEffects.CRYO.get(), 200));
             }
         }
     }
@@ -84,7 +84,7 @@ public class FrostCloudQiqi extends FullParticleCloudEntity {
                     }
                 } else if (!EntityUtil.isEntityImmuneToElement(le, Element.E.CRYO.getId())) {
                     le.addEffect(new FreezingEffectInstance(100, amp));
-                    le.addEffect(new MobEffectInstance(GGEffects.CRYO.get(), 200));
+                    le.addEffect(new MobEffectInstance(GGEffects.CRYO.get(), 300));
                     if (this.constRank >= 4) {
                         le.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 2));
                     }

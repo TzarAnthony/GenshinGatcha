@@ -10,6 +10,6 @@ import net.minecraftforge.fml.common.Mod;
 public class GGWorldEvents {
     @SubscribeEvent
     public static void onBiomeLoadEvent(final BiomeLoadingEvent event) {
-        GGEntityGen.addSlimesToBiomes(event);
+        GGEntityGen.addEntitiesToBiomes(event);
     }
 }

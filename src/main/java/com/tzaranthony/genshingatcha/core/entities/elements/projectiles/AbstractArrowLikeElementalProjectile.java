@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.effects.ElementEffectInstance;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -16,7 +17,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -195,7 +195,7 @@ public abstract class AbstractArrowLikeElementalProjectile extends AbstractArrow
     }
 
     protected void doPostHurtEffects(LivingEntity tgt) {
-        tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 100));
+        tgt.addEffect(new ElementEffectInstance(this.getElement()));
         super.doPostHurtEffects(tgt);
     }
 

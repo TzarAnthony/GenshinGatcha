@@ -27,7 +27,7 @@ public class FireSliceDiluc extends AbstractElementalProjectile {
     @Override
     protected void performOnEntity(LivingEntity target, Entity user) {
         float dmg = 10.0F + (this.constRank >= 5 ? 5.0F : 0.0F);
-        int dur = this.constRank >= 5 ? 20 : 12;
+        int dur = this.constRank >= 10 ? 25 : 12;
         target.setSecondsOnFire(dur);
         target.hurt(GGDamageSource.magicElement(this, user, Element.E.PYRO.getId()).setIsFire(), dmg);
         target.addEffect(new MobEffectInstance(GGEffects.PYRO.get(), dur * 20));

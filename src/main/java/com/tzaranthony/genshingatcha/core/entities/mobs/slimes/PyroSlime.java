@@ -122,7 +122,7 @@ public class PyroSlime extends AbstractElementalSlime {
                     if (this.random.nextInt(3) == 0) {
                         cPos = startPos.south(i).west(j);
                         BlockPos blockpos = EntityUtil.getFloorInRange(this.level, cPos.getX(), cPos.getY() - 4, cPos.getY() + 4.0D, cPos.getZ());
-                        if (blockpos != null) {
+                        if (blockpos != null && level.getFluidState(blockpos).isEmpty()) {
                             this.level.setBlock(blockpos, Blocks.FIRE.defaultBlockState(), 2);
                         }
                     }

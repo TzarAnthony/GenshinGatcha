@@ -4,6 +4,7 @@ import com.tzaranthony.genshingatcha.client.entityRenders.ElementalSlimeRender;
 import com.tzaranthony.genshingatcha.client.entityRenders.MeteorRender;
 import com.tzaranthony.genshingatcha.client.entityRenders.projectiles.ElementalArrowRender;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.LightningBoltRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,7 +28,11 @@ public class GGEntityRender {
         EntityRenderers.register(GGEntities.GEO_ROCK.get(), ThrownItemRenderer::new);
         EntityRenderers.register(GGEntities.WATERBALL.get(), ThrownItemRenderer::new);
         EntityRenderers.register(GGEntities.WIND_BALL.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(GGEntities.SLIME_TOSS.get(), ThrownItemRenderer::new);
 
+        EntityRenderers.register(GGEntities.FIRE_PLUME.get(), NoopRenderer::new);
+        EntityRenderers.register(GGEntities.LIGHTNING_SUMMONS.get(), NoopRenderer::new);
+        EntityRenderers.register(GGEntities.ELECTRO_LIGHTNING.get(), LightningBoltRenderer::new);
         EntityRenderers.register(GGEntities.FIRE_CLOUD.get(), NoopRenderer::new);
         EntityRenderers.register(GGEntities.FROST_CLOUD.get(), NoopRenderer::new);
         EntityRenderers.register(GGEntities.METEOR.get(), MeteorRender::new);

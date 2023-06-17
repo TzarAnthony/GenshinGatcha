@@ -26,26 +26,26 @@ public class GGItems {
     public static final RegistryObject<Item> SWORD_TWO = reg.register("sword_two", () -> new ElementalSword(GGToolMaterial.TWO, 0.2F, Standard()));
     public static final RegistryObject<Item> SWORD_THREE = reg.register("sword_three", () -> new ElementalSword(GGToolMaterial.THREE, 0.6F, StandardRarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> SWORD_FOUR = reg.register("sword_four", () -> new ElementalSword(GGToolMaterial.FOUR, 1.0F, StandardRarity(Rarity.RARE)));
-    public static final RegistryObject<Item> SWORD_FIVE = reg.register("sword_five", () -> new ElementalSword(GGToolMaterial.FIVE, 1.4F, StandardRarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> SWORD_FIVE = reg.register("sword_five", () -> new ElementalSword(GGToolMaterial.FIVE, 1.4F, StandardRarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> CLAYMORE_ONE = reg.register("claymore_one", () -> new Claymore(GGToolMaterial.ONE, 5.1F, Standard()));
     public static final RegistryObject<Item> CLAYMORE_TWO = reg.register("claymore_two", () -> new Claymore(GGToolMaterial.TWO, 5.2F, Standard()));
     public static final RegistryObject<Item> CLAYMORE_THREE = reg.register("claymore_three", () -> new Claymore(GGToolMaterial.THREE, 5.3F, StandardRarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> CLAYMORE_FOUR = reg.register("claymore_four", () -> new Claymore(GGToolMaterial.FOUR, 5.4F, StandardRarity(Rarity.RARE)));
-    public static final RegistryObject<Item> CLAYMORE_FIVE = reg.register("claymore_five", () -> new Claymore(GGToolMaterial.FIVE, 5.5F, StandardRarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> CLAYMORE_FISH = reg.register("claymore_fish", () -> new FishClaymore(8.0F, StandardRarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> CLAYMORE_FIVE = reg.register("claymore_five", () -> new Claymore(GGToolMaterial.FIVE, 5.5F, StandardRarity(Rarity.EPIC).fireResistant()));
+    public static final RegistryObject<Item> CLAYMORE_FISH = reg.register("claymore_fish", () -> new FishClaymore(8.0F, StandardRarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> SPEAR_ONE = reg.register("spear_one", () -> new Spear(GGToolMaterial.ONE, 6.0F, Standard()));
     public static final RegistryObject<Item> SPEAR_TWO = reg.register("spear_two", () -> new Spear(GGToolMaterial.TWO, 6.25F, Standard()));
     public static final RegistryObject<Item> SPEAR_THREE = reg.register("spear_three", () -> new Spear(GGToolMaterial.THREE, 6.5F, StandardRarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> SPEAR_FOUR = reg.register("spear_four", () -> new Spear(GGToolMaterial.FOUR, 6.75F, StandardRarity(Rarity.RARE)));
-    public static final RegistryObject<Item> SPEAR_FIVE = reg.register("spear_five", () -> new Spear(GGToolMaterial.FIVE, 7.0F, StandardRarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> SPEAR_FIVE = reg.register("spear_five", () -> new Spear(GGToolMaterial.FIVE, 7.0F, StandardRarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> BOW_ONE = reg.register("bow_one", () -> new ElementalBow(GGBowMaterial.ONE, Standard().durability(10)));
     public static final RegistryObject<Item> BOW_TWO = reg.register("bow_two", () -> new ElementalBow(GGBowMaterial.TWO, Standard().durability(10)));
     public static final RegistryObject<Item> BOW_THREE = reg.register("bow_three", () -> new ElementalBow(GGBowMaterial.THREE, StandardRarity(Rarity.UNCOMMON).durability(10)));
     public static final RegistryObject<Item> BOW_FOUR = reg.register("bow_four", () -> new ElementalBow(GGBowMaterial.FOUR, StandardRarity(Rarity.RARE).durability(10)));
-    public static final RegistryObject<Item> BOW_FIVE = reg.register("bow_five", () -> new ElementalBow(GGBowMaterial.FIVE, StandardRarity(Rarity.EPIC).durability(10)));
+    public static final RegistryObject<Item> BOW_FIVE = reg.register("bow_five", () -> new ElementalBow(GGBowMaterial.FIVE, StandardRarity(Rarity.EPIC).durability(10).fireResistant()));
 
     // artifacts
     public static final RegistryObject<Item> ARTIFACT_FRAGMENT_1 = reg.register("artifact_fragment_one", () -> new Item(Standard()));

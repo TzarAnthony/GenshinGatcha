@@ -5,6 +5,7 @@ import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.EntityUtil;
 import com.tzaranthony.genshingatcha.core.util.damage.EntityElementDamageSource;
 import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.effects.ElementEffectInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -80,6 +81,14 @@ public abstract class AbstractElementalSlime extends Slime implements ElementalM
         super.tick();
     }
 
+    @Override
+    public boolean canBeAffected(MobEffectInstance effect) {
+        if (effect.getEffect() == Element.ElementGetter.get(this.getElement()).getEffect()) {
+            return false;
+        }
+        return super.canBeAffected(effect);
+    }
+
     protected boolean isBig() {
         return this.getSize() >= 3;
     }
@@ -153,7 +162,7 @@ public abstract class AbstractElementalSlime extends Slime implements ElementalM
         if (this.isAlive() && !EntityUtil.isEntityImmuneToElement(le, this.getElement())) {
             int i = this.getSize();
             if (this.distanceToSqr(le) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(le) && le.hurt(GGDamageSource.mobElementAttack(this, this.getElement()), this.getAttackDamage())) {
-                le.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 100));
+                le.addEffect(new ElementEffectInstance(this.getElement()));
                 addExtraEffects(le);
                 this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.doEnchantDamageEffects(this, le);

@@ -2,11 +2,11 @@ package com.tzaranthony.genshingatcha.core.entities.elements.mobs;
 
 import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.AbstractElementalProjectile;
 import com.tzaranthony.genshingatcha.core.util.Element;
+import com.tzaranthony.genshingatcha.core.util.effects.ElementEffectInstance;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -51,7 +51,7 @@ public class Windball extends AbstractElementalProjectile implements ItemSupplie
         areaeffectcloud.setWaitTime(5);
         areaeffectcloud.setDuration(40);
         areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float) areaeffectcloud.getDuration());
-        areaeffectcloud.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 100));
+        areaeffectcloud.addEffect(new ElementEffectInstance(this.getElement(), 200));
         this.level.addFreshEntity(areaeffectcloud);
 
         this.level.explode(this.getOwner(), this.getX(), this.getY(), this.getZ(), 2.0F, Explosion.BlockInteraction.NONE);

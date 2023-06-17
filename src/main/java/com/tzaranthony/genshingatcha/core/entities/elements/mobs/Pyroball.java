@@ -5,6 +5,7 @@ import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.registries.GGEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ItemSupplier;
@@ -20,6 +21,7 @@ public class Pyroball extends ElementalArrow implements ItemSupplier {
 
     public Pyroball(LivingEntity owner, Level level) {
         super(GGEntities.PYROBALL.get(), owner, Element.E.PYRO.getId(), level);
+        this.setSoundEvent(SoundEvents.FIRECHARGE_USE);
     }
 
     protected void doPostHitEffects(BlockPos pos, Direction dir) {

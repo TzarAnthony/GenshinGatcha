@@ -1,13 +1,12 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
-import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.core.util.damage.GGDamageSource;
+import com.tzaranthony.genshingatcha.core.util.effects.ElementEffectInstance;
 import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -94,7 +93,7 @@ public class MeleeHilichurl extends AbstractHilichurl {
                 tgt.setSecondsOnFire(i * 4);
             }
 
-            tgt.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.getElement()).getEffect(), 200));
+            tgt.addEffect(new ElementEffectInstance(this.getElement()));
             boolean flag = tgt.hurt(GGDamageSource.mobElementAttack(this, this.getElement()), f);
             if (flag) {
                 if (f1 > 0.0F) {

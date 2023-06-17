@@ -4,6 +4,9 @@ import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.entities.elements.character.FallingMeteorZhongLi;
 import com.tzaranthony.genshingatcha.core.entities.elements.character.FireCloudDiluc;
 import com.tzaranthony.genshingatcha.core.entities.elements.character.FrostCloudQiqi;
+import com.tzaranthony.genshingatcha.core.entities.elements.misc.AreaFirePlume;
+import com.tzaranthony.genshingatcha.core.entities.elements.misc.ElectroLightning;
+import com.tzaranthony.genshingatcha.core.entities.elements.misc.LightningSummon;
 import com.tzaranthony.genshingatcha.core.entities.elements.mobs.*;
 import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
 import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ExplodingThrownPotion;
@@ -45,7 +48,7 @@ public class GGEntities {
             EntityType.Builder.of(AnemoSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("anemo_slime")
     );
 
-    // arrows
+    // projectiles
     public static final RegistryObject<EntityType<ExplodingThrownPotion>> EXPLODING_POTION = reg.register("exploding_potion", () ->
             EntityType.Builder.<ExplodingThrownPotion>of(ExplodingThrownPotion::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build("exploding_potion")
     );
@@ -67,10 +70,21 @@ public class GGEntities {
     public static final RegistryObject<EntityType<Windball>> WIND_BALL = reg.register("windball", () ->
             EntityType.Builder.<Windball>of(Windball::new, MobCategory.MISC).sized(1.0F, 1.0F).clientTrackingRange(4).updateInterval(20).build("windball")
     );
-    //HYDRO WATER BALL
+    public static final RegistryObject<EntityType<SlimeToss>> SLIME_TOSS = reg.register("slime_toss", () ->
+            EntityType.Builder.<SlimeToss>of(SlimeToss::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build("slime_toss")
+    );
 
 
     // elements area effect
+    public static final RegistryObject<EntityType<AreaFirePlume>> FIRE_PLUME = reg.register("fire_plume", () ->
+            EntityType.Builder.<AreaFirePlume>of(AreaFirePlume::new, MobCategory.MISC).fireImmune().sized(0.5F, 4.0F).updateInterval(Integer.MAX_VALUE).build("fire_plume")
+    );
+    public static final RegistryObject<EntityType<LightningSummon>> LIGHTNING_SUMMONS = reg.register("lightning_summons", () ->
+            EntityType.Builder.<LightningSummon>of(LightningSummon::new, MobCategory.MISC).fireImmune().sized(0.5F, 0.5F).updateInterval(Integer.MAX_VALUE).build("lightning_summons")
+    );
+    public static final RegistryObject<EntityType<ElectroLightning>> ELECTRO_LIGHTNING = reg.register("electro_lightning", () ->
+            EntityType.Builder.of(ElectroLightning::new, MobCategory.MISC).noSave().sized(0.0F, 0.0F).clientTrackingRange(16).updateInterval(Integer.MAX_VALUE).build("electro_lightning")
+    );
     public static final RegistryObject<EntityType<FireCloudDiluc>> FIRE_CLOUD = reg.register("fire_cloud", () ->
             EntityType.Builder.<FireCloudDiluc>of(FireCloudDiluc::new, MobCategory.MISC).fireImmune().sized(0.5F, 2.0F).updateInterval(Integer.MAX_VALUE).build("fire_cloud")
     );

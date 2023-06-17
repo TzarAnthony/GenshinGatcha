@@ -56,7 +56,7 @@ public class FireCloudDiluc extends FullParticleCloudEntity {
             dmg = dmg * (this.isSecond ? 1.4F : 1.0F);
             le.hurt(GGDamageSource.PYRO, dmg);
             le.setSecondsOnFire(10);
-            le.addEffect(new MobEffectInstance(GGEffects.PYRO.get(), 100));
+            le.addEffect(new MobEffectInstance(GGEffects.PYRO.get(), 200));
         }
     }
 

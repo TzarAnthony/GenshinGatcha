@@ -9,27 +9,35 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import java.util.List;
 
 public class GGEntityGen {
-    public static void addSlimesToBiomes(BiomeLoadingEvent event) {
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.CRYO, GGEntities.CRYO_SLIME.get(), 100, 4, 4);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.PYRO, GGEntities.PYRO_SLIME.get(), 100, 4, 4);
-        addInverseElementalBiome(event, ElementalBiomesDictionary.Element.ELECTRO, GGEntities.ELECTRO_SLIME.get(), 100, 4, 4);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.GEO, GGEntities.GEO_SLIME.get(), 100, 4, 4);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.HYDRO, GGEntities.HYDRO_SLIME.get(), 100, 4, 4);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.DENDRO, GGEntities.DENDRO_SLIME.get(), 100, 4, 4);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.ANEMO, GGEntities.ANEMO_SLIME.get(), 100, 4, 4);
+    public static void addEntitiesToBiomes(BiomeLoadingEvent event) {
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.CRYO, GGEntities.CRYO_SLIME.get(), 60, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.PYRO, GGEntities.PYRO_SLIME.get(), 60, 4, 4, true);
+        addInverseElementalBiome(event, ElementalBiomesDictionary.Element.ELECTRO, GGEntities.ELECTRO_SLIME.get(), 40, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.GEO, GGEntities.GEO_SLIME.get(), 60, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.HYDRO, GGEntities.HYDRO_SLIME.get(), 60, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.DENDRO, GGEntities.DENDRO_SLIME.get(), 60, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.ANEMO, GGEntities.ANEMO_SLIME.get(), 60, 4, 4, true);
 
 //        addToOverworld(event, GGEntities.MELEE_HILICHRUL.get(), 100, 4, 4);
     }
 
-    private static void addToElementalBiome(BiomeLoadingEvent event, ElementalBiomesDictionary.Element element, EntityType<?> type, int weight, int minCount, int maxCount) {
+    private static void addToElementalBiome(BiomeLoadingEvent event, ElementalBiomesDictionary.Element element, EntityType<?> type, int weight, int minCount, int maxCount, boolean overworlOnly) {
         if (ElementalBiomesDictionary.checkBiome(element, event.getName())) {
-            add(event, type, weight, minCount, maxCount);
+            if (overworlOnly) {
+                addToOverworld(event, type, weight, minCount, maxCount);
+            } else {
+                add(event, type, weight, minCount, maxCount);
+            }
         }
     }
 
-    private static void addInverseElementalBiome(BiomeLoadingEvent event, ElementalBiomesDictionary.Element element, EntityType<?> type, int weight, int minCount, int maxCount) {
+    private static void addInverseElementalBiome(BiomeLoadingEvent event, ElementalBiomesDictionary.Element element, EntityType<?> type, int weight, int minCount, int maxCount, boolean overworlOnly) {
         if (!ElementalBiomesDictionary.checkBiome(element, event.getName())) {
-            add(event, type, weight, minCount, maxCount);
+            if (overworlOnly) {
+                addToOverworld(event, type, weight, minCount, maxCount);
+            } else {
+                add(event, type, weight, minCount, maxCount);
+            }
         }
     }
 

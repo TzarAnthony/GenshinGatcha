@@ -3,10 +3,10 @@ package com.tzaranthony.genshingatcha.core.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.tzaranthony.genshingatcha.core.util.effects.ElementEffectInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
@@ -142,7 +142,7 @@ public class MagicExplosion extends Explosion {
                         double d11 = d10;
                         if (entity instanceof LivingEntity le) {
                             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener(le, d10);
-                            le.addEffect(new MobEffectInstance(Element.ElementGetter.get(this.element).getEffect(), 200));
+                            le.addEffect(new ElementEffectInstance(this.element, 300));
                         }
 
                         entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
