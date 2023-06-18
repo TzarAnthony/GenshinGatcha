@@ -1,10 +1,8 @@
 package com.tzaranthony.genshingatcha.core.entities.mobs.hilichurls;
 
+import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalEntity;
 import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalGroupData;
-import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalMob;
-import com.tzaranthony.genshingatcha.core.entities.mobs.slimes.AbstractElementalSlime;
 import com.tzaranthony.genshingatcha.core.util.Element;
-import com.tzaranthony.genshingatcha.core.util.damage.EntityElementDamageSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -29,8 +27,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractHilichurl extends Monster implements ElementalMob {
-    private static final EntityDataAccessor<Integer> ELEMENT = SynchedEntityData.defineId(AbstractElementalSlime.class, EntityDataSerializers.INT);
+public abstract class AbstractHilichurl extends Monster implements ElementalEntity {
+    private static final EntityDataAccessor<Integer> ELEMENT = SynchedEntityData.defineId(AbstractHilichurl.class, EntityDataSerializers.INT);
 
     public AbstractHilichurl(EntityType<? extends AbstractHilichurl> type, Level level) {
         super(type, level);
@@ -86,11 +84,6 @@ public abstract class AbstractHilichurl extends Monster implements ElementalMob 
         this.setElement(eSetter);
         groupData = new ElementalGroupData(eSetter);
         return groupData;
-    }
-
-    @Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        return source == Element.ElementGetter.get(this.getElement()).getDamage() || (source instanceof EntityElementDamageSource eds && eds.getElement() == this.getElement()) || super.isInvulnerableTo(source);
     }
 
     public boolean isOnFire() {

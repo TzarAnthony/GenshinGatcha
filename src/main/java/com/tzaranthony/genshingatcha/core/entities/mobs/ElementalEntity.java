@@ -8,7 +8,7 @@ import net.minecraft.world.level.biome.Biome;
 
 import java.util.Random;
 
-public interface ElementalMob {
+public interface ElementalEntity {
     void setElement(int elementId);
 
     int getElement();

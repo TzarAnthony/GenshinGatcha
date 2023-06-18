@@ -18,6 +18,7 @@ public class GGBlocks {
     public static final DeferredRegister<Block> reg = DeferredRegister.create(ForgeRegistries.BLOCKS, GenshinGacha.MOD_ID);
 
     public static final RegistryObject<Block> GATCHA_MACHINE = registerBlockAndItem("gatcha_machine", () -> new GatchaMachine(Standard(1.5F, 6.0F)));
+    //Domain chests? or something similar... something needs to trigger domains...... should I make a domain entity or just use the chest and check monster proximity?
 
     public static BlockBehaviour.Properties Standard(float hardness, float resistance) {
         return BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.TUFF).strength(hardness, resistance);

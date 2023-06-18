@@ -3,7 +3,7 @@ package com.tzaranthony.genshingatcha.core.items;
 import com.tzaranthony.genshingatcha.core.capabilities.CharacterHelper;
 import com.tzaranthony.genshingatcha.core.character.Character;
 import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;
-import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalMob;
+import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalEntity;
 import com.tzaranthony.genshingatcha.core.util.Element;
 import com.tzaranthony.genshingatcha.registries.GGCharacters;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,7 +27,7 @@ public class ElementalArrowItem extends ArrowItem {
                 return new ElementalArrow(sPlayer, element, level);
             }
         }
-        if (le instanceof ElementalMob em) {
+        if (le instanceof ElementalEntity em) {
             return new ElementalArrow(le, em.getElement(), level);
         }
         return super.createArrow(level, stack, le);

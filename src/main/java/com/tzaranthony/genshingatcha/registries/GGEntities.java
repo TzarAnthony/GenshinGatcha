@@ -47,6 +47,18 @@ public class GGEntities {
     public static final RegistryObject<EntityType<AnemoSlime>> ANEMO_SLIME = reg.register("anemo_slime", () ->
             EntityType.Builder.of(AnemoSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("anemo_slime")
     );
+//    public static final RegistryObject<EntityType<MeleeHilichurl>> MELEE_HILICHURL = reg.register("melee_hilichurl", () ->
+//            EntityType.Builder.of(MeleeHilichurl::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(10).build("melee_hilichurl")
+//    );
+//    public static final RegistryObject<EntityType<CrossbowHilichurl>> CROSSBOW_HILICHURL = reg.register("crossbow_hilichurl", () ->
+//            EntityType.Builder.of(CrossbowHilichurl::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(10).build("crossbow_hilichurl")
+//    );
+//    public static final RegistryObject<EntityType<GrenadierHilichurl>> GRENADIER_HILICHURL = reg.register("grenadier_hilichurl", () ->
+//            EntityType.Builder.of(GrenadierHilichurl::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(10).build("grenadier_hilichurl")
+//    );
+//    public static final RegistryObject<EntityType<EliteHilichurl>> ELITE_HILICHURL = reg.register("elite_hilichurl", () ->
+//            EntityType.Builder.of(EliteHilichurl::new, MobCategory.MONSTER).sized(1.4F, 2.7F).clientTrackingRange(10).build("elite_hilichurl")
+//    );
 
     // projectiles
     public static final RegistryObject<EntityType<ExplodingThrownPotion>> EXPLODING_POTION = reg.register("exploding_potion", () ->
@@ -104,5 +116,10 @@ public class GGEntities {
         creationEvent.put(HYDRO_SLIME.get(), Monster.createMonsterAttributes().build());
         creationEvent.put(DENDRO_SLIME.get(), Monster.createMonsterAttributes().build());
         creationEvent.put(ANEMO_SLIME.get(), Monster.createMonsterAttributes().build());
+
+//        creationEvent.put(MELEE_HILICHURL.get(), MeleeHilichurl.createAttributes().build());
+//        creationEvent.put(CROSSBOW_HILICHURL.get(), CrossbowHilichurl.createAttributes().build());
+//        creationEvent.put(GRENADIER_HILICHURL.get(), GrenadierHilichurl.createAttributes().build());
+//        creationEvent.put(ELITE_HILICHURL.get(), EliteHilichurl.createAttributes().build());
     }
 }

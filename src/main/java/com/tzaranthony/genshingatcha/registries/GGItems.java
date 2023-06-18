@@ -6,9 +6,7 @@ import com.tzaranthony.genshingatcha.core.items.util.GGArmorMaterial;
 import com.tzaranthony.genshingatcha.core.items.util.GGBowMaterial;
 import com.tzaranthony.genshingatcha.core.items.util.GGToolMaterial;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -48,12 +46,6 @@ public class GGItems {
     public static final RegistryObject<Item> BOW_FIVE = reg.register("bow_five", () -> new ElementalBow(GGBowMaterial.FIVE, StandardRarity(Rarity.EPIC).durability(10).fireResistant()));
 
     // artifacts
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_1 = reg.register("artifact_fragment_one", () -> new Item(Standard()));
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_2 = reg.register("artifact_fragment_two", () -> new Item(Standard()));
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_3 = reg.register("artifact_fragment_three", () -> new Item(StandardRarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_4 = reg.register("artifact_fragment_four", () -> new Item(StandardRarity(Rarity.RARE)));
-    public static final RegistryObject<Item> ARTIFACT_FRAGMENT_5 = reg.register("artifact_fragment_five", () -> new Item(StandardRarity(Rarity.EPIC)));
-
     public static final RegistryObject<Item> HELMET_ONE = reg.register("helmet_one", () -> new ArmorItem(GGArmorMaterial.ONE, EquipmentSlot.HEAD, Standard()));
     public static final RegistryObject<Item> CHESTPLATE_ONE = reg.register("chestplate_one", () -> new ArmorItem(GGArmorMaterial.ONE, EquipmentSlot.CHEST, Standard()));
     public static final RegistryObject<Item> LEGGINGS_ONE = reg.register("leggings_one", () -> new ArmorItem(GGArmorMaterial.ONE, EquipmentSlot.LEGS, Standard()));
@@ -114,6 +106,8 @@ public class GGItems {
 
     // misc
     public static final RegistryObject<Item> ELEMENTAL_ARROW = reg.register("elemental_arrow", () -> new ElementalArrowItem(new Item.Properties()));
+    public static final RegistryObject<Item> HILICHURL_CLUB = reg.register("hilichurl_club", () -> new SwordItem(Tiers.IRON, 3, -2.4F, new Item.Properties()));
+    public static final RegistryObject<Item> HILICHURL_GIANT_AXE = reg.register("hilichurl_giant_axe", () -> new AxeItem(Tiers.IRON, 10.0F, -3.1F, new Item.Properties()));
 
     static {
         initSpawnEggs();

@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 @Mod("genshingatcha")
 public class GenshinGacha {
+    //TODO: chat message to check ability key binds on launch, and maybe other basic instructions
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "genshingatcha";
     public static boolean isUsingMixin;

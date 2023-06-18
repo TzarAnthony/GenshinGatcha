@@ -92,7 +92,7 @@ public class ElementalEffect extends MobEffect {
             return;
         }
         if (affected.hasEffect(GGEffects.ELECTRO.get()) && affected.hasEffect(GGEffects.DENDRO.get())) {
-            affected.addEffect(new MobEffectInstance(GGEffects.CHARGED.get(), 400));
+            affected.addEffect(new MobEffectInstance(GGEffects.CATALYZE.get(), 400));
             affected.removeEffect(GGEffects.ELECTRO.get());
             affected.removeEffect(GGEffects.DENDRO.get());
             return;
