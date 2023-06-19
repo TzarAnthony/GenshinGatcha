@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "genshingatcha:block/challenge_chest"
+    }
+  }
+}

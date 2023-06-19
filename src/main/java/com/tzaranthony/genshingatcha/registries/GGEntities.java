@@ -26,6 +26,7 @@ public class GGEntities {
     public static final DeferredRegister<EntityType<?>> reg = DeferredRegister.create(ForgeRegistries.ENTITIES, GenshinGacha.MOD_ID);
 
     // mobs
+    //Domain entity
     public static final RegistryObject<EntityType<CryoSlime>> CRYO_SLIME = reg.register("cryo_slime", () ->
             EntityType.Builder.of(CryoSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F).clientTrackingRange(10).build("cryo_slime")
     );

@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha.core.world;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.world.gen.GGEntityGen;
+import com.tzaranthony.genshingatcha.core.world.gen.GGSurfaceGen;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 public class GGWorldEvents {
     @SubscribeEvent
     public static void onBiomeLoadEvent(final BiomeLoadingEvent event) {
+        GGSurfaceGen.generateSurface(event);
         GGEntityGen.addEntitiesToBiomes(event);
     }
 }

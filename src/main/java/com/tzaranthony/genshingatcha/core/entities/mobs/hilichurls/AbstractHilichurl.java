@@ -80,7 +80,7 @@ public abstract class AbstractHilichurl extends Monster implements ElementalEnti
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
         groupData = super.finalizeSpawn(accessor, difficulty, spawnType, groupData, tag);
-        int eSetter = getElementFromBiome(accessor.getBiome(this.blockPosition()), this.random);
+        int eSetter = ElementalEntity.getElementFromBiome(accessor.getBiome(this.blockPosition()), this.random);
         this.setElement(eSetter);
         groupData = new ElementalGroupData(eSetter);
         return groupData;

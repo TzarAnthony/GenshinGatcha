@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -58,10 +59,13 @@ public class Waterball extends AbstractArrowLikeElementalProjectile implements I
     }
 
     protected float calculateDamage() {
-        if (this.inGround) {
-            return (float) this.getBaseDamage();
+        float f = Math.max((float)this.getDeltaMovement().length(), 4.0F);
+        int i = Mth.ceil(Mth.clamp((double)f * this.getBaseDamage(), 0.0D, 2.147483647E9D));
+        if (this.isCritArrow()) {
+            long j = this.random.nextInt(i / 2 + 2);
+            i = (int)Math.min(j + (long)i, 2147483647L);
         }
-        return super.calculateDamage();
+        return (float) i;
     }
 
 

@@ -1,6 +1,7 @@
 package com.tzaranthony.genshingatcha.registries;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
+import com.tzaranthony.genshingatcha.core.blockEntities.ChallengeChestBE;
 import com.tzaranthony.genshingatcha.core.blockEntities.GatchaMachineBE;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -12,4 +13,6 @@ public class GGBlockEntities {
 
     public static final RegistryObject<BlockEntityType<GatchaMachineBE>> GATCHA_MACHINE = reg.register("gatcha_machine",
             () -> BlockEntityType.Builder.of(GatchaMachineBE::new, GGBlocks.GATCHA_MACHINE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ChallengeChestBE>> CHALLENGE_CHEST_BE = reg.register("challenge_chest",
+            () -> BlockEntityType.Builder.of(ChallengeChestBE::new, GGBlocks.CHALLENGE_CHEST.get()).build(null));
 }

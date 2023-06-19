@@ -10,13 +10,13 @@ import java.util.List;
 
 public class GGEntityGen {
     public static void addEntitiesToBiomes(BiomeLoadingEvent event) {
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.CRYO, GGEntities.CRYO_SLIME.get(), 60, 4, 4, true);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.PYRO, GGEntities.PYRO_SLIME.get(), 60, 4, 4, true);
-        addInverseElementalBiome(event, ElementalBiomesDictionary.Element.ELECTRO, GGEntities.ELECTRO_SLIME.get(), 40, 4, 4, true);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.GEO, GGEntities.GEO_SLIME.get(), 60, 4, 4, true);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.HYDRO, GGEntities.HYDRO_SLIME.get(), 60, 4, 4, true);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.DENDRO, GGEntities.DENDRO_SLIME.get(), 60, 4, 4, true);
-        addToElementalBiome(event, ElementalBiomesDictionary.Element.ANEMO, GGEntities.ANEMO_SLIME.get(), 60, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.CRYO, GGEntities.CRYO_SLIME.get(), 10, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.PYRO, GGEntities.PYRO_SLIME.get(), 10, 4, 4, true);
+        addInverseElementalBiome(event, ElementalBiomesDictionary.Element.ELECTRO, GGEntities.ELECTRO_SLIME.get(), 5, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.GEO, GGEntities.GEO_SLIME.get(), 10, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.HYDRO, GGEntities.HYDRO_SLIME.get(), 10, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.DENDRO, GGEntities.DENDRO_SLIME.get(), 10, 4, 4, true);
+        addToElementalBiome(event, ElementalBiomesDictionary.Element.ANEMO, GGEntities.ANEMO_SLIME.get(), 10, 4, 4, true);
 
 //        addToOverworld(event, GGEntities.MELEE_HILICHRUL.get(), 100, 4, 4);
     }

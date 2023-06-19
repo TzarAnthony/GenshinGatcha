@@ -13,7 +13,7 @@ public interface ElementalEntity {
 
     int getElement();
 
-    default int getElementFromBiome(Holder<Biome> holder, Random random) {
+    static int getElementFromBiome(Holder<Biome> holder, Random random) {
         NonNullList<Integer> ElementList = NonNullList.create();
         if (holder.is(GGBiomeTags.IS_CRYO)) {
             ElementList.add(Element.E.CRYO.getId());

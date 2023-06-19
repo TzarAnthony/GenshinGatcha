@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GatchaMachineBE extends BlockEntity implements MenuProvider, Nameable {
-    protected final int pullCost = 160;
+    protected final int pullCost = 180;
     private LockCode lockKey = LockCode.NO_LOCK;
     private Component name;
     protected final String ITEMINV = "Items";
@@ -122,30 +122,30 @@ public class GatchaMachineBE extends BlockEntity implements MenuProvider, Nameab
         }
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, GatchaMachineBE GGBE) {
+    public static void tick(Level level, BlockPos pos, BlockState state, GatchaMachineBE GBE) {
         boolean flag = false;
 
-        int slot = hasValidCard(GGBE);
-        if (slot >= 0 && GGBE.itemHandler.getStackInSlot(GachaMachineMenu.outputSlotID).isEmpty()) {
-            ++GGBE.progress;
-            if (GGBE.progress >= GGBE.maxTime) {
-                GGBE.progress = 0;
-                GGBE.roll(slot);
+        int slot = hasValidCard(GBE);
+        if (slot >= 0 && GBE.itemHandler.getStackInSlot(GachaMachineMenu.outputSlotID).isEmpty()) {
+            ++GBE.progress;
+            if (GBE.progress >= GBE.maxTime && !level.isClientSide()) {
+                GBE.progress = 0;
+                GBE.roll(slot);
                 flag = true;
             }
-        } else if (GGBE.progress > 0) {
-            GGBE.progress = 0;
+        } else if (GBE.progress > 0) {
+            GBE.progress = 0;
         }
         if (flag) {
             setChanged(level, pos, state);
         }
     }
 
-    private static int hasValidCard(GatchaMachineBE GGBE) {
+    private static int hasValidCard(GatchaMachineBE GBE) {
         ItemStack stack;
-        for (int i = 0; i < GGBE.itemHandler.getSlots(); ++i) {
-            stack = GGBE.itemHandler.getStackInSlot(i);
-            if (!stack.isEmpty() && PrimoCard.getPrimoCount(stack) >= GGBE.getPullCostForSlot(i)) {
+        for (int i = 0; i < GBE.itemHandler.getSlots(); ++i) {
+            stack = GBE.itemHandler.getStackInSlot(i);
+            if (!stack.isEmpty() && PrimoCard.getPrimoCount(stack) >= GBE.getPullCostForSlot(i)) {
                 return i;
             }
         }

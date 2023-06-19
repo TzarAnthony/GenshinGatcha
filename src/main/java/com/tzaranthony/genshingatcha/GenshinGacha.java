@@ -2,6 +2,7 @@ package com.tzaranthony.genshingatcha;
 
 import com.tzaranthony.genshingatcha.core.util.events.GGClientEvents;
 import com.tzaranthony.genshingatcha.core.util.events.GGServerEvents;
+import com.tzaranthony.genshingatcha.core.world.features.GGFeatures;
 import com.tzaranthony.genshingatcha.registries.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -32,6 +33,7 @@ public class GenshinGacha {
         GGEntities.reg.register(bus);
         GGItems.reg.register(bus);
         GGBlockEntities.reg.register(bus);
+        GGFeatures.reg.register((bus));
 //        GGSounds.reg.register(bus);
         GGParticleTypes.reg.register(bus);
         GGEffects.reg.register(bus);
@@ -50,6 +52,7 @@ public class GenshinGacha {
 
     private void ClientSetup(final FMLClientSetupEvent event) {
         GGKeybinds.registerKeybinds();
+        GGBlockEntityRender.renderBlockEntities();
         GGEntityRender.renderEntities();
         GGItemsRender.renderItemProperties();
         GGScreenRender.renderScreens();

@@ -12,7 +12,7 @@ public class FreezingEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity affected, int amplifier) {
-        affected.hurt(GGDamageSource.CRYO, (float) (amplifier + 1));
+        affected.hurt(GGDamageSource.CRYO, (float) amplifier + 0.5F);
     }
 
     @Override

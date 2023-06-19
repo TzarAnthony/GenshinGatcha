@@ -35,7 +35,7 @@ public class Element {
         GEO(3, GGDamageSource.GEO, GGEffects.GEO, GGPotions.GEO, ParticleTypes.MYCELIUM, GGEntityTags.NO_GEO),
         HYDRO(4, GGDamageSource.HYDRO, GGEffects.HYDRO, GGPotions.HYDRO, ParticleTypes.BUBBLE, GGEntityTags.NO_HYDRO),
         DENDRO(5, GGDamageSource.DENDRO, GGEffects.DENDRO, GGPotions.DENDRO, ParticleTypes.COMPOSTER, GGEntityTags.NO_DENDRO),
-        ANEMO(6, GGDamageSource.ANEMO, GGEffects.ANEMO, GGPotions.ANEMO, ParticleTypes.SPIT, GGEntityTags.NO_ANEMO);
+        ANEMO(6, GGDamageSource.ANEMO, GGEffects.ANEMO, GGPotions.ANEMO, ParticleTypes.GLOW, GGEntityTags.NO_ANEMO);
 
         private final int id;
         private final DamageSource source;

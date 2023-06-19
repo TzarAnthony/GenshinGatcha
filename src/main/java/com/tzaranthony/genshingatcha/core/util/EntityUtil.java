@@ -4,12 +4,15 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.tzaranthony.genshingatcha.core.entities.mobs.ElementalEntity;
 import com.tzaranthony.genshingatcha.core.util.tags.GGItemTags;
+import com.tzaranthony.genshingatcha.registries.GGEntities;
 import com.tzaranthony.genshingatcha.registries.GGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -18,11 +21,16 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.NaturalSpawner;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.UUID;
 
 public class EntityUtil {
@@ -64,6 +72,33 @@ public class EntityUtil {
         return Element.ElementGetter.get(elementId).isEntityImmune(le);
     }
 
+    public static Optional<BlockPos> getValidSpawnPos(int attempts, int radius, Level level, BlockPos centralPos) {
+        for(int i = 0; i < attempts; ++i) {
+            net.minecraft.core.BlockPos blockpos = findRandomSpawnPos(radius, level, centralPos);
+            if (blockpos != null) {
+                return Optional.of(blockpos);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Nullable
+    public static BlockPos findRandomSpawnPos(int radius, Level level, BlockPos pos) {
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        for(int i1 = 0; i1 < 20; ++i1) {
+            float f = level.random.nextFloat() * ((float)Math.PI * 2F);
+            int j = pos.getX() + Mth.floor(Mth.cos(f) * 2.0F) + level.random.nextInt(5);
+            int l = pos.getZ() + Mth.floor(Mth.sin(f) * 2.0F) + level.random.nextInt(5);
+            int k = level.getHeight(Heightmap.Types.WORLD_SURFACE, j, l);
+            mutablePos.set(j, k, l);
+            if (level.hasChunksAt(mutablePos.getX() - radius, mutablePos.getZ() - radius, mutablePos.getX() + radius, mutablePos.getZ() + radius)
+                    && ((ServerLevel) level).isPositionEntityTicking(mutablePos) && (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.ON_GROUND, level, mutablePos, GGEntities.CRYO_SLIME.get())
+                    || level.getBlockState(mutablePos.below()).is(Blocks.SNOW) && level.getBlockState(mutablePos).isAir())) {
+                return mutablePos;
+            }
+        }
+        return null;
+    }
     public class deathStorer {
         protected static final HashMap<Player, NonNullList<ItemStack>> playerLoot = new HashMap<>();
 

@@ -1,5 +1,6 @@
 {
   "block.genshingatcha.gatcha_machine": "Wishing Machine",
+  "block.genshingatcha.challenge_chest": "Challenge Chest",
 
   "item.genshingatcha.primogem": "Primogem",
   "item.genshingatcha.primogem_card": "Primogem Card",
@@ -135,6 +136,8 @@
   "container.genshingatcha.gatcha_machine": "Gatcha Machine",
   "container.genshingatcha.character_banner": "Character Banner",
   "container.genshingatcha.weapon_banner": "Weapon Banner",
+  "container.genshingatcha.challenge_incomplete": "This chest is still guarded!",
+  "container.genshingatcha.empty": "This chest has no more rewards",
 
   "key.categories.genshingatcha": "Genshin Impact the Mod",
   "key.genshingatcha.dash": "Dash",

@@ -85,15 +85,15 @@ public abstract class AbstractElementalSlime extends Slime implements ElementalE
         super.tick();
     }
 
-    protected void reapplyElement() {
-        this.addEffect(new ElementEffectInstance(this.getElement(), Integer.MAX_VALUE));
-    }
-
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType type, @Nullable SpawnGroupData data, @Nullable CompoundTag tag) {
         data = super.finalizeSpawn(accessor, difficulty, type, data, tag);
         this.reapplyElement();
         return data;
+    }
+
+    protected void reapplyElement() {
+        this.addEffect(new ElementEffectInstance(this.getElement(), Integer.MAX_VALUE));
     }
 
     @Override
@@ -123,6 +123,10 @@ public abstract class AbstractElementalSlime extends Slime implements ElementalE
         if (resetHealth) {
             this.setHealth(this.getMaxHealth());
         }
+    }
+
+    public void setSize(int size) {
+        this.setSize(size, true);
     }
 
     public EntityType<? extends AbstractElementalSlime> getType() {
