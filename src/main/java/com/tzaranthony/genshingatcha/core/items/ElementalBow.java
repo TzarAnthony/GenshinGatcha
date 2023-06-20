@@ -35,7 +35,7 @@ public class ElementalBow extends BowItem implements ElementalWeapon {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public ElementalBow(GGBowMaterial bowMaterial, Properties properties) {
-        super(properties);
+        super(properties.durability(bowMaterial.getUses()));
         this.bowMaterial = bowMaterial;
         this.cooldown = bowMaterial.getCooldown();
         this.attackDamage = bowMaterial.getAttackDamageBonus();
@@ -87,6 +87,9 @@ public class ElementalBow extends BowItem implements ElementalWeapon {
                     abstractarrow.setSecondsOnFire(100);
                 }
 
+                bowStack.hurtAndBreak(1, sPlayer, (p_40665_) -> {
+                    p_40665_.broadcastBreakEvent(sPlayer.getUsedItemHand());
+                });
                 level.addFreshEntity(abstractarrow);
             }
 
@@ -118,12 +121,13 @@ public class ElementalBow extends BowItem implements ElementalWeapon {
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return !this.isOffCooldown(stack.getOrCreateTag());
+        return !this.isOffCooldown(stack.getOrCreateTag()) || super.isBarVisible(stack);
     }
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        return Math.round(13.0F - (float) this.getCooldown(stack) * 13.0F / (float) this.cooldown);
+        int cooldownPct = Math.round(13.0F - (float) this.getCooldown(stack) * 13.0F / (float) this.cooldown);
+        return cooldownPct > 0 ? cooldownPct : super.getBarWidth(stack);
     }
 
     @Override

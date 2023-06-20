@@ -1,4 +1,4 @@
-package com.tzaranthony.genshingatcha.client.entityRenders.projectiles;
+package com.tzaranthony.genshingatcha.client.entityRenders;
 
 import com.tzaranthony.genshingatcha.GenshinGacha;
 import com.tzaranthony.genshingatcha.core.entities.elements.projectiles.ElementalArrow;

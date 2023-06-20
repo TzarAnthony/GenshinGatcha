@@ -1,8 +1,8 @@
 package com.tzaranthony.genshingatcha.registries;
 
+import com.tzaranthony.genshingatcha.client.entityRenders.ElementalArrowRender;
 import com.tzaranthony.genshingatcha.client.entityRenders.ElementalSlimeRender;
 import com.tzaranthony.genshingatcha.client.entityRenders.MeteorRender;
-import com.tzaranthony.genshingatcha.client.entityRenders.projectiles.ElementalArrowRender;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.LightningBoltRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
